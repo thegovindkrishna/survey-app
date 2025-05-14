@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+dist/
+.angular/
+
+# .NET
+bin/
+obj/
+*.db
+*.user
+*.vs/
+*.suo
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Env
+.env

@@ -1,0 +1,29 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <h2>Login</h2>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [(ngModel)]="email" name="email" />
+      <mat-icon matSuffix>mail</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" [(ngModel)]="password" name="password" />
+      <mat-icon matSuffix>lock</mat-icon>
+    </mat-form-field>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button mat-flat-button color="primary" class="full-width" (click)="onLogin()">
+      Login
+    </button>
+
+    <p class="switch-text">
+      Don't have an account? <a routerLink="/register">Register</a>
+    </p>
+  </mat-card>
+</div>

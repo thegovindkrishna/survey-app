@@ -54,7 +54,11 @@ export class LoginComponent {
         },
         error: () => {
           this.errorMessage = 'Invalid credentials';
-        }
+        } 
       });
   }
+  goToRegister(): void {
+  this.router.navigate(['/register']);
+}
+
 }

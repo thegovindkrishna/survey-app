@@ -1,38 +1,20 @@
-<div class="auth-container">
-  <mat-card class="auth-card">
-    <h2>Register</h2>
+<mat-card class="auth-card">
+  <h2>Register</h2>
 
-    <mat-form-field appearance="outline" class="full-width">
+  <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput type="email" [(ngModel)]="email" name="email" />
-      <mat-icon matSuffix>mail</mat-icon>
+      <input matInput [(ngModel)]="email" name="email" required type="email" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput type="password" [(ngModel)]="password" name="password" />
-      <mat-icon matSuffix>lock</mat-icon>
+      <input matInput [(ngModel)]="password" name="password" required type="password" />
     </mat-form-field>
+    
+    <button mat-raised-button color="primary" type="submit">Register</button>
+    <button mat-button type="button" (click)="goToLogin()">Already have an account?</button>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Role</mat-label>
-      <mat-select [(ngModel)]="role" name="role">
-        <mat-option value="User">User</mat-option>
-        <mat-option value="Admin">Admin</mat-option>
-      </mat-select>
-      <mat-icon matSuffix>person</mat-icon>
-    </mat-form-field>
-
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-
-    <button mat-flat-button color="accent" class="full-width" (click)="onRegister()">
-      Register
-    </button>
-
-    <p class="switch-text">
-      Already have an account? <a routerLink="/login">Login</a>
-    </p>
-  </mat-card>
-</div>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</mat-card>

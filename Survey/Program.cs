@@ -1,11 +1,12 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Survey.Data;
 using Survey.Services;
 using System.Text;
-
+using Microsoft.Extensions.DependencyInjection;
+using Survey.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 //  DB context
@@ -75,8 +76,36 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.EnsureCreated();
+
+    if (!context.Users.Any(u => u.Email == "admin@example.com"))
+    {
+        context.Users.Add(new User
+        {
+            Email = "admin@example.com",
+            Password = "Admin@123",
+            Role = "Admin"
+        });
+        context.SaveChanges();
+        Console.WriteLine("Admin user seeded.");
+    }
+}
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") // Angular dev server
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+app.UseCors("AllowAngularApp");
 
 // Middleware pipeline
 if (app.Environment.IsDevelopment())

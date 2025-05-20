@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-// Angular Material modules
+// Angular Material
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -22,17 +21,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatIconModule,
     MatButtonModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  // properties for template binding
   email = '';
   password = '';
-  role = 'User';
   errorMessage = '';
 
   private http = inject(HttpClient);
@@ -48,15 +44,20 @@ export class RegisterComponent {
       .post('https://localhost:7245/api/auth/register', {
         email: this.email,
         password: this.password,
-        role: this.role
+        role: 'User' // 🔒 hardcoded to "User"
       })
       .subscribe({
         next: () => {
           this.router.navigate(['/login']);
         },
         error: () => {
-          this.errorMessage = 'Registration failed. Try again.';
+          this.errorMessage = 'Registration failed. Try a different email.';
         }
       });
   }
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 }
+

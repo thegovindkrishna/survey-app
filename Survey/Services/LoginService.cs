@@ -13,6 +13,7 @@ namespace Survey.Services
     {
         private readonly AppDbContext _context;
         private readonly IConfiguration _config;
+        private static readonly string[] ValidRoles = { "User", "Admin" };
 
         public LoginService(AppDbContext context, IConfiguration config)
         {
@@ -20,7 +21,7 @@ namespace Survey.Services
             _config = config;
         }
 
-        public async Task<bool> Register(string email, string password)
+        public async Task<bool> Register(string email, string password, string role = "User")
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 return false;
@@ -28,7 +29,11 @@ namespace Survey.Services
             if (await _context.Users.AnyAsync(u => u.Email == email))
                 return false;
 
-            var user = new User { Email = email, Password = password, Role = "Admin" }; // or "User"
+            // Validate role
+            if (!ValidRoles.Contains(role))
+                return false;
+
+            var user = new User { Email = email, Password = password, Role = role };
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return true;

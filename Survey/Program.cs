@@ -5,19 +5,37 @@ using Microsoft.OpenApi.Models;
 using Survey.Data;
 using Survey.Services;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using Survey.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-//  DB context
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// ---------------------------
+// Register services
+// ---------------------------
 
-// Services
+// DbContext
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    ));
+
+// App Services
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ISurveyService, SurveyService>();
 
-//  JWT Authentication setup
+// CORS (✅ must be before builder.Build)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"];
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 var jwtAudience = builder.Configuration["Jwt:Audience"];
@@ -44,12 +62,11 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 
-//  Swagger with JWT Authorization support
+// Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Survey API", Version = "v1" });
 
-    //  Add Bearer Auth definition
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -60,7 +77,6 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Enter 'Bearer' followed by your token. Example: Bearer abcdef12345"
     });
 
-    //  Add global requirement
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -76,8 +92,15 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+// ---------------------------
+// Build the app
+// ---------------------------
 var app = builder.Build();
 
+// ---------------------------
+// Seed admin user AFTER builder.Build()
+// ---------------------------
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -92,22 +115,14 @@ using (var scope = app.Services.CreateScope())
             Role = "Admin"
         });
         context.SaveChanges();
-        Console.WriteLine("Admin user seeded.");
+        Console.WriteLine("✅ Admin user seeded.");
     }
 }
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngularApp", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200") // Angular dev server
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
 
-app.UseCors("AllowAngularApp");
-
+// ---------------------------
 // Middleware pipeline
+// ---------------------------
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -116,7 +131,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); 
+app.UseCors("AllowAngularApp");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

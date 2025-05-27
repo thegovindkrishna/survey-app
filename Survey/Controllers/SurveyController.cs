@@ -55,12 +55,14 @@ namespace Survey.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] SurveyModel survey)
         {
-            var success = await _surveyService.Update(id, survey);
+            var success = await _surveyService.Update(id, survey).ConfigureAwait(false); ///look into this 
             return success ? Ok("Updated successfully.") : NotFound();
         }
 
         /// <summary>
         /// Delete a survey by ID.
+        /// await and async 
+        /// 
         /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

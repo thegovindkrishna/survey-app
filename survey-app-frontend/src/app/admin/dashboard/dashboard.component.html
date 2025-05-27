@@ -1,0 +1,46 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <button mat-stroked-button color="warn" (click)="logout()">Logout</button>
+  </header>
+
+  <div class="dashboard-actions">
+    <button mat-flat-button color="primary" (click)="createSurvey()">+ Create Survey</button>
+  </div>
+
+  <mat-card *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-card>
+  <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
+
+  <table *ngIf="!isLoading && surveys.length" class="survey-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let survey of surveys">
+        <td>{{ survey.title }}</td>
+        <td>{{ survey.description }}</td>
+        <td>{{ survey.createdAt | date:'medium' }}</td>
+        <td>
+          <button mat-icon-button color="primary" (click)="viewSurvey(survey.id)" title="View">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="editSurvey(survey.id)" title="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteSurvey(survey.id)" title="Delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!isLoading && !surveys.length && !errorMessage" class="empty-message">
+    No surveys found. Create your first survey!
+  </div>
+</div> 

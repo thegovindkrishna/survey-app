@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth.service';
 
 // Angular Material
 import { MatCardModule } from '@angular/material/card';
@@ -29,9 +29,11 @@ import { MatButtonModule } from '@angular/material/button';
 export class RegisterComponent {
   email = '';
   password = '';
+  role = 'User';
   errorMessage = '';
+  isLoading = false;
 
-  private http = inject(HttpClient);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   onRegister() {
@@ -40,20 +42,30 @@ export class RegisterComponent {
       return;
     }
 
-    this.http
-      .post('https://localhost:7245/api/auth/register', {
-        email: this.email,
-        password: this.password,
-        role: 'User' // 🔒 hardcoded to "User"
-      })
-      .subscribe({
-        next: () => {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.authService.register({
+      email: this.email,
+      password: this.password,
+      role: this.role
+    }).subscribe({
+      next: (response) => {
+        if (response.message === 'Registration successful.') {
           this.router.navigate(['/login']);
-        },
-        error: () => {
-          this.errorMessage = 'Registration failed. Try a different email.';
+        } else {
+          this.errorMessage = response.message || 'Registration failed';
+          this.isLoading = false;
         }
-      });
+      },
+      error: (error) => {
+        this.errorMessage = error || 'Registration failed. Try a different email.';
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 
   goToLogin(): void {

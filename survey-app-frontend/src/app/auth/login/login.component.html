@@ -2,27 +2,31 @@
   <mat-card class="auth-card">
     <h2>Login</h2>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" [(ngModel)]="email" name="email" />
-      <mat-icon matSuffix>mail</mat-icon>
-    </mat-form-field>
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [(ngModel)]="email" name="email" required />
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Password</mat-label>
-      <input matInput type="password" [(ngModel)]="password" name="password" />
-      <mat-icon matSuffix>lock</mat-icon>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="password" name="password" required />
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
 
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
 
-    <button mat-flat-button color="primary" class="full-width" (click)="onLogin()">
-      Login
-    </button>
+      <button mat-flat-button color="primary" class="full-width" type="submit" [disabled]="isLoading">
+        <mat-spinner diameter="20" *ngIf="isLoading" class="spinner"></mat-spinner>
+        <span *ngIf="!isLoading">Login</span>
+      </button>
 
-    <button mat-button type="button" (click)="goToRegister()">Don't have an account? Register</button>
-
+      <button mat-button type="button" (click)="goToRegister()" [disabled]="isLoading">
+        Don't have an account? Register
+      </button>
+    </form>
   </mat-card>
 </div>

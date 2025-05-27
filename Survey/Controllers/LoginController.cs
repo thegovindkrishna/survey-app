@@ -20,15 +20,45 @@ namespace Survey.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] AuthRequest request)
         {
-            var result = await _loginService.Register(request.Email, request.Password);
-            return result ? Ok("Registration successful.") : Conflict("User already exists or input is invalid.");
+            if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
+            {
+                return BadRequest(new { message = "Email and password are required." });
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Role))
+            {
+                request.Role = "User"; // Default to User if no role specified
+            }
+
+            var result = await _loginService.Register(request.Email, request.Password, request.Role);
+            
+            if (!result)
+            {
+                if (await _loginService.GetUser(request.Email) != null)
+                {
+                    return Conflict(new { message = "A user with this email already exists." });
+                }
+                return BadRequest(new { message = "Invalid registration data. Please check your input." });
+            }
+
+            return Ok(new { message = "Registration successful." });
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] AuthRequest request)
         {
             var token = await _loginService.Login(request.Email, request.Password);
-            return token != null ? Ok(new { token }) : Unauthorized("Invalid credentials.");
+            if (token == null)
+            {
+                return Unauthorized(new { message = "Invalid credentials." });
+            }
+
+            var user = await _loginService.GetUser(request.Email);
+
+            // Ensure role is always present and never null
+            var role = user?.Role ?? "User";
+
+            return Ok(new { token = token, role = role });
         }
 
         [HttpGet("user")]
@@ -37,14 +67,14 @@ namespace Survey.Controllers
         {
             var email = User.FindFirstValue(ClaimTypes.Name);
             var user = await _loginService.GetUser(email!);
-            return user != null ? Ok(new { user.Email, user.Role }) : NotFound("User not found.");
+            return user != null ? Ok(new { user.Email, user.Role }) : NotFound(new { message = "User not found." });
         }
 
         [HttpPost("logout")]
         [Authorize]
         public IActionResult Logout()
         {
-            return Ok("Logout successful."); // Handled client-side
+            return Ok(new { message = "Logout successful." });
         }
     }
 }

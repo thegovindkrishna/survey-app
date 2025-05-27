@@ -1,1 +1,28 @@
-<p>survey-create works!</p>
+<div class="survey-create-container">
+  <mat-card>
+    <h2>Create New Survey</h2>
+    <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" maxlength="100" required />
+        <mat-error *ngIf="surveyForm.get('title')?.hasError('required')">Title is required</mat-error>
+        <mat-error *ngIf="surveyForm.get('title')?.hasError('maxlength')">Max 100 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" maxlength="500" rows="4" required></textarea>
+        <mat-error *ngIf="surveyForm.get('description')?.hasError('required')">Description is required</mat-error>
+        <mat-error *ngIf="surveyForm.get('description')?.hasError('maxlength')">Max 500 characters</mat-error>
+      </mat-form-field>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="isLoading || surveyForm.invalid">
+        <mat-icon *ngIf="isLoading" class="spinner">autorenew</mat-icon>
+        <span *ngIf="!isLoading">Create Survey</span>
+      </button>
+      <button mat-button type="button" (click)="goToDashboard()" [disabled]="isLoading">Cancel</button>
+    </form>
+  </mat-card>
+</div>

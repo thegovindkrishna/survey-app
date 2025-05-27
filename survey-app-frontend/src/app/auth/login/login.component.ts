@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth.service';
 
 // Angular Material modules
 import { MatCardModule } from '@angular/material/card';
@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -31,8 +33,9 @@ export class LoginComponent {
   email = '';
   password = '';
   errorMessage = '';
+  isLoading = false;
 
-  private http = inject(HttpClient);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   onLogin() {
@@ -41,24 +44,32 @@ export class LoginComponent {
       return;
     }
 
-    this.http
-      .post<{ token: string; role: string }>('https://localhost:7245/api/auth/login', {
-        email: this.email,
-        password: this.password
-      })
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.authService.login({ email: this.email, password: this.password })
       .subscribe({
-        next: res => {
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('role', res.role);
-          this.router.navigate(['/surveys']);
+        next: (response) => {
+          console.log('Login successful:', response); // Debug log
+          this.authService.saveToken(response.token, response.role);
+          if (response.role === 'Admin') {
+            this.router.navigate(['/admin/surveys']);
+          } else {
+            this.router.navigate(['/user/dashboard']);
+          }
         },
-        error: () => {
-          this.errorMessage = 'Invalid credentials';
-        } 
+        error: (error) => {
+          console.error('Login error:', error); // Debug log
+          this.errorMessage = typeof error === 'string' ? error : 'Invalid credentials';
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
       });
   }
-  goToRegister(): void {
-  this.router.navigate(['/register']);
-}
 
+  goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
 }

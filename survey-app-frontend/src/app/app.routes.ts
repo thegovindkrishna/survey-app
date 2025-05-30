@@ -1,32 +1,29 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { SurveyCreateComponent } from './surveys/survey-create/survey-create.component';
-import { UserDashboardComponent } from './shared/user-dashboard/user-dashboard.component'; // Adjust based on where you put it
+import { UserDashboardComponent } from './shared/user-dashboard/user-dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { SurveyBuilderComponent } from './admin/survey-builder/survey-builder.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
-  // 👇 Admin Dashboard
+  // Admin routes
   {
-    path: 'admin/surveys',
-    component: DashboardComponent,
+    path: 'admin',
     canActivate: [AuthGuard],
-    data: { roles: ['Admin'] }
-  },
-  // 👇 Admin Create Survey
-  {
-    path: 'admin/surveys/create',
-    component: SurveyCreateComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['Admin'] }
+    data: { roles: ['Admin'] },
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'survey-builder', component: SurveyBuilderComponent }
+    ]
   },
 
-  // 👇 Only Users can respond to surveys
+  // User routes
   {
     path: 'user/dashboard',
     component: UserDashboardComponent,

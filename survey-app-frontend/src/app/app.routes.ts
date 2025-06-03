@@ -19,7 +19,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'survey-builder', component: SurveyBuilderComponent }
+      { path: 'survey-builder', component: SurveyBuilderComponent },
+      { path: 'survey-builder/:id', component: SurveyBuilderComponent }
     ]
   },
 

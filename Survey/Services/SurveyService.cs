@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Survey.Data;
 using SurveyModel = Survey.Models.Survey;
+using Question = Survey.Models.Question;
 
 namespace Survey.Services
 {
@@ -30,7 +31,7 @@ namespace Survey.Services
         /// </summary>
         public async Task<List<SurveyModel>> GetAll()
         {
-            return await _context.Surveys.ToListAsync();
+            return await _context.Surveys.Include(s => s.Questions).ToListAsync();
         }
 
         /// <summary>
@@ -38,24 +39,54 @@ namespace Survey.Services
         /// </summary>
         public async Task<SurveyModel?> GetById(int id)
         {
-            return await _context.Surveys.FindAsync(id);
+            return await _context.Surveys
+                .Include(s => s.Questions)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         /// <summary>
         /// Update the fields of a specific survey.
         /// </summary>
-        public async Task<bool> Update(int id, SurveyModel updatedSurvey)
+        public async Task<SurveyModel?> Update(int id, SurveyModel updatedSurvey)
         {
-            var existing = await _context.Surveys.FindAsync(id);
-            if (existing == null) return false;
+            var existing = await _context.Surveys
+                .Include(s => s.Questions)
+                .FirstOrDefaultAsync(s => s.Id == id);
+                
+            if (existing == null) return null;
 
+            // Update basic properties
             existing.Title = updatedSurvey.Title;
             existing.Description = updatedSurvey.Description;
-            existing.StartDate = updatedSurvey.StartDate;
-            existing.EndDate = updatedSurvey.EndDate;
 
-            await _context.SaveChangesAsync();
-            return true;
+            // Update questions
+            existing.Questions.Clear();
+            foreach (var question in updatedSurvey.Questions)
+            {
+                var newQuestion = new Question
+                {
+                    QuestionText = question.QuestionText,
+                    type = question.type,
+                    required = question.required,
+                    options = question.options,
+                    maxRating = question.maxRating
+                };
+                existing.Questions.Add(newQuestion);
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                // Fetch the updated survey to ensure we return the complete object
+                return await _context.Surveys
+                    .Include(s => s.Questions)
+                    .FirstOrDefaultAsync(s => s.Id == id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating survey: {ex.Message}");
+                throw;
+            }
         }
 
         /// <summary>

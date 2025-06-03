@@ -15,7 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { SurveyService, Survey, Question } from '../../shared/services/survey.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-survey-builder',
@@ -40,7 +40,7 @@ import { Router } from '@angular/router';
   ],
   template: `
     <div class="survey-builder-root">
-      <h2>Create Survey</h2>
+      <h2>{{ isEditing ? 'Edit Survey' : 'Create Survey' }}</h2>
       <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="survey-title-field">
           <mat-label>Survey Title</mat-label>
@@ -157,12 +157,15 @@ import { Router } from '@angular/router';
 })
 export class SurveyBuilderComponent implements OnInit {
   surveyForm: FormGroup;
+  isEditing = false;
+  surveyId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
     private surveyService: SurveyService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.surveyForm = this.fb.group({
       title: ['', Validators.required],
@@ -171,8 +174,67 @@ export class SurveyBuilderComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    if (this.questions.length === 0) this.addQuestion();
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.surveyId = +params['id'];
+        this.isEditing = true;
+        this.loadSurvey(this.surveyId);
+      } else {
+        this.addQuestion(); // Add initial question for new survey
+      }
+    });
+  }
+
+  loadSurvey(id: number) {
+    console.log('Loading survey with ID:', id);
+    this.surveyService.getSurvey(id).subscribe({
+      next: (survey) => {
+        console.log('Received survey data:', survey);
+        this.surveyForm.patchValue({
+          title: survey.title,
+          description: survey.description
+        });
+
+        // Clear existing questions
+        while (this.questions.length) {
+          this.questions.removeAt(0);
+        }
+
+        // Add questions from the survey
+        if (survey.questions && survey.questions.length > 0) {
+          console.log('Processing questions:', survey.questions);
+          survey.questions.forEach((q, index) => {
+            console.log(`Processing question ${index}:`, q);
+            const questionGroup = this.fb.group({
+              question: [q.QuestionText, Validators.required],
+              type: [q.type.toLowerCase(), Validators.required],
+              required: [q.required],
+              options: this.fb.array([]),
+              maxRating: [q.maxRating || 5]
+            });
+
+            if (q.type.toLowerCase() === 'multiple-choice' || q.type.toLowerCase() === 'checkbox') {
+              console.log(`Adding options for question ${index}:`, q.options);
+              q.options?.forEach(opt => {
+                (questionGroup.get('options') as FormArray).push(
+                  this.fb.group({ text: [opt, Validators.required] })
+                );
+              });
+            }
+
+            this.questions.push(questionGroup);
+          });
+        } else {
+          console.log('No questions found in survey');
+        }
+      },
+      error: (error) => {
+        console.error('Error loading survey:', error);
+        this.snackBar.open('Error loading survey: ' + error.message, 'Close', { duration: 5000 });
+        this.router.navigate(['/admin/dashboard']);
+      }
+    });
   }
 
   get questions() {
@@ -232,31 +294,60 @@ export class SurveyBuilderComponent implements OnInit {
         description: this.surveyForm.value.description,
         questions: this.surveyForm.value.questions.map((q: any) => {
           const question: Question = {
-            question: q.question,
-            type: q.type,
+            QuestionText: q.question,
+            type: q.type.toLowerCase(),
             required: q.required
           };
-          if (q.type === 'multiple-choice' || q.type === 'checkbox') {
+          if (q.type.toLowerCase() === 'multiple-choice' || q.type.toLowerCase() === 'checkbox') {
             question.options = q.options.map((o: any) => o.text);
-          } else if (q.type === 'rating') {
+          } else if (q.type.toLowerCase() === 'rating') {
             question.maxRating = q.maxRating;
           }
           return question;
         })
       };
-      this.surveyService.createSurvey(survey).subscribe({
-        next: () => {
-          this.snackBar.open('Survey created successfully!', 'Close', { duration: 3000 });
-          this.surveyForm.reset();
-          this.questions.clear();
-          this.addQuestion();
-          this.router.navigate(['/admin/dashboard']);
+
+      console.log('Submitting survey:', survey);
+
+      const request = this.isEditing && this.surveyId
+        ? this.surveyService.updateSurvey(this.surveyId, survey)
+        : this.surveyService.createSurvey(survey);
+
+      request.subscribe({
+        next: (response) => {
+          console.log('Survey response:', response);
+          if (response) {
+            this.snackBar.open(
+              `Survey ${this.isEditing ? 'updated' : 'created'} successfully!`,
+              'Close',
+              { duration: 3000 }
+            );
+            
+            // Force navigation after a short delay
+            setTimeout(() => {
+              window.location.href = '/admin/dashboard';
+            }, 1000);
+          } else {
+            throw new Error('No response received from server');
+          }
         },
         error: (error) => {
-          this.snackBar.open('Error creating survey: ' + (error.error?.message || error.message), 'Close', { duration: 5000 });
+          console.error('Error saving survey:', error);
+          let errorMessage = 'An error occurred while saving the survey.';
+          if (error.error?.message) {
+            errorMessage = error.error.message;
+          } else if (error.message) {
+            errorMessage = error.message;
+          }
+          this.snackBar.open(
+            `Error ${this.isEditing ? 'updating' : 'creating'} survey: ${errorMessage}`,
+            'Close',
+            { duration: 5000 }
+          );
         }
       });
     } else {
+      console.log('Form is invalid:', this.surveyForm.errors);
       this.snackBar.open('Please fill in all required fields', 'Close', { duration: 3000 });
     }
   }

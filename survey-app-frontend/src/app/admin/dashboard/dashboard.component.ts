@@ -18,6 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -61,21 +62,33 @@ import { MatDividerModule } from '@angular/material/divider';
           </mat-card-actions>
         </mat-card>
 
-        <mat-card class="dashboard-card" *ngIf="surveys.length > 0">
+        <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>Recent Surveys</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="survey-list">
+            <div *ngIf="isLoading" class="loading-container">
+              <mat-spinner diameter="40"></mat-spinner>
+              <p>Loading surveys...</p>
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message">
+              {{ errorMessage }}
+            </div>
+
+            <div *ngIf="!isLoading && !errorMessage" class="survey-list">
+              <div *ngIf="surveys.length === 0" class="no-surveys">
+                <p>No surveys found. Create your first survey!</p>
+              </div>
               <div *ngFor="let survey of surveys" class="survey-item">
                 <h3>{{ survey.title }}</h3>
                 <p>{{ survey.description }}</p>
                 <div class="survey-actions">
-                  <button mat-button color="primary" (click)="editSurvey(survey)">
+                  <button mat-button color="primary" (click)="editSurvey(survey.id)">
                     <mat-icon>edit</mat-icon>
                     Edit
                   </button>
-                  <button mat-button color="warn" (click)="deleteSurvey(survey.id!)">
+                  <button mat-button color="warn" (click)="deleteSurvey(survey.id)">
                     <mat-icon>delete</mat-icon>
                     Delete
                   </button>
@@ -123,6 +136,29 @@ import { MatDividerModule } from '@angular/material/divider';
       margin-top: 8px;
     }
 
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .error-message {
+      color: #f44336;
+      padding: 16px;
+      background-color: #ffebee;
+      border-radius: 4px;
+      margin: 16px 0;
+    }
+
+    .no-surveys {
+      text-align: center;
+      padding: 32px;
+      color: #666;
+    }
+
     mat-card-actions {
       padding: 16px;
     }
@@ -150,37 +186,63 @@ export class DashboardComponent implements OnInit {
 
   fetchSurveys() {
     this.isLoading = true;
+    this.errorMessage = '';
+    console.log('Fetching surveys...');
     this.surveyService.getSurveys().subscribe({
       next: (data) => {
+        console.log('Received surveys:', data);
         this.surveys = data;
         this.isLoading = false;
       },
       error: (err) => {
-        this.errorMessage = 'Failed to load surveys.';
+        console.error('Error fetching surveys:', err);
+        this.errorMessage = 'Failed to load surveys: ' + (err.error?.message || err.message);
         this.isLoading = false;
+        this.snackBar.open(this.errorMessage, 'Close', { duration: 5000 });
       }
     });
   }
 
-  editSurvey(survey: Survey) {
-    console.log('Editing survey:', survey);
-    this.router.navigate(['/admin/survey-builder', survey.id]);
+  editSurvey(surveyId: number | undefined) {
+    console.log('Editing survey with ID:', surveyId);
+    if (!surveyId || surveyId <= 0) {
+      console.error('Invalid survey ID:', surveyId);
+      this.snackBar.open('Invalid survey ID', 'Close', { duration: 3000 });
+      return;
+    }
+    this.router.navigate(['/admin/survey-builder', surveyId]).then(success => {
+      if (!success) {
+        console.error('Navigation failed');
+        this.snackBar.open('Error navigating to survey editor', 'Close', { duration: 3000 });
+      }
+    });
   }
 
-  deleteSurvey(id: number) {
+  deleteSurvey(id: number | undefined) {
     console.log('Deleting survey with ID:', id);
+    if (!id || id <= 0) {
+      console.error('Invalid survey ID:', id);
+      this.snackBar.open('Invalid survey ID', 'Close', { duration: 3000 });
+      return;
+    }
     if (confirm('Are you sure you want to delete this survey?')) {
       this.surveyService.deleteSurvey(id).subscribe({
         next: () => {
+          console.log('Survey deleted successfully');
           this.snackBar.open('Survey deleted successfully!', 'Close', { duration: 3000 });
-          this.fetchSurveys(); // Refresh the surveys list automatically
+          this.fetchSurveys(); // Refresh the surveys list
         },
         error: (error) => {
+          console.error('Error deleting survey:', error);
+          let errorMessage = 'Error deleting survey';
           if (error.status === 404) {
-            this.snackBar.open('Survey not found. It may have already been deleted.', 'Close', { duration: 5000 });
-          } else {
-            this.snackBar.open('Error deleting survey: ' + (error.error?.message || error.message), 'Close', { duration: 5000 });
+            errorMessage = 'Survey not found. It may have already been deleted.';
+          } else if (error.error?.message) {
+            errorMessage = error.error.message;
+          } else if (error.message) {
+            errorMessage = error.message;
           }
+          this.snackBar.open(errorMessage, 'Close', { duration: 5000 });
           this.fetchSurveys(); // Refresh the surveys list even on error
         }
       });

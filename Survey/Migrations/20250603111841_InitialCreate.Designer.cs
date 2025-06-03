@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Survey.Data;
 
@@ -11,9 +12,11 @@ using Survey.Data;
 namespace Survey.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250603111841_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,28 +29,27 @@ namespace Survey.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("Relational:JsonPropertyName", "id");
+                        .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("MaxRating")
+                        .HasColumnType("int");
+
+                    b.PrimitiveCollection<string>("Options")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("QuestionText")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Required")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int?>("SurveyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("maxRating")
-                        .HasColumnType("int");
-
-                    b.PrimitiveCollection<string>("options")
-                        .HasColumnType("json");
-
-                    b.Property<bool>("required")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("type")
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -62,8 +64,7 @@ namespace Survey.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("Relational:JsonPropertyName", "id");
+                        .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
@@ -119,8 +120,7 @@ namespace Survey.Migrations
                 {
                     b.HasOne("Survey.Models.Survey", null)
                         .WithMany("Questions")
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SurveyId");
                 });
 
             modelBuilder.Entity("Survey.Models.Survey", b =>

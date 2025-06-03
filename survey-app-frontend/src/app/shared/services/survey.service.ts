@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 export interface Question {
-  question: string;
+  QuestionText: string;
   type: string;
   required: boolean;
   options?: string[];
@@ -25,23 +26,87 @@ export class SurveyService {
 
   constructor(private http: HttpClient) {}
 
+  private handleError(error: HttpErrorResponse) {
+    console.error('An error occurred:', error);
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(() => new Error(errorMessage));
+  }
+
   createSurvey(survey: Survey): Observable<Survey> {
-    return this.http.post<Survey>(this.apiUrl, survey);
+    console.log('Creating survey:', survey);
+    return this.http.post<Survey>(this.apiUrl, survey).pipe(
+      map(response => {
+        console.log('Create response:', response);
+        return {
+          ...response,
+          id: response.id
+        };
+      }),
+      catchError(this.handleError)
+    );
   }
 
   getSurveys(): Observable<Survey[]> {
-    return this.http.get<Survey[]>(this.apiUrl);
+    return this.http.get<Survey[]>(this.apiUrl).pipe(
+      map(response => {
+        console.log('Received surveys:', response);
+        return response.map(survey => ({
+          ...survey,
+          id: survey.id
+        }));
+      }),
+      catchError(this.handleError)
+    );
   }
 
   getSurvey(id: number): Observable<Survey> {
-    return this.http.get<Survey>(`${this.apiUrl}/${id}`);
+    console.log('Getting survey:', id);
+    return this.http.get<Survey>(`${this.apiUrl}/${id}`).pipe(
+      map(response => {
+        console.log('Received survey:', response);
+        return {
+          ...response,
+          id: response.id
+        };
+      }),
+      catchError(this.handleError)
+    );
   }
 
   updateSurvey(id: number, survey: Survey): Observable<Survey> {
-    return this.http.put<Survey>(`${this.apiUrl}/${id}`, survey);
+    console.log('Updating survey:', id, survey);
+    return this.http.put<any>(`${this.apiUrl}/${id}`, { ...survey, id }).pipe(
+      map(response => {
+        console.log('Raw update response:', response);
+        // If the response is a string, it's an error message
+        if (typeof response === 'string') {
+          throw new Error(response);
+        }
+        // Ensure we have a proper Survey object
+        const updatedSurvey: Survey = {
+          id: response.id,
+          title: response.title,
+          description: response.description,
+          questions: response.questions || []
+        };
+        console.log('Processed survey response:', updatedSurvey);
+        return updatedSurvey;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   deleteSurvey(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    console.log('Deleting survey:', id);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
   }
 } 

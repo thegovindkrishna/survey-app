@@ -36,6 +36,8 @@ namespace Survey.Controllers
         public async Task<IActionResult> GetAll()
         {
             var surveys = await _surveyService.GetAll();
+            var json = System.Text.Json.JsonSerializer.Serialize(surveys);
+            Console.WriteLine("Surveys JSON: " + json);
             return Ok(surveys);
         }
 
@@ -45,18 +47,22 @@ namespace Survey.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            Console.WriteLine($"Getting survey with ID: {id}");
             var survey = await _surveyService.GetById(id);
+            Console.WriteLine($"Found survey: {System.Text.Json.JsonSerializer.Serialize(survey)}");
             return survey != null ? Ok(survey) : NotFound();
         }
 
         /// <summary>
         /// Update a survey by ID.
         /// </summary>
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] SurveyModel survey)
         {
-            var success = await _surveyService.Update(id, survey).ConfigureAwait(false); ///look into this 
-            return success ? Ok("Updated successfully.") : NotFound();
+            Console.WriteLine($"Updating survey {id} with data: {System.Text.Json.JsonSerializer.Serialize(survey)}");
+            var updatedSurvey = await _surveyService.Update(id, survey).ConfigureAwait(false);
+            Console.WriteLine($"Update result: {System.Text.Json.JsonSerializer.Serialize(updatedSurvey)}");
+            return updatedSurvey != null ? Ok(updatedSurvey) : NotFound();
         }
 
         /// <summary>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Survey.Models;
 using SurveyModel = Survey.Models.Survey;
+using System.Text.Json;
 
 namespace Survey.Data
 {
@@ -10,6 +12,7 @@ namespace Survey.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<SurveyModel> Surveys { get; set; }
+        public DbSet<SurveyResponse> SurveyResponses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +38,26 @@ namespace Survey.Data
                 .HasMany(s => s.Questions)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Value converter for List<QuestionResponse> to JSON string
+            var questionResponseConverter = new ValueConverter<List<QuestionResponse>, string>(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                v => JsonSerializer.Deserialize<List<QuestionResponse>>(v, (JsonSerializerOptions)null) ?? new List<QuestionResponse>()
+            );
+
+            modelBuilder.Entity<SurveyResponse>(entity =>
+            {
+                entity.Property(e => e.RespondentEmail).HasColumnType("longtext");
+                entity.Property(e => e.SubmissionDate).HasColumnType("datetime");
+                entity.Property(e => e.Responses)
+                    .HasColumnType("longtext")
+                    .HasConversion(questionResponseConverter);
+
+                entity.HasOne<SurveyModel>()
+                    .WithMany()
+                    .HasForeignKey(e => e.SurveyId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
         }
     }
 }

@@ -2,21 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
-export interface Question {
-  QuestionText: string;
-  type: string;
-  required: boolean;
-  options?: string[];
-  maxRating?: number;
-}
-
-export interface Survey {
-  id?: number;
-  title: string;
-  description: string;
-  questions: Question[];
-}
+import { Survey, Question } from '../models/survey.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +32,8 @@ export class SurveyService {
         console.log('Create response:', response);
         return {
           ...response,
-          id: response.id
+          id: response.id,
+          questions: response.questions || []
         };
       }),
       catchError(this.handleError)
@@ -59,7 +46,8 @@ export class SurveyService {
         console.log('Received surveys:', response);
         return response.map(survey => ({
           ...survey,
-          id: survey.id
+          id: survey.id,
+          questions: survey.questions || []
         }));
       }),
       catchError(this.handleError)
@@ -73,7 +61,8 @@ export class SurveyService {
         console.log('Received survey:', response);
         return {
           ...response,
-          id: response.id
+          id: response.id,
+          questions: response.questions || []
         };
       }),
       catchError(this.handleError)

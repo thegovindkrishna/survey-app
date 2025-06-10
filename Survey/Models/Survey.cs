@@ -26,4 +26,20 @@ namespace Survey.Models
         public List<string>? options { get; set; }
         public int? maxRating { get; set; }
     }
+
+    public class SurveyResponse
+    {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+        public int SurveyId { get; set; }
+        public string RespondentEmail { get; set; } = string.Empty;
+        public DateTime SubmissionDate { get; set; }
+        public List<QuestionResponse> Responses { get; set; } = new List<QuestionResponse>();
+    }
+
+    public class QuestionResponse
+    {
+        public int QuestionId { get; set; }
+        public string Response { get; set; } = string.Empty;
+    }
 }

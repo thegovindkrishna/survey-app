@@ -14,7 +14,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
-import { SurveyService, Survey, Question } from '../../shared/services/survey.service';
+import { SurveyService } from '../../shared/services/survey.service';
+import { Survey, Question, QuestionType } from '../../shared/models/survey.model';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -58,11 +59,11 @@ import { Router, ActivatedRoute } from '@angular/router';
                 <mat-form-field appearance="outline" class="question-type-field">
                   <mat-label>Type</mat-label>
                   <mat-select formControlName="type" (selectionChange)="onTypeChange(i)">
-                    <mat-option value="text"><mat-icon>short_text</mat-icon> Short Answer</mat-option>
-                    <mat-option value="multiple-choice"><mat-icon>radio_button_checked</mat-icon> Multiple Choice</mat-option>
-                    <mat-option value="checkbox"><mat-icon>check_box</mat-icon> Checkboxes</mat-option>
-                    <mat-option value="rating"><mat-icon>star</mat-icon> Rating</mat-option>
-                    <mat-option value="date"><mat-icon>event</mat-icon> Date</mat-option>
+                    <mat-option [value]="QuestionType.Text"><mat-icon>short_text</mat-icon> Short Answer</mat-option>
+                    <mat-option [value]="QuestionType.SingleChoice"><mat-icon>radio_button_checked</mat-icon> Multiple Choice</mat-option>
+                    <mat-option [value]="QuestionType.MultipleChoice"><mat-icon>check_box</mat-icon> Checkboxes</mat-option>
+                    <mat-option [value]="QuestionType.Rating"><mat-icon>star</mat-icon> Rating</mat-option>
+                    <mat-option [value]="QuestionType.Date"><mat-icon>event</mat-icon> Date</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <button mat-icon-button color="warn" (click)="removeQuestion(i)" *ngIf="questions.length > 1">
@@ -71,14 +72,14 @@ import { Router, ActivatedRoute } from '@angular/router';
               </div>
               <mat-form-field appearance="outline" class="question-text-field">
                 <mat-label>Question</mat-label>
-                <input matInput formControlName="question" required>
+                <input matInput formControlName="text" required>
               </mat-form-field>
               <mat-checkbox formControlName="required">Required</mat-checkbox>
 
               <!-- Dynamic fields -->
               <ng-container [ngSwitch]="q.get('type')?.value">
                 <!-- Multiple Choice -->
-                <div *ngSwitchCase="'multiple-choice'" formArrayName="options" class="options-list">
+                <div *ngSwitchCase="QuestionType.SingleChoice" formArrayName="options" class="options-list">
                   <div *ngFor="let opt of getOptions(i).controls; let j = index" [formGroupName]="j" class="option-row">
                     <mat-form-field appearance="outline" class="option-field">
                       <mat-label>Option {{j + 1}}</mat-label>
@@ -91,7 +92,7 @@ import { Router, ActivatedRoute } from '@angular/router';
                   <button mat-button color="primary" (click)="addOption(i)"><mat-icon>add</mat-icon> Add Option</button>
                 </div>
                 <!-- Checkbox -->
-                <div *ngSwitchCase="'checkbox'" formArrayName="options" class="options-list">
+                <div *ngSwitchCase="QuestionType.MultipleChoice" formArrayName="options" class="options-list">
                   <div *ngFor="let opt of getOptions(i).controls; let j = index" [formGroupName]="j" class="option-row">
                     <mat-form-field appearance="outline" class="option-field">
                       <mat-label>Option {{j + 1}}</mat-label>
@@ -104,7 +105,7 @@ import { Router, ActivatedRoute } from '@angular/router';
                   <button mat-button color="primary" (click)="addOption(i)"><mat-icon>add</mat-icon> Add Option</button>
                 </div>
                 <!-- Rating -->
-                <div *ngSwitchCase="'rating'" class="rating-row">
+                <div *ngSwitchCase="QuestionType.Rating" class="rating-row">
                   <span>Rating:</span>
                   <ng-container *ngFor="let star of [1,2,3,4,5]">
                     <mat-icon [class.filled]="star <= (q.get('maxRating')?.value || 5)">star</mat-icon>
@@ -115,7 +116,7 @@ import { Router, ActivatedRoute } from '@angular/router';
                   </mat-form-field>
                 </div>
                 <!-- Date -->
-                <div *ngSwitchCase="'date'" class="date-row">
+                <div *ngSwitchCase="QuestionType.Date" class="date-row">
                   <mat-form-field appearance="outline">
                     <mat-label>Date</mat-label>
                     <input matInput [matDatepicker]="picker">
@@ -159,6 +160,11 @@ export class SurveyBuilderComponent implements OnInit {
   surveyForm: FormGroup;
   isEditing = false;
   surveyId: number | null = null;
+  QuestionType = QuestionType; // Make enum available in template
+
+  get questions() {
+    return this.surveyForm.get('questions') as FormArray;
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -207,14 +213,14 @@ export class SurveyBuilderComponent implements OnInit {
           survey.questions.forEach((q, index) => {
             console.log(`Processing question ${index}:`, q);
             const questionGroup = this.fb.group({
-              question: [q.QuestionText, Validators.required],
-              type: [q.type.toLowerCase(), Validators.required],
+              text: [q.text, Validators.required],
+              type: [q.type, Validators.required],
               required: [q.required],
               options: this.fb.array([]),
               maxRating: [q.maxRating || 5]
             });
 
-            if (q.type.toLowerCase() === 'multiple-choice' || q.type.toLowerCase() === 'checkbox') {
+            if (q.type === QuestionType.SingleChoice || q.type === QuestionType.MultipleChoice) {
               console.log(`Adding options for question ${index}:`, q.options);
               q.options?.forEach(opt => {
                 (questionGroup.get('options') as FormArray).push(
@@ -237,14 +243,14 @@ export class SurveyBuilderComponent implements OnInit {
     });
   }
 
-  get questions() {
-    return this.surveyForm.get('questions') as FormArray;
+  getOptions(index: number): FormArray {
+    return this.questions.at(index).get('options') as FormArray;
   }
 
   addQuestion() {
     this.questions.push(this.fb.group({
-      question: ['', Validators.required],
-      type: ['text', Validators.required],
+      text: ['', Validators.required],
+      type: [QuestionType.Text, Validators.required],
       required: [false],
       options: this.fb.array([this.fb.group({ text: ['', Validators.required] })]),
       maxRating: [5]
@@ -255,23 +261,21 @@ export class SurveyBuilderComponent implements OnInit {
     this.questions.removeAt(index);
   }
 
-  getOptions(qIndex: number) {
-    return (this.questions.at(qIndex).get('options') as FormArray);
+  addOption(questionIndex: number) {
+    this.getOptions(questionIndex).push(
+      this.fb.group({ text: ['', Validators.required] })
+    );
   }
 
-  addOption(qIndex: number) {
-    this.getOptions(qIndex).push(this.fb.group({ text: ['', Validators.required] }));
-  }
-
-  removeOption(qIndex: number, optIndex: number) {
-    this.getOptions(qIndex).removeAt(optIndex);
+  removeOption(questionIndex: number, optionIndex: number) {
+    this.getOptions(questionIndex).removeAt(optionIndex);
   }
 
   onTypeChange(qIndex: number) {
     const q = this.questions.at(qIndex);
     const type = q.get('type')?.value;
     // Reset options for new type
-    if (type === 'multiple-choice' || type === 'checkbox') {
+    if (type === QuestionType.SingleChoice || type === QuestionType.MultipleChoice) {
       if (this.getOptions(qIndex).length === 0) {
         this.addOption(qIndex);
         this.addOption(qIndex);
@@ -282,7 +286,7 @@ export class SurveyBuilderComponent implements OnInit {
         this.getOptions(qIndex).removeAt(0);
       }
     }
-    if (type === 'rating') {
+    if (type === QuestionType.Rating) {
       q.get('maxRating')?.setValue(5);
     }
   }
@@ -294,13 +298,13 @@ export class SurveyBuilderComponent implements OnInit {
         description: this.surveyForm.value.description,
         questions: this.surveyForm.value.questions.map((q: any) => {
           const question: Question = {
-            QuestionText: q.question,
-            type: q.type.toLowerCase(),
+            text: q.text,
+            type: q.type,
             required: q.required
           };
-          if (q.type.toLowerCase() === 'multiple-choice' || q.type.toLowerCase() === 'checkbox') {
+          if (q.type === QuestionType.SingleChoice || q.type === QuestionType.MultipleChoice) {
             question.options = q.options.map((o: any) => o.text);
-          } else if (q.type.toLowerCase() === 'rating') {
+          } else if (q.type === QuestionType.Rating) {
             question.maxRating = q.maxRating;
           }
           return question;
@@ -322,11 +326,7 @@ export class SurveyBuilderComponent implements OnInit {
               'Close',
               { duration: 3000 }
             );
-            
-            // Force navigation after a short delay
-            setTimeout(() => {
-              window.location.href = '/admin/dashboard';
-            }, 1000);
+            this.router.navigate(['/admin/dashboard']);
           } else {
             throw new Error('No response received from server');
           }

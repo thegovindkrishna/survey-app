@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SurveyService, Survey } from '../../shared/services/survey.service';
+import { SurveyService } from '../../shared/services/survey.service';
+import { Survey } from '../../shared/models/survey.model';
 import { AuthService } from '../../auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';

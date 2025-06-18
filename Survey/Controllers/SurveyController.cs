@@ -6,6 +6,10 @@ using SurveyModel = Survey.Models.Survey;
 
 namespace Survey.Controllers
 {
+    /// <summary>
+    /// Controller for managing surveys.
+    /// Provides CRUD operations for surveys. All endpoints require Admin role authorization.
+    /// </summary>
     [ApiController]
     [Route("api/surveys")]
     [Authorize(Roles = "Admin")]
@@ -13,14 +17,24 @@ namespace Survey.Controllers
     {
         private readonly ISurveyService _surveyService;
 
+        /// <summary>
+        /// Initializes a new instance of the SurveyController with the specified survey service.
+        /// </summary>
+        /// <param name="surveyService">The service for handling survey operations</param>
         public SurveyController(ISurveyService surveyService)
         {
             _surveyService = surveyService;
         }
 
         /// <summary>
-        /// Create a new survey.
+        /// Creates a new survey in the system.
+        /// Sets the CreatedBy property to the authenticated admin's email.
         /// </summary>
+        /// <param name="survey">The survey object to create</param>
+        /// <returns>
+        /// 200 OK with the created survey if successful,
+        /// 400 Bad Request if input is invalid
+        /// </returns>
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SurveyModel survey)
         {
@@ -30,8 +44,9 @@ namespace Survey.Controllers
         }
 
         /// <summary>
-        /// Get all surveys created by the admin.
+        /// Retrieves all surveys from the system with their questions included.
         /// </summary>
+        /// <returns>200 OK with a collection of all surveys</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -42,8 +57,13 @@ namespace Survey.Controllers
         }
 
         /// <summary>
-        /// Get details of a specific survey.
+        /// Retrieves a specific survey by its ID with questions included.
         /// </summary>
+        /// <param name="id">The unique identifier of the survey</param>
+        /// <returns>
+        /// 200 OK with the survey if found,
+        /// 404 Not Found if survey doesn't exist
+        /// </returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -54,22 +74,31 @@ namespace Survey.Controllers
         }
 
         /// <summary>
-        /// Update a survey by ID.
+        /// Updates a survey's properties (title, description, dates, shareLink) without affecting questions.
         /// </summary>
+        /// <param name="id">The unique identifier of the survey to update</param>
+        /// <param name="survey">The updated survey data</param>
+        /// <returns>
+        /// 200 OK with the updated survey if successful,
+        /// 404 Not Found if survey doesn't exist
+        /// </returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] SurveyModel survey)
         {
             Console.WriteLine($"Updating survey {id} with data: {System.Text.Json.JsonSerializer.Serialize(survey)}");
-            var updatedSurvey = await _surveyService.Update(id, survey).ConfigureAwait(false);
+            var updatedSurvey = await _surveyService.UpdateProperties(id, survey).ConfigureAwait(false);
             Console.WriteLine($"Update result: {System.Text.Json.JsonSerializer.Serialize(updatedSurvey)}");
             return updatedSurvey != null ? Ok(updatedSurvey) : NotFound();
         }
 
         /// <summary>
-        /// Delete a survey by ID.
-        /// await and async 
-        /// 
+        /// Deletes a survey and all its associated questions from the system.
         /// </summary>
+        /// <param name="id">The unique identifier of the survey to delete</param>
+        /// <returns>
+        /// 200 OK with success message if deleted,
+        /// 404 Not Found if survey doesn't exist
+        /// </returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -12,6 +12,7 @@ namespace Survey.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<SurveyModel> Surveys { get; set; }
+        public DbSet<Question> Questions { get; set; }
         public DbSet<SurveyResponse> SurveyResponses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,20 +24,29 @@ namespace Survey.Data
                 entity.Property(e => e.Title).HasColumnType("longtext");
                 entity.Property(e => e.Description).HasColumnType("longtext");
                 entity.Property(e => e.CreatedBy).HasColumnType("longtext");
+                entity.Property(e => e.ShareLink).HasColumnType("longtext");
             });
 
             modelBuilder.Entity<Question>(entity =>
             {
+                entity.ToTable("Question");
                 entity.Property(e => e.QuestionText).HasColumnType("longtext");
                 entity.Property(e => e.type).HasColumnType("longtext");
                 entity.Property(e => e.required).HasColumnType("tinyint(1)");
                 entity.Property(e => e.options).HasColumnType("json");
                 entity.Property(e => e.maxRating).HasColumnType("int");
+                entity.Property(e => e.SurveyId).HasColumnType("int");
+
+                entity.HasOne(q => q.Survey)
+                    .WithMany(s => s.Questions)
+                    .HasForeignKey(q => q.SurveyId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<SurveyModel>()
                 .HasMany(s => s.Questions)
-                .WithOne()
+                .WithOne(q => q.Survey)
+                .HasForeignKey(q => q.SurveyId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Value converter for List<QuestionResponse> to JSON string
@@ -49,7 +59,7 @@ namespace Survey.Data
             {
                 entity.Property(e => e.RespondentEmail).HasColumnType("longtext");
                 entity.Property(e => e.SubmissionDate).HasColumnType("datetime");
-                entity.Property(e => e.Responses)
+                entity.Property(e => e.responses)
                     .HasColumnType("longtext")
                     .HasConversion(questionResponseConverter);
 

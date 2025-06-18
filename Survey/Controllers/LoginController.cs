@@ -6,17 +6,35 @@ using System.Security.Claims;
 
 namespace Survey.Controllers
 {
+    /// <summary>
+    /// Controller for handling user authentication and registration.
+    /// Provides endpoints for user registration, login, logout, and user information retrieval.
+    /// </summary>
     [ApiController]
     [Route("api/auth")]
     public class LoginController : ControllerBase
     {
         private readonly ILoginService _loginService;
 
+        /// <summary>
+        /// Initializes a new instance of the LoginController with the specified login service.
+        /// </summary>
+        /// <param name="loginService">The service for handling authentication operations</param>
         public LoginController(ILoginService loginService)
         {
             _loginService = loginService;
         }
 
+        /// <summary>
+        /// Registers a new user in the system.
+        /// Validates input data and creates a new user account.
+        /// </summary>
+        /// <param name="request">The registration request containing email, password, and role</param>
+        /// <returns>
+        /// 200 OK with success message if registration is successful,
+        /// 400 Bad Request if input is invalid,
+        /// 409 Conflict if user already exists
+        /// </returns>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] AuthRequest request)
         {
@@ -44,6 +62,15 @@ namespace Survey.Controllers
             return Ok(new { message = "Registration successful." });
         }
 
+        /// <summary>
+        /// Authenticates a user and returns a JWT token.
+        /// Validates credentials and generates an authentication token.
+        /// </summary>
+        /// <param name="request">The login request containing email and password</param>
+        /// <returns>
+        /// 200 OK with JWT token and user role if authentication is successful,
+        /// 401 Unauthorized if credentials are invalid
+        /// </returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] AuthRequest request)
         {
@@ -61,6 +88,14 @@ namespace Survey.Controllers
             return Ok(new { token = token, role = role });
         }
 
+        /// <summary>
+        /// Retrieves information about the currently authenticated user.
+        /// Requires a valid JWT token in the Authorization header.
+        /// </summary>
+        /// <returns>
+        /// 200 OK with user information if authenticated,
+        /// 404 Not Found if user is not found
+        /// </returns>
         [HttpGet("user")]
         [Authorize]
         public async Task<IActionResult> GetUser()
@@ -70,6 +105,12 @@ namespace Survey.Controllers
             return user != null ? Ok(new { user.Email, user.Role }) : NotFound(new { message = "User not found." });
         }
 
+        /// <summary>
+        /// Logs out the currently authenticated user.
+        /// In a stateless JWT implementation, this endpoint primarily serves as a placeholder.
+        /// The actual logout is handled client-side by removing the JWT token.
+        /// </summary>
+        /// <returns>200 OK with logout success message</returns>
         [HttpPost("logout")]
         [Authorize]
         public IActionResult Logout()

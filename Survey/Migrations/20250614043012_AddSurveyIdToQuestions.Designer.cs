@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Survey.Data;
 
@@ -10,9 +11,11 @@ using Survey.Data;
 namespace Survey.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250614043012_AddSurveyIdToQuestions")]
+    partial class AddSurveyIdToQuestions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,15 +100,15 @@ namespace Survey.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Responses")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("SubmissionDate")
                         .HasColumnType("datetime");
 
                     b.Property<int>("SurveyId")
                         .HasColumnType("int");
-
-                    b.Property<string>("responses")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 

@@ -6,6 +6,10 @@ using System.Security.Claims;
 
 namespace Survey.Controllers
 {
+    /// <summary>
+    /// Controller for managing questions within surveys.
+    /// Provides CRUD operations for questions. All endpoints require Admin role authorization.
+    /// </summary>
     [ApiController]
     [Route("api/surveys/{surveyId}/questions")]
     [Authorize(Roles = "Admin")]
@@ -13,34 +17,43 @@ namespace Survey.Controllers
     {
         private readonly ISurveyService _surveyService;
 
+        /// <summary>
+        /// Initializes a new instance of the QuestionController with the specified survey service.
+        /// </summary>
+        /// <param name="surveyService">The service for handling survey and question operations</param>
         public QuestionController(ISurveyService surveyService)
         {
             _surveyService = surveyService;
         }
 
         /// <summary>
-        /// Adds a new question to a survey.
+        /// Adds a new question to an existing survey.
+        /// Sets the SurveyId on the question and adds it to the survey's question collection.
         /// </summary>
-        /// <param name="surveyId">The ID of the survey.</param>
-        /// <param name="question">The question to add.</param>
-        /// <returns>The updated survey.</returns>
+        /// <param name="surveyId">The unique identifier of the survey</param>
+        /// <param name="question">The question object to add</param>
+        /// <returns>
+        /// 200 OK with the updated survey if successful,
+        /// 404 Not Found if survey doesn't exist
+        /// </returns>
         [HttpPost]
         public async Task<IActionResult> AddQuestion(int surveyId, [FromBody] Question question)
         {
-            var survey = await _surveyService.GetById(surveyId);
-            if (survey == null)
+            var updatedSurvey = await _surveyService.AddQuestion(surveyId, question);
+            if (updatedSurvey == null)
                 return NotFound("Survey not found");
 
-            survey.Questions.Add(question);
-            var updatedSurvey = await _surveyService.Update(surveyId, survey);
             return Ok(updatedSurvey);
         }
 
         /// <summary>
-        /// Gets all questions for a survey.
+        /// Retrieves all questions for a specific survey.
         /// </summary>
-        /// <param name="surveyId">The ID of the survey.</param>
-        /// <returns>A list of questions.</returns>
+        /// <param name="surveyId">The unique identifier of the survey</param>
+        /// <returns>
+        /// 200 OK with the list of questions if survey exists,
+        /// 404 Not Found if survey doesn't exist
+        /// </returns>
         [HttpGet]
         public async Task<IActionResult> GetQuestions(int surveyId)
         {
@@ -52,52 +65,43 @@ namespace Survey.Controllers
         }
 
         /// <summary>
-        /// Updates a question in a survey.
+        /// Updates a specific question within a survey.
+        /// Modifies the existing question's properties without affecting other questions.
         /// </summary>
-        /// <param name="surveyId">The ID of the survey.</param>
-        /// <param name="questionId">The ID of the question.</param>
-        /// <param name="question">The updated question.</param>
-        /// <returns>The updated survey.</returns>
+        /// <param name="surveyId">The unique identifier of the survey</param>
+        /// <param name="questionId">The unique identifier of the question to update</param>
+        /// <param name="question">The updated question data</param>
+        /// <returns>
+        /// 200 OK with the updated survey if successful,
+        /// 404 Not Found if survey or question doesn't exist
+        /// </returns>
         [HttpPost("{questionId}")]
         public async Task<IActionResult> UpdateQuestion(int surveyId, int questionId, [FromBody] Question question)
         {
-            var survey = await _surveyService.GetById(surveyId);
-            if (survey == null)
-                return NotFound("Survey not found");
+            var updatedSurvey = await _surveyService.UpdateQuestion(surveyId, questionId, question);
+            if (updatedSurvey == null)
+                return NotFound("Survey or question not found");
 
-            var existingQuestion = survey.Questions.FirstOrDefault(q => q.Id == questionId);
-            if (existingQuestion == null)
-                return NotFound("Question not found");
-
-            existingQuestion.QuestionText = question.QuestionText;
-            existingQuestion.type = question.type;
-            existingQuestion.required = question.required;
-            existingQuestion.options = question.options;
-            existingQuestion.maxRating = question.maxRating;
-
-            var updatedSurvey = await _surveyService.Update(surveyId, survey);
             return Ok(updatedSurvey);
         }
 
         /// <summary>
-        /// Deletes a question from a survey.
+        /// Removes a specific question from a survey.
+        /// Deletes the question from the survey's question collection.
         /// </summary>
-        /// <param name="surveyId">The ID of the survey.</param>
-        /// <param name="questionId">The ID of the question.</param>
-        /// <returns>The updated survey.</returns>
+        /// <param name="surveyId">The unique identifier of the survey</param>
+        /// <param name="questionId">The unique identifier of the question to delete</param>
+        /// <returns>
+        /// 200 OK with the updated survey if successful,
+        /// 404 Not Found if survey or question doesn't exist
+        /// </returns>
         [HttpDelete("{questionId}")]
         public async Task<IActionResult> DeleteQuestion(int surveyId, int questionId)
         {
-            var survey = await _surveyService.GetById(surveyId);
-            if (survey == null)
-                return NotFound("Survey not found");
+            var updatedSurvey = await _surveyService.DeleteQuestion(surveyId, questionId);
+            if (updatedSurvey == null)
+                return NotFound("Survey or question not found");
 
-            var question = survey.Questions.FirstOrDefault(q => q.Id == questionId);
-            if (question == null)
-                return NotFound("Question not found");
-
-            survey.Questions.Remove(question);
-            var updatedSurvey = await _surveyService.Update(surveyId, survey);
             return Ok(updatedSurvey);
         }
     }

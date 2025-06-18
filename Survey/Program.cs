@@ -23,6 +23,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // App Services
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ISurveyService, SurveyService>();
+builder.Services.AddScoped<ISurveyResultsService, SurveyResultsService>();
 
 // CORS (✅ must be before builder.Build)
 builder.Services.AddCors(options =>
@@ -65,6 +66,7 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
         options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 
 // Swagger

@@ -128,7 +128,7 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          this.authService.saveToken(response.token, response.role);
+          this.authService.saveToken(response.token, response.role, this.email);
           if (response.role === 'Admin') {
             this.router.navigate(['/admin/dashboard']);
           } else {

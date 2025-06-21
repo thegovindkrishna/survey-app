@@ -52,6 +52,22 @@ import { Router, ActivatedRoute } from '@angular/router';
           <textarea matInput formControlName="description" rows="2"></textarea>
         </mat-form-field>
 
+        <div class="date-fields">
+          <mat-form-field appearance="outline" class="date-field">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="startDate" required>
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="date-field">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="endDate" required>
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
         <div formArrayName="questions">
           <div *ngFor="let q of questions.controls; let i = index" [formGroupName]="i" class="question-card">
             <mat-card>
@@ -140,6 +156,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styles: [`
     .survey-builder-root { max-width: 700px; margin: 0 auto; padding: 32px 0; }
     .survey-title-field, .survey-desc-field { width: 100%; margin-bottom: 16px; }
+    .date-fields { display: flex; gap: 16px; margin-bottom: 16px; }
+    .date-field { flex: 1; }
     .question-card { margin-bottom: 24px; }
     .question-header { display: flex; align-items: center; gap: 16px; }
     .question-type-field { width: 200px; }
@@ -176,6 +194,8 @@ export class SurveyBuilderComponent implements OnInit {
     this.surveyForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
+      startDate: [new Date(), Validators.required],
+      endDate: [new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), Validators.required], // 30 days from now
       questions: this.fb.array([])
     });
   }
@@ -197,9 +217,14 @@ export class SurveyBuilderComponent implements OnInit {
     this.surveyService.getSurvey(id).subscribe({
       next: (survey) => {
         console.log('Received survey data:', survey);
+        console.log('Survey questions:', survey.questions);
+        console.log('Questions array length:', survey.questions?.length);
+        
         this.surveyForm.patchValue({
           title: survey.title,
-          description: survey.description
+          description: survey.description,
+          startDate: survey.startDate || new Date(),
+          endDate: survey.endDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
         });
 
         // Clear existing questions
@@ -212,6 +237,12 @@ export class SurveyBuilderComponent implements OnInit {
           console.log('Processing questions:', survey.questions);
           survey.questions.forEach((q, index) => {
             console.log(`Processing question ${index}:`, q);
+            console.log(`Question text: "${q.text}"`);
+            console.log(`Question type: "${q.type}"`);
+            console.log(`Question required: ${q.required}`);
+            console.log(`Question options:`, q.options);
+            console.log(`Question maxRating: ${q.maxRating}`);
+            
             const questionGroup = this.fb.group({
               text: [q.text, Validators.required],
               type: [q.type, Validators.required],
@@ -222,18 +253,28 @@ export class SurveyBuilderComponent implements OnInit {
 
             if (q.type === QuestionType.SingleChoice || q.type === QuestionType.MultipleChoice) {
               console.log(`Adding options for question ${index}:`, q.options);
+              console.log(`Question type matches SingleChoice: ${q.type === QuestionType.SingleChoice}`);
+              console.log(`Question type matches MultipleChoice: ${q.type === QuestionType.MultipleChoice}`);
+              console.log(`Available enum values:`, Object.values(QuestionType));
               q.options?.forEach(opt => {
+                console.log(`Adding option: "${opt}"`);
                 (questionGroup.get('options') as FormArray).push(
                   this.fb.group({ text: [opt, Validators.required] })
                 );
               });
+            } else {
+              console.log(`Question type ${q.type} does not match SingleChoice or MultipleChoice`);
             }
 
             this.questions.push(questionGroup);
+            console.log(`Added question group to form array. Total questions now: ${this.questions.length}`);
           });
         } else {
           console.log('No questions found in survey');
         }
+        
+        console.log('Final form questions array length:', this.questions.length);
+        console.log('Form questions value:', this.questions.value);
       },
       error: (error) => {
         console.error('Error loading survey:', error);
@@ -296,6 +337,8 @@ export class SurveyBuilderComponent implements OnInit {
       const survey: Survey = {
         title: this.surveyForm.value.title,
         description: this.surveyForm.value.description,
+        startDate: this.surveyForm.value.startDate,
+        endDate: this.surveyForm.value.endDate,
         questions: this.surveyForm.value.questions.map((q: any) => {
           const question: Question = {
             text: q.text,

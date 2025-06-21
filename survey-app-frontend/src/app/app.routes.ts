@@ -5,6 +5,7 @@ import { UserDashboardComponent } from './shared/user-dashboard/user-dashboard.c
 import { AuthGuard } from './auth/auth.guard';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { SurveyBuilderComponent } from './admin/survey-builder/survey-builder.component';
+import { SurveyResponseComponent } from './user/survey-response/survey-response.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,9 +27,13 @@ export const routes: Routes = [
 
   // User routes
   {
-    path: 'user/dashboard',
-    component: UserDashboardComponent,
+    path: 'user',
     canActivate: [AuthGuard],
-    data: { roles: ['User'] }
+    data: { roles: ['User'] },
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: UserDashboardComponent },
+      { path: 'survey/:id', component: SurveyResponseComponent }
+    ]
   }
 ];

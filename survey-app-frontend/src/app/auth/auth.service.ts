@@ -43,14 +43,18 @@ export class AuthService {
     );
   }
 
-  saveToken(token: string, role: string) {
+  saveToken(token: string, role: string, email?: string) {
     localStorage.setItem('token', token); // Changed from 'jwt' to 'token'
     localStorage.setItem('role', role);
+    if (email) {
+      localStorage.setItem('userEmail', email);
+    }
   }
 
   logout() {
     localStorage.removeItem('token'); // Changed from 'jwt' to 'token'
     localStorage.removeItem('role');
+    localStorage.removeItem('userEmail');
     this.router.navigate(['/login']);
   }
 
@@ -60,6 +64,12 @@ export class AuthService {
 
   getRole() {
     return localStorage.getItem('role');
+  }
+
+  getCurrentUser() {
+    const email = localStorage.getItem('userEmail');
+    const role = this.getRole();
+    return email ? { email, role } : null;
   }
 
   isLoggedIn() {

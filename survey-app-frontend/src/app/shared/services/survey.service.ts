@@ -25,16 +25,57 @@ export class SurveyService {
     return throwError(() => new Error(errorMessage));
   }
 
+  // Helper method to map backend question to frontend question
+  private mapQuestion(backendQuestion: any): Question {
+    return {
+      id: backendQuestion.id,
+      text: backendQuestion.questionText || backendQuestion.text, // Handle both property names
+      type: backendQuestion.type,
+      required: backendQuestion.required,
+      options: backendQuestion.options || [],
+      maxRating: backendQuestion.maxRating
+    };
+  }
+
+  // Helper method to map backend survey to frontend survey
+  private mapSurvey(backendSurvey: any): Survey {
+    return {
+      id: backendSurvey.id,
+      title: backendSurvey.title,
+      description: backendSurvey.description,
+      startDate: backendSurvey.startDate ? new Date(backendSurvey.startDate) : undefined,
+      endDate: backendSurvey.endDate ? new Date(backendSurvey.endDate) : undefined,
+      createdBy: backendSurvey.createdBy,
+      createdAt: backendSurvey.createdAt ? new Date(backendSurvey.createdAt) : undefined,
+      shareLink: backendSurvey.shareLink,
+      questions: (backendSurvey.questions || []).map((q: any) => this.mapQuestion(q))
+    };
+  }
+
   createSurvey(survey: Survey): Observable<Survey> {
     console.log('Creating survey:', survey);
-    return this.http.post<Survey>(this.apiUrl, survey).pipe(
+    
+    // Map frontend structure to backend structure
+    const backendSurvey = {
+      title: survey.title,
+      description: survey.description,
+      startDate: survey.startDate,
+      endDate: survey.endDate,
+      questions: (survey.questions || []).map(q => ({
+        questionText: q.text,
+        type: q.type,
+        required: q.required,
+        options: q.options,
+        maxRating: q.maxRating
+      }))
+    };
+    
+    console.log('Backend survey structure for creation:', backendSurvey);
+    
+    return this.http.post<Survey>(this.apiUrl, backendSurvey).pipe(
       map(response => {
         console.log('Create response:', response);
-        return {
-          ...response,
-          id: response.id,
-          questions: response.questions || []
-        };
+        return this.mapSurvey(response);
       }),
       catchError(this.handleError)
     );
@@ -44,11 +85,7 @@ export class SurveyService {
     return this.http.get<Survey[]>(this.apiUrl).pipe(
       map(response => {
         console.log('Received surveys:', response);
-        return response.map(survey => ({
-          ...survey,
-          id: survey.id,
-          questions: survey.questions || []
-        }));
+        return response.map(survey => this.mapSurvey(survey));
       }),
       catchError(this.handleError)
     );
@@ -59,11 +96,7 @@ export class SurveyService {
     return this.http.get<Survey>(`${this.apiUrl}/${id}`).pipe(
       map(response => {
         console.log('Received survey:', response);
-        return {
-          ...response,
-          id: response.id,
-          questions: response.questions || []
-        };
+        return this.mapSurvey(response);
       }),
       catchError(this.handleError)
     );
@@ -71,22 +104,32 @@ export class SurveyService {
 
   updateSurvey(id: number, survey: Survey): Observable<Survey> {
     console.log('Updating survey:', id, survey);
-    return this.http.put<any>(`${this.apiUrl}/${id}`, { ...survey, id }).pipe(
+    
+    // Map frontend structure to backend structure
+    const backendSurvey = {
+      title: survey.title,
+      description: survey.description,
+      startDate: survey.startDate,
+      endDate: survey.endDate,
+      questions: (survey.questions || []).map(q => ({
+        questionText: q.text,
+        type: q.type,
+        required: q.required,
+        options: q.options,
+        maxRating: q.maxRating
+      }))
+    };
+    
+    console.log('Backend survey structure for update:', backendSurvey);
+    
+    return this.http.put<any>(`${this.apiUrl}/${id}`, { ...backendSurvey, id }).pipe(
       map(response => {
         console.log('Raw update response:', response);
         // If the response is a string, it's an error message
         if (typeof response === 'string') {
           throw new Error(response);
         }
-        // Ensure we have a proper Survey object
-        const updatedSurvey: Survey = {
-          id: response.id,
-          title: response.title,
-          description: response.description,
-          questions: response.questions || []
-        };
-        console.log('Processed survey response:', updatedSurvey);
-        return updatedSurvey;
+        return this.mapSurvey(response);
       }),
       catchError(this.handleError)
     );

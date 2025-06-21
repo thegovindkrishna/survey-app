@@ -43,6 +43,8 @@ export class SurveyFormComponent implements OnInit {
     this.surveyForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
+      startDate: [new Date(), Validators.required],
+      endDate: [new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), Validators.required],
       questions: this.fb.array([])
     });
   }
@@ -61,7 +63,9 @@ export class SurveyFormComponent implements OnInit {
         next: (survey) => {
           this.surveyForm.patchValue({
             title: survey.title,
-            description: survey.description
+            description: survey.description,
+            startDate: survey.startDate || new Date(),
+            endDate: survey.endDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
           });
           // TODO: Load questions
         },
@@ -74,7 +78,11 @@ export class SurveyFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.surveyForm.valid) {
-      const survey: Survey = this.surveyForm.value;
+      const survey: Survey = {
+        ...this.surveyForm.value,
+        questions: this.surveyForm.value.questions || []
+      };
+      
       if (this.isEditMode && this.surveyId) {
         this.surveyService.updateSurvey(this.surveyId, survey).subscribe({
           next: () => this.router.navigate(['/admin/dashboard']),

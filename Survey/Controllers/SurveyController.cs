@@ -74,7 +74,7 @@ namespace Survey.Controllers
         }
 
         /// <summary>
-        /// Updates a survey's properties (title, description, dates, shareLink) without affecting questions.
+        /// Updates a survey's properties and questions.
         /// </summary>
         /// <param name="id">The unique identifier of the survey to update</param>
         /// <param name="survey">The updated survey data</param>
@@ -86,7 +86,7 @@ namespace Survey.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] SurveyModel survey)
         {
             Console.WriteLine($"Updating survey {id} with data: {System.Text.Json.JsonSerializer.Serialize(survey)}");
-            var updatedSurvey = await _surveyService.UpdateProperties(id, survey).ConfigureAwait(false);
+            var updatedSurvey = await _surveyService.Update(id, survey).ConfigureAwait(false);
             Console.WriteLine($"Update result: {System.Text.Json.JsonSerializer.Serialize(updatedSurvey)}");
             return updatedSurvey != null ? Ok(updatedSurvey) : NotFound();
         }

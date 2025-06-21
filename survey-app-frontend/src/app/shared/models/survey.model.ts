@@ -2,8 +2,11 @@ export interface Survey {
   id?: number;
   title: string;
   description: string;
+  startDate?: Date;
+  endDate?: Date;
   createdBy?: string;
   createdAt?: Date;
+  shareLink?: string;
   questions?: Question[];
 }
 

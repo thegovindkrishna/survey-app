@@ -19,6 +19,26 @@ export interface Question {
   maxRating?: number;
 }
 
+export interface QuestionResponse {
+  questionId: number;
+  response: string;
+}
+
+export interface SurveyResults {
+  surveyId: number;
+  surveyTitle: string;
+  totalResponses: number;
+  questionResults: QuestionResult[];
+}
+
+export interface QuestionResult {
+  questionId: number;
+  questionText: string;
+  questionType: string;
+  responseCounts: { [key: string]: number };
+  averageRating?: number;
+}
+
 export enum QuestionType {
   Text = 'text',
   Number = 'number',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Survey } from '../models/survey.model';
+import { Survey, QuestionResponse } from '../models/survey.model';
 
 export interface UserResponse {
   surveyId: number;
@@ -10,6 +10,7 @@ export interface UserResponse {
   surveyDescription: string;
   submissionDate: Date;
   responseId: number;
+  responses: QuestionResponse[];
 }
 
 @Injectable({

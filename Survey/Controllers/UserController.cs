@@ -99,7 +99,8 @@ namespace Survey.Controllers
                             SurveyTitle = survey.Title,
                             SurveyDescription = survey.Description,
                             SubmissionDate = userResponse.SubmissionDate,
-                            ResponseId = userResponse.Id
+                            ResponseId = userResponse.Id,
+                            Responses = userResponse.responses
                         });
                     }
                 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Survey, Question } from '../models/survey.model';
+import { Survey, Question, SurveyResults } from '../models/survey.model';
 
 @Injectable({
   providedIn: 'root'
@@ -122,7 +122,7 @@ export class SurveyService {
     
     console.log('Backend survey structure for update:', backendSurvey);
     
-    return this.http.put<any>(`${this.apiUrl}/${id}`, { ...backendSurvey, id }).pipe(
+    return this.http.put<Survey>(`${this.apiUrl}/${id}`, backendSurvey).pipe(
       map(response => {
         console.log('Raw update response:', response);
         // If the response is a string, it's an error message
@@ -140,5 +140,13 @@ export class SurveyService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
+  }
+
+  getSurveyResults(id: number): Observable<SurveyResults> {
+    return this.http.get<SurveyResults>(`${this.apiUrl}/${id}/results`);
+  }
+
+  exportSurveyToCsv(id: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/${id}/export/csv`, { responseType: 'blob' });
   }
 } 

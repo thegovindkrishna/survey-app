@@ -490,8 +490,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   viewResponse(surveyId: number) {
-    // TODO: Implement view response functionality
-    this.snackBar.open('View response feature coming soon!', 'Close', { duration: 3000 });
+    this.router.navigate(['/user/response', surveyId]);
   }
 
   refreshData() {

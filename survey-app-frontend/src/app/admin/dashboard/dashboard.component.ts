@@ -72,22 +72,9 @@ import { MatDialogModule } from '@angular/material/dialog';
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #userMenu="matMenu">
-            <button mat-menu-item routerLink="/admin/dashboard">
-              <mat-icon>dashboard</mat-icon>
-              <span>Dashboard</span>
-            </button>
             <button mat-menu-item routerLink="/admin/survey-builder">
               <mat-icon>add</mat-icon>
               <span>Create Survey</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="showHelp()">
-              <mat-icon>help</mat-icon>
-              <span>Help</span>
-            </button>
-            <button mat-menu-item (click)="showSettings()">
-              <mat-icon>settings</mat-icon>
-              <span>Settings</span>
             </button>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="logout()">
@@ -185,14 +172,6 @@ import { MatDialogModule } from '@angular/material/dialog';
           <mat-icon>list</mat-icon>
           View All Surveys
         </button>
-        <button mat-stroked-button (click)="exportSurveys()" class="action-button" matTooltip="Export survey data">
-          <mat-icon>download</mat-icon>
-          Export Data
-        </button>
-        <button mat-stroked-button (click)="showHelp()" class="action-button" matTooltip="Get help">
-          <mat-icon>help</mat-icon>
-          Help
-        </button>
       </div>
 
       <!-- Surveys List -->
@@ -261,10 +240,16 @@ import { MatDialogModule } from '@angular/material/dialog';
                   <button mat-icon-button color="primary" (click)="editSurvey(survey.id)" matTooltip="Edit Survey">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button mat-icon-button color="accent" (click)="viewResults(survey.id)" matTooltip="View Results">
+                  <button mat-icon-button color="accent" (click)="viewResults(survey.id!)" matTooltip="View Results">
                     <mat-icon>analytics</mat-icon>
                   </button>
-                  <button mat-icon-button color="warn" (click)="deleteSurvey(survey.id)" matTooltip="Delete Survey">
+                  <button mat-icon-button color="primary" (click)="exportSurveyToCsv(survey.id!)" matTooltip="Export to CSV">
+                    <mat-icon>download</mat-icon>
+                  </button>
+                  <button mat-icon-button color="accent" (click)="shareSurvey(survey.id!)" matTooltip="Share Survey">
+                    <mat-icon>share</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteSurvey(survey.id!, $event)" matTooltip="Delete Survey">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </div>
@@ -707,22 +692,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  viewResults(surveyId: number | undefined) {
-    if (!surveyId) return;
-    this.snackBar.open('Survey results feature coming soon!', 'Close', { duration: 3000 });
-    // TODO: Navigate to survey results page
-    // this.router.navigate(['/admin/survey-results', surveyId]);
+  viewResults(surveyId: number) {
+    this.router.navigate(['/admin/results', surveyId]);
   }
 
-  deleteSurvey(id: number | undefined) {
-    console.log('Deleting survey with ID:', id);
-    if (!id || id <= 0) {
-      console.error('Invalid survey ID:', id);
+  deleteSurvey(surveyId: number, event: MouseEvent) {
+    event.stopPropagation();
+    console.log('Deleting survey with ID:', surveyId);
+    if (!surveyId || surveyId <= 0) {
+      console.error('Invalid survey ID:', surveyId);
       this.snackBar.open('Invalid survey ID', 'Close', { duration: 3000 });
       return;
     }
     if (confirm('Are you sure you want to delete this survey? This action cannot be undone.')) {
-      this.surveyService.deleteSurvey(id).subscribe({
+      this.surveyService.deleteSurvey(surveyId).subscribe({
         next: () => {
           console.log('Survey deleted successfully');
           this.snackBar.open('Survey deleted successfully!', 'Close', { duration: 3000 });
@@ -750,14 +733,59 @@ export class DashboardComponent implements OnInit {
     // TODO: Implement survey export functionality
   }
 
-  showHelp() {
-    this.snackBar.open('Help documentation coming soon!', 'Close', { duration: 3000 });
-    // TODO: Show help dialog or navigate to help page
+  exportSurveyToCsv(surveyId: number) {
+    this.surveyService.exportSurveyToCsv(surveyId).subscribe({
+      next: (blob) => {
+        // Create a download link
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `survey_${surveyId}_responses.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        this.snackBar.open('CSV file downloaded successfully!', 'Close', { duration: 3000 });
+      },
+      error: (error) => {
+        console.error('Error exporting survey:', error);
+        this.snackBar.open('Error exporting survey data', 'Close', { duration: 3000 });
+      }
+    });
   }
 
-  showSettings() {
-    this.snackBar.open('Settings feature coming soon!', 'Close', { duration: 3000 });
-    // TODO: Implement settings functionality
+  shareSurvey(surveyId: number) {
+    // Generate share link using the existing endpoint
+    this.surveyService.getSurveyResults(surveyId).subscribe({
+      next: (results) => {
+        // Create shareable link (assuming frontend URL structure)
+        const shareLink = `${window.location.origin}/survey/${surveyId}`;
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(shareLink).then(() => {
+          this.snackBar.open('Share link copied to clipboard!', 'Close', { duration: 3000 });
+        }).catch(() => {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = shareLink;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          this.snackBar.open('Share link copied to clipboard!', 'Close', { duration: 3000 });
+        });
+      },
+      error: (error) => {
+        console.error('Error generating share link:', error);
+        // Fallback: create basic share link
+        const shareLink = `${window.location.origin}/survey/${surveyId}`;
+        navigator.clipboard.writeText(shareLink).then(() => {
+          this.snackBar.open('Share link copied to clipboard!', 'Close', { duration: 3000 });
+        }).catch(() => {
+          this.snackBar.open('Share link: ' + shareLink, 'Close', { duration: 5000 });
+        });
+      }
+    });
   }
 
   logout() {

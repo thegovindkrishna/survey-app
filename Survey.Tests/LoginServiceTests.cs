@@ -30,7 +30,7 @@ public class LoginServiceTests
         };
 
         _config = new ConfigurationBuilder()
-            .AddInMemoryCollection(inMemorySettings)
+            .AddInMemoryCollection(inMemorySettings.Select(kv => new KeyValuePair<string, string?>(kv.Key, kv.Value)))
             .Build();
 
         _loginService = new LoginService(_context, _config);

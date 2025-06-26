@@ -6,7 +6,6 @@ using Survey.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Principal;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using SurveyModel = Survey.Models.Survey;
@@ -23,11 +22,12 @@ namespace Survey.Tests
             _mockSurveyService = new Mock<ISurveyService>();
             _controller = new SurveyController(_mockSurveyService.Object);
 
-            // Setup dummy user with email claim
+            // Setup dummy admin user
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Name, "admin@example.com")
-            }));
+                new Claim(ClaimTypes.Name, "admin@example.com"),
+                new Claim(ClaimTypes.Role, "Admin")
+            }, "mock"));
 
             _controller.ControllerContext = new ControllerContext
             {
@@ -90,19 +90,19 @@ namespace Survey.Tests
         public async Task Update_ReturnsOk_WhenSuccessful()
         {
             var survey = new SurveyModel { Id = 1, Title = "Updated" };
-            _mockSurveyService.Setup(s => s.Update(1, survey)).ReturnsAsync(true);
+            _mockSurveyService.Setup(s => s.Update(1, survey)).ReturnsAsync(survey);
 
             var result = await _controller.Update(1, survey);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal("Updated successfully.", okResult.Value);
+            Assert.Equal(survey, okResult.Value);
         }
 
         [Fact]
         public async Task Update_ReturnsNotFound_WhenSurveyMissing()
         {
             var survey = new SurveyModel { Id = 1, Title = "Updated" };
-            _mockSurveyService.Setup(s => s.Update(1, survey)).ReturnsAsync(false);
+            _mockSurveyService.Setup(s => s.Update(1, survey)).ReturnsAsync((SurveyModel?)null);
 
             var result = await _controller.Update(1, survey);
 

@@ -98,12 +98,14 @@ namespace Survey.Controllers
         /// <returns>
         /// 200 OK with success message if deleted,
         /// 404 Not Found if survey doesn't exist
+
+        
         /// </returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _surveyService.Delete(id);
-            return success ? Ok("Deleted successfully.") : NotFound();
+            return success ? Ok(new { message = "Deleted successfully." }) : NotFound(new { message = "Survey not found." });
         }
     }
 }

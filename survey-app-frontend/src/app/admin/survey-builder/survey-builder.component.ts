@@ -178,7 +178,7 @@ export class SurveyBuilderComponent implements OnInit {
   surveyForm: FormGroup;
   isEditing = false;
   surveyId: number | null = null;
-  QuestionType = QuestionType; // Make enum available in template
+  QuestionType = QuestionType;
 
   get questions() {
     return this.surveyForm.get('questions') as FormArray;
@@ -247,7 +247,7 @@ export class SurveyBuilderComponent implements OnInit {
               text: [q.text, Validators.required],
               type: [q.type, Validators.required],
               required: [q.required],
-              options: this.fb.array([]),
+              options: this.fb.array([]), // Start empty for all types
               maxRating: [q.maxRating || 5]
             });
 
@@ -293,7 +293,7 @@ export class SurveyBuilderComponent implements OnInit {
       text: ['', Validators.required],
       type: [QuestionType.Text, Validators.required],
       required: [false],
-      options: this.fb.array([this.fb.group({ text: ['', Validators.required] })]),
+      options: this.fb.array([]), // Start empty for all types
       maxRating: [5]
     }));
   }
@@ -321,6 +321,11 @@ export class SurveyBuilderComponent implements OnInit {
         this.addOption(qIndex);
         this.addOption(qIndex);
       }
+      // Set validators for options
+      this.getOptions(qIndex).controls.forEach(optCtrl => {
+        optCtrl.get('text')?.setValidators([Validators.required]);
+        optCtrl.get('text')?.updateValueAndValidity();
+      });
     } else {
       // Remove all options for other types
       while (this.getOptions(qIndex).length > 0) {

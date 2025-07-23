@@ -34,7 +34,7 @@ namespace Survey.Services
         /// Registers a new user in the system.
         /// Validates email and password, checks for existing users, and validates the role.
         /// </summary>
-        /// <param name="email">The user's email address (used as username)</param>
+        /// <param name="email">The user's email address</param>
         /// <param name="password">The user's password</param>
         /// <param name="role">The user's role (defaults to "User")</param>
         /// <returns>True if registration was successful, false otherwise</returns>

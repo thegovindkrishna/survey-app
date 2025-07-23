@@ -48,15 +48,11 @@ export class RegisterComponent {
     this.authService.register({
       email: this.email,
       password: this.password,
-      role: this.role
+      role: 'User'
     }).subscribe({
-      next: (response) => {
-        if (response.message === 'Registration successful.') {
-          this.router.navigate(['/login']);
-        } else {
-          this.errorMessage = response.message || 'Registration failed';
-          this.isLoading = false;
-        }
+      next: (_) => {
+        this.errorMessage = '';
+        this.router.navigate(['/login']);
       },
       error: (error) => {
         this.errorMessage = error || 'Registration failed. Try a different email.';

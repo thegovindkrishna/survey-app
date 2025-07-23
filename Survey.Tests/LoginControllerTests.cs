@@ -12,7 +12,7 @@ using System.Reflection;
 /// </summary>
 public class LoginControllerTests
 {
-    private readonly Mock<ILoginService> _mockLoginService;
+    private readonly Mock<ILoginService> _mockLoginService;//fake loginservice
     private readonly LoginController _controller;
 
     public LoginControllerTests()

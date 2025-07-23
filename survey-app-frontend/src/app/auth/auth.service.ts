@@ -13,13 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   register(user: { email: string; password: string; role: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user, { responseType: 'text' }).pipe(
-      map(response => {
-        if (typeof response === 'string') {
-          return { message: response };
-        }
-        return response;
-      }),
+    return this.http.post(`${this.apiUrl}/register`, user).pipe(
       catchError(this.handleError)
     );
   }

@@ -155,11 +155,6 @@ import { MatDialogModule } from '@angular/material/dialog';
             <mat-option value="draft">Draft</mat-option>
           </mat-select>
         </mat-form-field>
-
-        <button mat-stroked-button (click)="refreshSurveys()" [disabled]="isLoading" matTooltip="Refresh surveys (Ctrl+R)">
-          <mat-icon>refresh</mat-icon>
-          Refresh
-        </button>
       </div>
 
       <!-- Quick Actions -->
@@ -167,10 +162,6 @@ import { MatDialogModule } from '@angular/material/dialog';
         <button mat-raised-button color="primary" routerLink="/admin/survey-builder" class="action-button" matTooltip="Create new survey (Ctrl+N)">
           <mat-icon>add</mat-icon>
           Create New Survey
-        </button>
-        <button mat-stroked-button routerLink="/surveys" class="action-button" matTooltip="View all surveys">
-          <mat-icon>list</mat-icon>
-          View All Surveys
         </button>
       </div>
 

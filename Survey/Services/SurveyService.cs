@@ -33,6 +33,15 @@ namespace Survey.Services
         public async Task<SurveyModel> Create(SurveyModel survey, string adminEmail)
         {
             survey.CreatedBy = adminEmail;
+            // Normalize 'short answer' questions so options and maxRating are always null
+            foreach (var question in survey.Questions)
+            {
+                if (question.type == "short answer")
+                {
+                    question.options = null;
+                    question.maxRating = null;
+                }
+            }
             _context.Surveys.Add(survey);
             await _context.SaveChangesAsync();
             return survey;
@@ -125,6 +134,11 @@ namespace Survey.Services
                 existing.Questions.Clear();
                 foreach (var question in updatedSurvey.Questions)
                 {
+                    if (question.type == "short answer")
+                    {
+                        question.options = null;
+                        question.maxRating = null;
+                    }
                     var newQuestion = new Question
                     {
                         QuestionText = question.QuestionText,

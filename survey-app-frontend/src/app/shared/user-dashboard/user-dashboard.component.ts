@@ -51,11 +51,6 @@ import { Survey } from '../models/survey.model';
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #userMenu="matMenu">
-            <button mat-menu-item (click)="refreshData()">
-              <mat-icon>refresh</mat-icon>
-              <span>Refresh</span>
-            </button>
-            <mat-divider></mat-divider>
             <button mat-menu-item (click)="logout()">
               <mat-icon>logout</mat-icon>
               <span>Logout</span>

@@ -12,14 +12,6 @@
       <input matInput [(ngModel)]="password" name="password" required type="password" />
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Role</mat-label>
-      <mat-select [(ngModel)]="role" name="role" required>
-        <mat-option value="User">User</mat-option>
-        <mat-option value="Admin">Admin</mat-option>
-      </mat-select>
-    </mat-form-field>
-    
     <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">Register</button>
     <button mat-button type="button" (click)="goToLogin()">Already have an account?</button>
 

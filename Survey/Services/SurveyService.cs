@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Survey.Data;
 using Survey.Models;
+using Survey.Models.Dtos;
+using Survey.Repositories;
 using SurveyModel = Survey.Models.Survey;
 using Question = Survey.Models.Question;
 
@@ -12,195 +14,197 @@ namespace Survey.Services
     /// </summary>
     public class SurveyService : ISurveyService
     {
-        private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly AppDbContext _context; // Keep for entities without a repository yet
 
         /// <summary>
-        /// Initializes a new instance of the SurveyService with the specified database context.
+        /// Initializes a new instance of the SurveyService with the specified unit of work and context.
         /// </summary>
-        /// <param name="context">The database context for survey operations</param>
-        public SurveyService(AppDbContext context)
+        /// <param name="unitOfWork">The unit of work for accessing repositories</param>
+        /// <param name="context">The database context for operations not yet in repositories</param>
+        public SurveyService(IUnitOfWork unitOfWork, AppDbContext context)
         {
+            _unitOfWork = unitOfWork;
             _context = context;
         }
 
         /// <summary>
         /// Creates a new survey and saves it to the database.
-        /// Sets the CreatedBy property to the admin's email address.
         /// </summary>
-        /// <param name="survey">The survey object to create</param>
-        /// <param name="adminEmail">The email of the admin creating the survey</param>
-        /// <returns>The created survey with generated ID</returns>
-        public async Task<SurveyModel> Create(SurveyModel survey, string adminEmail)
+        public async Task<SurveyModel> Create(SurveyCreateDto surveyDto, string adminEmail)
         {
-            survey.CreatedBy = adminEmail;
-            // Normalize 'short answer' questions so options and maxRating are always null
-            foreach (var question in survey.Questions)
+            var survey = new SurveyModel
             {
-                if (question.type == "short answer")
+                Title = surveyDto.Title,
+                Description = surveyDto.Description,
+                StartDate = surveyDto.StartDate,
+                EndDate = surveyDto.EndDate,
+                CreatedBy = adminEmail,
+                Questions = surveyDto.Questions.Select(qDto => new Question
                 {
-                    question.options = null;
-                    question.maxRating = null;
-                }
-            }
-            _context.Surveys.Add(survey);
-            await _context.SaveChangesAsync();
+                    QuestionText = qDto.QuestionText,
+                    Type = qDto.Type,
+                    Required = qDto.Required,
+                    Options = qDto.Type == "short answer" ? null : qDto.Options,
+                    MaxRating = qDto.Type == "rating" ? qDto.MaxRating : null
+                }).ToList()
+            };
+
+            await _unitOfWork.Surveys.AddAsync(survey);
+            await _unitOfWork.CompleteAsync();
             return survey;
         }
 
         /// <summary>
         /// Retrieves all surveys from the database with their questions included.
         /// </summary>
-        /// <returns>A collection of all surveys with their associated questions</returns>
-        public async Task<IEnumerable<SurveyModel>> GetAll()
+        public async Task<IEnumerable<SurveyDto>> GetAll()
         {
-            return await _context.Surveys
-                .Include(s => s.Questions)
-                .ToListAsync();
+            var surveys = await _unitOfWork.Surveys.GetAllWithQuestionsAsync();
+            return surveys.Select(s => new SurveyDto(s.Id, s.Title, s.Description, s.StartDate, s.EndDate, s.CreatedBy, s.ShareLink,
+                s.Questions.Select(q => new QuestionDto(q.Id, q.QuestionText, q.Type, q.Required, q.Options, q.MaxRating)).ToList()));
         }
 
         /// <summary>
         /// Retrieves a specific survey by its ID with questions included.
         /// </summary>
-        /// <param name="id">The unique identifier of the survey</param>
-        /// <returns>The survey with its questions, or null if not found</returns>
-        public async Task<SurveyModel?> GetById(int id)
+        public async Task<SurveyDto?> GetById(int id)
         {
-            return await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            var survey = await _unitOfWork.Surveys.GetByIdWithQuestionsAsync(id);
+            if (survey == null) return null;
+
+            return new SurveyDto(survey.Id, survey.Title, survey.Description, survey.StartDate, survey.EndDate, survey.CreatedBy, survey.ShareLink,
+                survey.Questions.Select(q => new QuestionDto(q.Id, q.QuestionText, q.Type, q.Required, q.Options, q.MaxRating)).ToList());
         }
 
+        /// <summary>
+        /// Updates a survey with new data, replacing all existing questions.
+        /// </summary>
+        public async Task<SurveyModel> Update(int id, SurveyUpdateDto surveyDto)
+        {
+            var existing = await _unitOfWork.Surveys.GetByIdWithQuestionsAsync(id);
+            if (existing == null) return null;
+
+            existing.Title = surveyDto.Title;
+            existing.Description = surveyDto.Description;
+            existing.StartDate = surveyDto.StartDate;
+            existing.EndDate = surveyDto.EndDate;
+
+            existing.Questions.Clear();
+            foreach (var qDto in surveyDto.Questions)
+            {
+                existing.Questions.Add(new Question
+                {
+                    QuestionText = qDto.QuestionText,
+                    Type = qDto.Type,
+                    Required = qDto.Required,
+                    Options = qDto.Type == "short answer" ? null : qDto.Options,
+                    MaxRating = qDto.Type == "rating" ? qDto.MaxRating : null,
+                    SurveyId = id
+                });
+            }
+
+            _unitOfWork.Surveys.Update(existing);
+            await _unitOfWork.CompleteAsync();
+            return existing;
+        }
+        
         /// <summary>
         /// Updates only the survey properties (title, description, dates, shareLink) without affecting questions.
         /// </summary>
-        /// <param name="id">The unique identifier of the survey to update</param>
-        /// <param name="updatedSurvey">The survey data containing updated properties</param>
-        /// <returns>The updated survey with questions, or null if not found</returns>
         public async Task<SurveyModel?> UpdateProperties(int id, SurveyModel updatedSurvey)
         {
-            var existing = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == id);
-                
+            var existing = await _unitOfWork.Surveys.GetByIdAsync(id);
             if (existing == null) return null;
 
-            // Update basic properties only (no questions)
             existing.Title = updatedSurvey.Title;
             existing.Description = updatedSurvey.Description;
             existing.StartDate = updatedSurvey.StartDate;
             existing.EndDate = updatedSurvey.EndDate;
             existing.ShareLink = updatedSurvey.ShareLink;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-                // Fetch the updated survey to ensure we return the complete object
-                return await _context.Surveys
-                    .Include(s => s.Questions)
-                    .FirstOrDefaultAsync(s => s.Id == id);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating survey properties: {ex.Message}");
-                throw;
-            }
+            _unitOfWork.Surveys.Update(existing);
+            await _unitOfWork.CompleteAsync();
+            return await _unitOfWork.Surveys.GetByIdWithQuestionsAsync(id);
         }
 
         /// <summary>
-        /// Updates a survey with new data. If questions are provided, they will replace all existing questions.
+        /// Deletes a survey and all its associated questions.
         /// </summary>
-        /// <param name="id">The unique identifier of the survey to update</param>
-        /// <param name="updatedSurvey">The updated survey data</param>
-        /// <returns>The updated survey with questions, or null if not found</returns>
-        public async Task<SurveyModel?> Update(int id, SurveyModel updatedSurvey)
-        {
-            var existing = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == id);
-                
-            if (existing == null) return null;
-
-            // Update basic properties only
-            existing.Title = updatedSurvey.Title;
-            existing.Description = updatedSurvey.Description;
-            existing.StartDate = updatedSurvey.StartDate;
-            existing.EndDate = updatedSurvey.EndDate;
-            existing.ShareLink = updatedSurvey.ShareLink;
-
-            // Only update questions if they are explicitly provided in the request
-            if (updatedSurvey.Questions != null && updatedSurvey.Questions.Any())
-            {
-                // Clear existing questions and add new ones
-                existing.Questions.Clear();
-                foreach (var question in updatedSurvey.Questions)
-                {
-                    if (question.type == "short answer")
-                    {
-                        question.options = null;
-                        question.maxRating = null;
-                    }
-                    var newQuestion = new Question
-                    {
-                        QuestionText = question.QuestionText,
-                        type = question.type,
-                        required = question.required,
-                        options = question.options,
-                        maxRating = question.maxRating,
-                        SurveyId = id
-                    };
-                    existing.Questions.Add(newQuestion);
-                }
-            }
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                // Fetch the updated survey to ensure we return the complete object
-                return await _context.Surveys
-                    .Include(s => s.Questions)
-                    .FirstOrDefaultAsync(s => s.Id == id);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating survey: {ex.Message}");
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Deletes a survey and all its associated questions from the database.
-        /// </summary>
-        /// <param name="id">The unique identifier of the survey to delete</param>
-        /// <returns>True if the survey was successfully deleted, false if not found</returns>
         public async Task<bool> Delete(int id)
         {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            var survey = await _unitOfWork.Surveys.GetByIdAsync(id);
             if (survey == null) return false;
 
-            _context.Surveys.Remove(survey);
-            await _context.SaveChangesAsync();
+            _unitOfWork.Surveys.Delete(survey);
+            await _unitOfWork.CompleteAsync();
             return true;
         }
 
         /// <summary>
-        /// Submits a survey response from a user.
-        /// Validates that all required questions are answered before saving.
+        /// Adds a new question to an existing survey.
         /// </summary>
-        /// <param name="response">The survey response object containing answers</param>
-        /// <returns>The submitted survey response with generated ID</returns>
-        /// <exception cref="ArgumentException">Thrown when survey not found or required questions are missing</exception>
+        public async Task<SurveyModel?> AddQuestion(int surveyId, Question question)
+        {
+            var survey = await _unitOfWork.Surveys.GetByIdWithQuestionsAsync(surveyId);
+            if (survey == null) return null;
+
+            question.SurveyId = surveyId;
+            survey.Questions.Add(question);
+
+            await _unitOfWork.CompleteAsync();
+            return survey;
+        }
+
+        /// <summary>
+        /// Updates a specific question within a survey.
+        /// </summary>
+        public async Task<SurveyModel?> UpdateQuestion(int surveyId, int questionId, QuestionUpdateDto questionDto)
+        {
+            var survey = await _unitOfWork.Surveys.GetByIdWithQuestionsAsync(surveyId);
+            if (survey == null) return null;
+
+            var existingQuestion = survey.Questions.FirstOrDefault(q => q.Id == questionId);
+            if (existingQuestion == null) return null;
+
+            existingQuestion.QuestionText = questionDto.QuestionText;
+            existingQuestion.Type = questionDto.Type;
+            existingQuestion.Required = questionDto.Required;
+            existingQuestion.Options = questionDto.Options;
+            existingQuestion.MaxRating = questionDto.MaxRating;
+
+            await _unitOfWork.CompleteAsync();
+            return survey;
+        }
+
+        /// <summary>
+        /// Removes a specific question from a survey.
+        /// </summary>
+        public async Task<SurveyModel?> DeleteQuestion(int surveyId, int questionId)
+        {
+            var survey = await _unitOfWork.Surveys.GetByIdWithQuestionsAsync(surveyId);
+            if (survey == null) return null;
+
+            var question = survey.Questions.FirstOrDefault(q => q.Id == questionId);
+            if (question == null) return null;
+
+            survey.Questions.Remove(question);
+            await _unitOfWork.CompleteAsync();
+            return survey;
+        }
+
+        // --- Methods still using DbContext directly (to be refactored later) ---
+
+        /// <summary>
+        /// Submits a survey response from a user.
+        /// </summary>
         public async Task<SurveyResponse> SubmitResponse(SurveyResponse response)
         {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == response.SurveyId);
+            var survey = await _unitOfWork.Surveys.GetByIdWithQuestionsAsync(response.SurveyId);
             if (survey == null)
                 throw new ArgumentException("Survey not found");
 
-            // Validate that all required questions are answered
-            var requiredQuestions = survey.Questions.Where(q => q.required).ToList();
+            var requiredQuestions = survey.Questions.Where(q => q.Required).ToList();
             var answeredQuestionIds = response.responses.Select(r => r.QuestionId).ToList();
             var missingRequiredQuestions = requiredQuestions.Where(q => !answeredQuestionIds.Contains(q.Id)).ToList();
 
@@ -215,14 +219,9 @@ namespace Survey.Services
         /// <summary>
         /// Retrieves all responses for a specific survey.
         /// </summary>
-        /// <param name="surveyId">The unique identifier of the survey</param>
-        /// <returns>A collection of all responses for the specified survey</returns>
-        /// <exception cref="ArgumentException">Thrown when survey not found</exception>
         public async Task<IEnumerable<SurveyResponse>> GetResponses(int surveyId)
         {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == surveyId);
+            var survey = await _unitOfWork.Surveys.GetByIdAsync(surveyId);
             if (survey == null)
                 throw new ArgumentException("Survey not found");
 
@@ -232,17 +231,11 @@ namespace Survey.Services
         }
 
         /// <summary>
-        /// Retrieves a specific survey response by its ID.
+        // Retrieves a specific survey response by its ID.
         /// </summary>
-        /// <param name="surveyId">The unique identifier of the survey</param>
-        /// <param name="responseId">The unique identifier of the response</param>
-        /// <returns>The specific survey response, or null if not found</returns>
-        /// <exception cref="ArgumentException">Thrown when survey not found</exception>
         public async Task<SurveyResponse?> GetResponse(int surveyId, int responseId)
         {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == surveyId);
+            var survey = await _unitOfWork.Surveys.GetByIdAsync(surveyId);
             if (survey == null)
                 throw new ArgumentException("Survey not found");
 
@@ -250,110 +243,10 @@ namespace Survey.Services
                 .FirstOrDefaultAsync(r => r.SurveyId == surveyId && r.Id == responseId);
         }
 
-        /// <summary>
-        /// Adds a new question to an existing survey.
-        /// Sets the SurveyId on the question and adds it to the survey's question collection.
-        /// </summary>
-        /// <param name="surveyId">The unique identifier of the survey</param>
-        /// <param name="question">The question object to add</param>
-        /// <returns>The updated survey with all questions, or null if survey not found</returns>
-        public async Task<SurveyModel?> AddQuestion(int surveyId, Question question)
+        public string GetQuestionText(int questionId)
         {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == surveyId);
-                
-            if (survey == null) return null;
-
-            question.SurveyId = surveyId;
-            survey.Questions.Add(question);
-            
-            try
-            {
-                await _context.SaveChangesAsync();
-                return await _context.Surveys
-                    .Include(s => s.Questions)
-                    .FirstOrDefaultAsync(s => s.Id == surveyId);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error adding question: {ex.Message}");
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Updates a specific question within a survey.
-        /// Modifies the existing question's properties without affecting other questions.
-        /// </summary>
-        /// <param name="surveyId">The unique identifier of the survey</param>
-        /// <param name="questionId">The unique identifier of the question to update</param>
-        /// <param name="updatedQuestion">The updated question data</param>
-        /// <returns>The updated survey with all questions, or null if survey or question not found</returns>
-        public async Task<SurveyModel?> UpdateQuestion(int surveyId, int questionId, Question updatedQuestion)
-        {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == surveyId);
-                
-            if (survey == null) return null;
-
-            var existingQuestion = survey.Questions.FirstOrDefault(q => q.Id == questionId);
-            if (existingQuestion == null) return null;
-
-            // Update the existing question properties
-            existingQuestion.QuestionText = updatedQuestion.QuestionText;
-            existingQuestion.type = updatedQuestion.type;
-            existingQuestion.required = updatedQuestion.required;
-            existingQuestion.options = updatedQuestion.options;
-            existingQuestion.maxRating = updatedQuestion.maxRating;
-            
-            try
-            {
-                await _context.SaveChangesAsync();
-                return await _context.Surveys
-                    .Include(s => s.Questions)
-                    .FirstOrDefaultAsync(s => s.Id == surveyId);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating question: {ex.Message}");
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Removes a specific question from a survey.
-        /// Deletes the question from the survey's question collection.
-        /// </summary>
-        /// <param name="surveyId">The unique identifier of the survey</param>
-        /// <param name="questionId">The unique identifier of the question to delete</param>
-        /// <returns>The updated survey with remaining questions, or null if survey or question not found</returns>
-        public async Task<SurveyModel?> DeleteQuestion(int surveyId, int questionId)
-        {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == surveyId);
-                
-            if (survey == null) return null;
-
-            var question = survey.Questions.FirstOrDefault(q => q.Id == questionId);
-            if (question == null) return null;
-
-            survey.Questions.Remove(question);
-            
-            try
-            {
-                await _context.SaveChangesAsync();
-                return await _context.Surveys
-                    .Include(s => s.Questions)
-                    .FirstOrDefaultAsync(s => s.Id == surveyId);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error deleting question: {ex.Message}");
-                throw;
-            }
+            var question = _context.Questions.FirstOrDefault(q => q.Id == questionId);
+            return question?.QuestionText ?? string.Empty;
         }
     }
 }

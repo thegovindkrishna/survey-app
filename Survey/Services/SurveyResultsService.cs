@@ -63,11 +63,11 @@ namespace Survey.Services
                 {
                     QuestionId = question.Id,
                     QuestionText = question.QuestionText,
-                    QuestionType = question.type,
+                    QuestionType = question.Type,
                     ResponseCounts = new Dictionary<string, int>()
                 };
 
-                if (question.type == "rating" && question.maxRating.HasValue)
+                if (question.Type == "rating" && question.MaxRating.HasValue)
                 {
                     var ratings = responses
                         .SelectMany(r => r.responses)

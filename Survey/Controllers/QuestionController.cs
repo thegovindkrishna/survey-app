@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survey.Models;
+using Survey.Models.Dtos;
 using Survey.Services;
 using System.Security.Claims;
 
@@ -37,8 +38,16 @@ namespace Survey.Controllers
         /// 404 Not Found if survey doesn't exist
         /// </returns>
         [HttpPost]
-        public async Task<IActionResult> AddQuestion(int surveyId, [FromBody] Question question)
+        public async Task<IActionResult> AddQuestion(int surveyId, [FromBody] QuestionCreateDto questionDto)
         {
+            var question = new Question
+            {
+                QuestionText = questionDto.QuestionText,
+                Type = questionDto.Type,
+                Required = questionDto.Required,
+                Options = questionDto.Options,
+                MaxRating = questionDto.MaxRating
+            };
             var updatedSurvey = await _surveyService.AddQuestion(surveyId, question);
             if (updatedSurvey == null)
                 return NotFound("Survey not found");
@@ -61,7 +70,7 @@ namespace Survey.Controllers
             if (survey == null)
                 return NotFound("Survey not found");
 
-            return Ok(survey.Questions);
+            return Ok(survey.Questions.Select(q => new QuestionDto(q.Id, q.QuestionText, q.Type, q.Required, q.Options, q.MaxRating)));
         }
 
         /// <summary>
@@ -76,9 +85,17 @@ namespace Survey.Controllers
         /// 404 Not Found if survey or question doesn't exist
         /// </returns>
         [HttpPost("{questionId}")]
-        public async Task<IActionResult> UpdateQuestion(int surveyId, int questionId, [FromBody] Question question)
+        public async Task<IActionResult> UpdateQuestion(int surveyId, int questionId, [FromBody] QuestionUpdateDto questionDto)
         {
-            var updatedSurvey = await _surveyService.UpdateQuestion(surveyId, questionId, question);
+            var question = new Question
+            {
+                QuestionText = questionDto.QuestionText,
+                Type = questionDto.Type,
+                Required = questionDto.Required,
+                Options = questionDto.Options,
+                MaxRating = questionDto.MaxRating
+            };
+            var updatedSurvey = await _surveyService.UpdateQuestion(surveyId, questionId, questionDto);
             if (updatedSurvey == null)
                 return NotFound("Survey or question not found");
 

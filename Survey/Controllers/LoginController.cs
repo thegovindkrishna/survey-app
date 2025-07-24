@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survey.Models;
+using Survey.Models.Dtos;
 using Survey.Services;
 using System.Security.Claims;
 
@@ -102,7 +103,7 @@ namespace Survey.Controllers
         {
             var email = User.FindFirstValue(ClaimTypes.Name);
             var user = await _loginService.GetUser(email!);
-            return user != null ? Ok(new { user.Email, user.Role }) : NotFound(new { message = "User not found." });
+            return user != null ? Ok(new UserDto(user.Email, user.Role)) : NotFound(new { message = "User not found." });
         }
 
         /// <summary>

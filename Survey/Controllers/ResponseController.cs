@@ -1,6 +1,7 @@
         using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survey.Models;
+using Survey.Models.Dtos;
 using Survey.Services;
 using System.Security.Claims;
 
@@ -38,16 +39,24 @@ namespace Survey.Controllers
         /// </returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> SubmitResponse(int surveyId, [FromBody] SurveyResponse response)
+        public async Task<IActionResult> SubmitResponse(int surveyId, [FromBody] SubmitResponseDto submitResponseDto)
         {
             try
             {
                 var email = User.FindFirstValue(ClaimTypes.Name)!;
-                response.RespondentEmail = email;
-                response.SubmissionDate = DateTime.UtcNow;
-                response.SurveyId = surveyId;
+                var surveyResponse = new SurveyResponse
+                {
+                    RespondentEmail = email,
+                    SubmissionDate = DateTime.UtcNow,
+                    SurveyId = surveyId,
+                    responses = submitResponseDto.Responses.Select(r => new QuestionResponse
+                    {
+                        QuestionId = r.QuestionId,
+                        response = r.Response
+                    }).ToList()
+                };
 
-                var submittedResponse = await _surveyService.SubmitResponse(response);
+                var submittedResponse = await _surveyService.SubmitResponse(surveyResponse);
                 return Ok(submittedResponse);
             }
             catch (ArgumentException ex)
@@ -72,7 +81,18 @@ namespace Survey.Controllers
             try
             {
                 var responses = await _surveyService.GetResponses(surveyId);
-                return Ok(responses);
+                var responseDtos = responses.Select(r => new SurveyResponseDto(
+                    Id: r.Id,
+                    SurveyId: r.SurveyId,
+                    RespondentEmail: r.RespondentEmail,
+                    SubmissionDate: r.SubmissionDate,
+                    Responses: r.responses.Select(qr => new QuestionResponseDetailDto(
+                        QuestionId: qr.QuestionId,
+                        Response: qr.response,
+                        QuestionText: _surveyService.GetQuestionText(qr.QuestionId)
+                    )).ToList()
+                )).ToList();
+                return Ok(responseDtos);
             }
             catch (ArgumentException ex)
             {
@@ -98,7 +118,22 @@ namespace Survey.Controllers
             try
             {
                 var response = await _surveyService.GetResponse(surveyId, responseId);
-                return response != null ? Ok(response) : NotFound();
+                if (response == null)
+                {
+                    return NotFound();
+                }
+                var responseDto = new SurveyResponseDto(
+                    Id: response.Id,
+                    SurveyId: response.SurveyId,
+                    RespondentEmail: response.RespondentEmail,
+                    SubmissionDate: response.SubmissionDate,
+                    Responses: response.responses.Select(qr => new QuestionResponseDetailDto(
+                        QuestionId: qr.QuestionId,
+                        Response: qr.response,
+                        QuestionText: _surveyService.GetQuestionText(qr.QuestionId)
+                    )).ToList()
+                );
+                return Ok(responseDto);
             }
             catch (ArgumentException ex)
             {

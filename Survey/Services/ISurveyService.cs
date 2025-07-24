@@ -1,7 +1,7 @@
 ﻿using Survey.Models;
+using Survey.Models.Dtos; // Add this line
 using SurveyModel = Survey.Models.Survey;
 using Question = Survey.Models.Question;
-
 namespace Survey.Services
 {
     /// <summary>
@@ -13,31 +13,31 @@ namespace Survey.Services
         /// <summary>
         /// Creates a new survey in the database.
         /// </summary>
-        /// <param name="survey">The survey object to create</param>
+        /// <param name="surveyDto">The survey data transfer object</param>
         /// <param name="email">The email of the admin creating the survey</param>
         /// <returns>The created survey with generated ID</returns>
-        Task<SurveyModel> Create(SurveyModel survey, string email);
+        Task<SurveyModel> Create(SurveyCreateDto surveyDto, string email);
 
         /// <summary>
         /// Retrieves all surveys from the database with their questions included.
         /// </summary>
         /// <returns>A collection of all surveys with their associated questions</returns>
-        Task<IEnumerable<SurveyModel>> GetAll();
+        Task<IEnumerable<SurveyDto>> GetAll();
 
         /// <summary>
         /// Retrieves a specific survey by its ID with questions included.
         /// </summary>
         /// <param name="id">The unique identifier of the survey</param>
         /// <returns>The survey with its questions, or null if not found</returns>
-        Task<SurveyModel?> GetById(int id);
+        Task<SurveyDto?> GetById(int id); 
 
         /// <summary>
         /// Updates a survey with new data. If questions are provided, they will replace all existing questions.
         /// </summary>
         /// <param name="id">The unique identifier of the survey to update</param>
-        /// <param name="survey">The updated survey data</param>
+        /// <param name="surveyDto">The updated survey data</param>
         /// <returns>The updated survey with questions, or null if not found</returns>
-        Task<SurveyModel?> Update(int id, SurveyModel survey);
+        Task<SurveyModel> Update(int id, SurveyUpdateDto surveyDto);
 
         /// <summary>
         /// Updates only the survey properties (title, description, dates, shareLink) without affecting questions.
@@ -51,7 +51,7 @@ namespace Survey.Services
         /// Deletes a survey and all its associated questions from the database.
         /// </summary>
         /// <param name="id">The unique identifier of the survey to delete</param>
-        /// <returns>True if the survey was successfully deleted, false if not found</returns>
+        /// <returns>True if the survey was successfully deleted, false if not found</n>
         Task<bool> Delete(int id);
 
         // Question-specific methods
@@ -71,7 +71,7 @@ namespace Survey.Services
         /// <param name="questionId">The unique identifier of the question to update</param>
         /// <param name="question">The updated question data</param>
         /// <returns>The updated survey with all questions, or null if survey or question not found</returns>
-        Task<SurveyModel?> UpdateQuestion(int surveyId, int questionId, Question question);
+        Task<SurveyModel?> UpdateQuestion(int surveyId, int questionId, QuestionUpdateDto questionDto);
 
         /// <summary>
         /// Removes a specific question from a survey.
@@ -106,5 +106,13 @@ namespace Survey.Services
         /// <returns>The specific survey response, or null if not found</returns>
         /// <exception cref="ArgumentException">Thrown when survey not found</exception>
         Task<SurveyResponse?> GetResponse(int surveyId, int responseId);
+
+        /// <summary>
+        /// Retrieves the text of a specific question by its ID.
+        /// </summary>
+        /// <param name="questionId">The unique identifier of the question</param>
+        /// <returns>The question text, or null if not found</n>
+        string GetQuestionText(int questionId);
     }
 }
+

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Moq;
 
 namespace Survey.Tests
 {
@@ -18,6 +19,8 @@ namespace Survey.Tests
     {
         private readonly SurveyService _service;
         private readonly AppDbContext _context;
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
+        private readonly Mock<ISurveyRepository> _mockSurveyRepository;
 
         public SurveyServiceTests()
         {
@@ -25,7 +28,12 @@ namespace Survey.Tests
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
             _context = new AppDbContext(options);
-            _service = new SurveyService(_context);
+
+            _mockUnitOfWork = new Mock<IUnitOfWork>();
+            _mockSurveyRepository = new Mock<ISurveyRepository>();
+            _mockUnitOfWork.Setup(uow => uow.Surveys).Returns(_mockSurveyRepository.Object);
+
+            _service = new SurveyService(_mockUnitOfWork.Object, _context);
         }
 
         /// <summary>

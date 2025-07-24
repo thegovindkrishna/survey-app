@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Survey.Services;
 using System.Security.Claims;
+using Survey.Models.Dtos;
 using SurveyModel = Survey.Models.Survey;
 
 namespace Survey.Controllers
@@ -30,17 +31,17 @@ namespace Survey.Controllers
         /// Creates a new survey in the system.
         /// Sets the CreatedBy property to the authenticated admin's email.
         /// </summary>
-        /// <param name="survey">The survey object to create</param>
+        /// <param name="surveyDto">The survey data transfer object</param>
         /// <returns>
-        /// 200 OK with the created survey if successful,
+        /// 201 Created with the created survey if successful,
         /// 400 Bad Request if input is invalid
         /// </returns>
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] SurveyModel survey)
+        public async Task<IActionResult> Create([FromBody] SurveyCreateDto surveyDto)
         {
             var email = User.FindFirstValue(ClaimTypes.Name)!;
-            var created = await _surveyService.Create(survey, email);
-            return Ok(created);
+            var createdSurvey = await _surveyService.Create(surveyDto, email);
+            return CreatedAtAction(nameof(GetById), new { id = createdSurvey.Id }, createdSurvey);
         }
 
         /// <summary>
@@ -51,8 +52,6 @@ namespace Survey.Controllers
         public async Task<IActionResult> GetAll()
         {
             var surveys = await _surveyService.GetAll();
-            var json = System.Text.Json.JsonSerializer.Serialize(surveys);
-            Console.WriteLine("Surveys JSON: " + json);
             return Ok(surveys);
         }
 
@@ -67,9 +66,7 @@ namespace Survey.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            Console.WriteLine($"Getting survey with ID: {id}");
             var survey = await _surveyService.GetById(id);
-            Console.WriteLine($"Found survey: {System.Text.Json.JsonSerializer.Serialize(survey)}");
             return survey != null ? Ok(survey) : NotFound();
         }
 
@@ -77,17 +74,15 @@ namespace Survey.Controllers
         /// Updates a survey's properties and questions.
         /// </summary>
         /// <param name="id">The unique identifier of the survey to update</param>
-        /// <param name="survey">The updated survey data</param>
+        /// <param name="surveyDto">The updated survey data</param>
         /// <returns>
         /// 200 OK with the updated survey if successful,
         /// 404 Not Found if survey doesn't exist
         /// </returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] SurveyModel survey)
+        public async Task<IActionResult> Update(int id, [FromBody] SurveyUpdateDto surveyDto)
         {
-            Console.WriteLine($"Updating survey {id} with data: {System.Text.Json.JsonSerializer.Serialize(survey)}");
-            var updatedSurvey = await _surveyService.Update(id, survey).ConfigureAwait(false);
-            Console.WriteLine($"Update result: {System.Text.Json.JsonSerializer.Serialize(updatedSurvey)}");
+            var updatedSurvey = await _surveyService.Update(id, surveyDto);
             return updatedSurvey != null ? Ok(updatedSurvey) : NotFound();
         }
 

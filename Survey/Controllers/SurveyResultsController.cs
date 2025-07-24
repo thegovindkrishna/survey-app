@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Survey.Models.Dtos;
 using Survey.Services;
 
 namespace Survey.Controllers

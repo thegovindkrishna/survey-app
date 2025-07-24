@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Survey.Models.Dtos;
 using Survey.Services;
 using System.Security.Claims;
 using SurveyModel = Survey.Models.Survey;
@@ -42,7 +43,25 @@ namespace Survey.Controllers
                 survey.StartDate <= now && survey.EndDate >= now
             ).ToList();
 
-            return Ok(activeSurveys);
+            var activeSurveyDtos = activeSurveys.Select(s => new SurveyDto(
+                s.Id,
+                s.Title,
+                s.Description,
+                s.StartDate,
+                s.EndDate,
+                s.CreatedBy,
+                s.ShareLink,
+                s.Questions.Select(q => new QuestionDto(
+                    q.Id,
+                    q.QuestionText,
+                    q.Type,
+                    q.Required,
+                    q.Options,
+                    q.MaxRating
+                )).ToList()
+            ));
+
+            return Ok(activeSurveyDtos);
         }
 
         /// <summary>
@@ -65,7 +84,25 @@ namespace Survey.Controllers
             if (survey.StartDate > now || survey.EndDate < now)
                 return NotFound("Survey is not currently active");
 
-            return Ok(survey);
+            var surveyDto = new SurveyDto(
+                survey.Id,
+                survey.Title,
+                survey.Description,
+                survey.StartDate,
+                survey.EndDate,
+                survey.CreatedBy,
+                survey.ShareLink,
+                survey.Questions.Select(q => new QuestionDto(
+                    q.Id,
+                    q.QuestionText,
+                    q.Type,
+                    q.Required,
+                    q.Options,
+                    q.MaxRating
+                )).ToList()
+            );
+
+            return Ok(surveyDto);
         }
 
         /// <summary>
@@ -81,7 +118,7 @@ namespace Survey.Controllers
 
             // Get all surveys first
             var allSurveys = await _surveyService.GetAll();
-            var userResponses = new List<object>();
+            var userResponses = new List<UserResponseDto>();
 
             // For each survey, check if user has responded
             foreach (var survey in allSurveys)
@@ -93,15 +130,17 @@ namespace Survey.Controllers
                     
                     if (userResponse != null)
                     {
-                        userResponses.Add(new
-                        {
-                            SurveyId = survey.Id,
-                            SurveyTitle = survey.Title,
-                            SurveyDescription = survey.Description,
-                            SubmissionDate = userResponse.SubmissionDate,
-                            ResponseId = userResponse.Id,
-                            Responses = userResponse.responses
-                        });
+                        userResponses.Add(new UserResponseDto(
+                            SurveyId: survey.Id,
+                            SurveyTitle: survey.Title,
+                            SurveyDescription: survey.Description,
+                            SubmissionDate: userResponse.SubmissionDate,
+                            ResponseId: userResponse.Id,
+                            Responses: userResponse.responses.Select(qr => new QuestionResponseDto(
+                                QuestionId: qr.QuestionId,
+                                Response: qr.response
+                            )).ToList()
+                        ));
                     }
                 }
                 catch (ArgumentException)

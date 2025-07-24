@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking; // <-- Add this using statement
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Survey.Models;
-using SurveyModel = Survey.Models.Survey;
 using System.Text.Json;
+using SurveyModel = Survey.Models.Survey;
 
 namespace Survey.Data
 {
@@ -19,49 +20,59 @@ namespace Survey.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Corrected data types for SQL Server
             modelBuilder.Entity<SurveyModel>(entity =>
             {
-                entity.Property(e => e.Title).HasColumnType("longtext");
-                entity.Property(e => e.Description).HasColumnType("longtext");
-                entity.Property(e => e.CreatedBy).HasColumnType("longtext");
-                entity.Property(e => e.ShareLink).HasColumnType("longtext");
+                entity.Property(e => e.Title).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Description).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.CreatedBy).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.ShareLink).HasColumnType("nvarchar(max)");
             });
 
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.ToTable("Question");
-                entity.Property(e => e.QuestionText).HasColumnType("longtext");
-                entity.Property(e => e.type).HasColumnType("longtext");
-                entity.Property(e => e.required).HasColumnType("tinyint(1)");
-                entity.Property(e => e.options).HasColumnType("json");
-                entity.Property(e => e.maxRating).HasColumnType("int");
+                entity.Property(e => e.QuestionText).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Type).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Required).HasColumnType("bit"); // Use 'bit' for boolean in SQL Server
+                entity.Property(e => e.Options).HasColumnType("nvarchar(max)"); // Store JSON as string
+                entity.Property(e => e.MaxRating).HasColumnType("int");
                 entity.Property(e => e.SurveyId).HasColumnType("int");
 
+                // This relationship is sufficient, the one below is a duplicate
                 entity.HasOne(q => q.Survey)
                     .WithMany(s => s.Questions)
                     .HasForeignKey(q => q.SurveyId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<SurveyModel>()
-                .HasMany(s => s.Questions)
-                .WithOne(q => q.Survey)
-                .HasForeignKey(q => q.SurveyId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // This is redundant as it's defined above from the Question entity's perspective.
+            // modelBuilder.Entity<SurveyModel>()
+            //     .HasMany(s => s.Questions)
+            //     .WithOne(q => q.Survey)
+            //     .HasForeignKey(q => q.SurveyId)
+            //     .OnDelete(DeleteBehavior.Cascade);
 
-            // Value converter for List<QuestionResponse> to JSON string
+            // --- Value converter AND comparer for List<QuestionResponse> ---
             var questionResponseConverter = new ValueConverter<List<QuestionResponse>, string>(
                 v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
                 v => JsonSerializer.Deserialize<List<QuestionResponse>>(v, (JsonSerializerOptions)null) ?? new List<QuestionResponse>()
             );
 
+            // This tells EF Core how to compare the lists to detect changes
+            var questionResponseComparer = new ValueComparer<List<QuestionResponse>>(
+                (c1, c2) => c1.SequenceEqual(c2),
+                c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                c => c.ToList());
+
             modelBuilder.Entity<SurveyResponse>(entity =>
             {
-                entity.Property(e => e.RespondentEmail).HasColumnType("longtext");
-                entity.Property(e => e.SubmissionDate).HasColumnType("datetime");
+                entity.Property(e => e.RespondentEmail).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.SubmissionDate).HasColumnType("datetime2"); // Use 'datetime2' for SQL Server
                 entity.Property(e => e.responses)
-                    .HasColumnType("longtext")
-                    .HasConversion(questionResponseConverter);
+                    .HasColumnType("nvarchar(max)") // Store JSON as string
+                    .HasConversion(questionResponseConverter)
+                    .Metadata.SetValueComparer(questionResponseComparer); // <-- Set the comparer here
 
                 entity.HasOne<SurveyModel>()
                     .WithMany()

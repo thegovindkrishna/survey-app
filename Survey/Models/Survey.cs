@@ -22,10 +22,10 @@ namespace Survey.Models
         [JsonPropertyName("id")]
         public int Id { get; set; }
         public string QuestionText { get; set; } = string.Empty;
-        public string type { get; set; } = string.Empty;
-        public bool required { get; set; }
-        public List<string>? options { get; set; }
-        public int? maxRating { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public bool Required { get; set; }
+        public List<string>? Options { get; set; }
+        public int? MaxRating { get; set; }
         public int SurveyId { get; set; }
         [JsonIgnore]
         public Survey? Survey { get; set; }

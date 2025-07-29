@@ -1,9 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survey.Models.Dtos;
 using Survey.Services;
 using System.Security.Claims;
-using SurveyModel = Survey.Models.Survey;
+using Microsoft.Extensions.Logging;
+using SurveyModel = Survey.Models.SurveyModel;
 
 namespace Survey.Controllers
 {
@@ -17,14 +19,20 @@ namespace Survey.Controllers
     public class UserController : ControllerBase
     {
         private readonly ISurveyService _surveyService;
+        private readonly IMapper _mapper;
+        private readonly ILogger<UserController> _logger;
 
         /// <summary>
         /// Initializes a new instance of the UserController with the specified survey service.
         /// </summary>
         /// <param name="surveyService">The service for handling survey operations</param>
-        public UserController(ISurveyService surveyService)
+        /// <param name="mapper">The AutoMapper instance for object mapping</param>
+        /// <param name="logger">The logger instance</param>
+        public UserController(ISurveyService surveyService, IMapper mapper, ILogger<UserController> logger)
         {
             _surveyService = surveyService;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         /// <summary>
@@ -35,6 +43,7 @@ namespace Survey.Controllers
         [HttpGet("surveys")]
         public async Task<IActionResult> GetAvailableSurveys()
         {
+            _logger.LogInformation("Retrieving available surveys for user.");
             var allSurveys = await _surveyService.GetAll();
             var now = DateTime.UtcNow;
             
@@ -43,23 +52,8 @@ namespace Survey.Controllers
                 survey.StartDate <= now && survey.EndDate >= now
             ).ToList();
 
-            var activeSurveyDtos = activeSurveys.Select(s => new SurveyDto(
-                s.Id,
-                s.Title,
-                s.Description,
-                s.StartDate,
-                s.EndDate,
-                s.CreatedBy,
-                s.ShareLink,
-                s.Questions.Select(q => new QuestionDto(
-                    q.Id,
-                    q.QuestionText,
-                    q.Type,
-                    q.Required,
-                    q.Options,
-                    q.MaxRating
-                )).ToList()
-            ));
+            var activeSurveyDtos = _mapper.Map<IEnumerable<SurveyDto>>(activeSurveys);
+            _logger.LogInformation("Retrieved {Count} active surveys.", activeSurveyDtos.Count());
 
             return Ok(activeSurveyDtos);
         }
@@ -76,31 +70,23 @@ namespace Survey.Controllers
         [HttpGet("surveys/{id}")]
         public async Task<IActionResult> GetSurvey(int id)
         {
+            _logger.LogInformation("Attempting to retrieve survey {SurveyId} for user.", id);
             var survey = await _surveyService.GetById(id);
             if (survey == null)
+            {
+                _logger.LogWarning("Survey {SurveyId} not found for user.", id);
                 return NotFound("Survey not found");
+            }
 
             var now = DateTime.UtcNow;
             if (survey.StartDate > now || survey.EndDate < now)
+            {
+                _logger.LogWarning("Survey {SurveyId} is not currently active.", id);
                 return NotFound("Survey is not currently active");
+            }
 
-            var surveyDto = new SurveyDto(
-                survey.Id,
-                survey.Title,
-                survey.Description,
-                survey.StartDate,
-                survey.EndDate,
-                survey.CreatedBy,
-                survey.ShareLink,
-                survey.Questions.Select(q => new QuestionDto(
-                    q.Id,
-                    q.QuestionText,
-                    q.Type,
-                    q.Required,
-                    q.Options,
-                    q.MaxRating
-                )).ToList()
-            );
+            var surveyDto = _mapper.Map<SurveyDto>(survey);
+            _logger.LogInformation("Survey {SurveyId} retrieved successfully for user.", id);
 
             return Ok(surveyDto);
         }
@@ -113,8 +99,12 @@ namespace Survey.Controllers
         public async Task<IActionResult> GetUserResponses()
         {
             var email = User.FindFirstValue(ClaimTypes.Name);
+            _logger.LogInformation("Attempting to retrieve responses for user {Email}", email);
             if (string.IsNullOrEmpty(email))
+            {
+                _logger.LogWarning("User email not found when attempting to retrieve responses.");
                 return BadRequest("User email not found");
+            }
 
             // Get all surveys first
             var allSurveys = await _surveyService.GetAll();
@@ -130,25 +120,32 @@ namespace Survey.Controllers
                     
                     if (userResponse != null)
                     {
-                        userResponses.Add(new UserResponseDto(
-                            SurveyId: survey.Id,
-                            SurveyTitle: survey.Title,
-                            SurveyDescription: survey.Description,
-                            SubmissionDate: userResponse.SubmissionDate,
-                            ResponseId: userResponse.Id,
-                            Responses: userResponse.responses.Select(qr => new QuestionResponseDto(
-                                QuestionId: qr.QuestionId,
-                                Response: qr.response
-                            )).ToList()
-                        ));
+                        var userResponseDto = _mapper.Map<UserResponseDto>(userResponse);
+
+                        var questionDetails = new List<QuestionResponseDto>();
+                        foreach (var response in userResponse.responses)
+                        {
+                            questionDetails.Add(new QuestionResponseDto(response.QuestionId, response.response));
+                        }
+
+                        userResponseDto = userResponseDto with
+                        {
+                            SurveyTitle = survey.Title,
+                            SurveyDescription = survey.Description,
+                            Responses = questionDetails
+                        };
+                        userResponses.Add(userResponseDto);
+                        _logger.LogInformation("Found response for survey {SurveyId} by user {Email}", survey.Id, email);
                     }
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
+                    _logger.LogWarning(ex, "Survey {SurveyId} has no responses or an error occurred while retrieving responses: {ErrorMessage}", survey.Id, ex.Message);
                     // Survey has no responses, continue to next
                     continue;
                 }
             }
+            _logger.LogInformation("Retrieved {Count} responses for user {Email}", userResponses.Count, email);
 
             return Ok(userResponses);
         }

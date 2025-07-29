@@ -14,7 +14,7 @@ namespace Survey.Services
         /// <param name="surveyId">The unique identifier of the survey</param>
         /// <returns>Aggregated survey results with question statistics</returns>
         /// <exception cref="ArgumentException">Thrown when survey not found</exception>
-        Task<SurveyResults> GetSurveyResults(int surveyId);
+        Task<SurveyResultsModel> GetSurveyResults(int surveyId);
 
         /// <summary>
         /// Exports survey responses to CSV format for data analysis.

@@ -153,4 +153,21 @@ namespace Survey.Models.Dtos
         string Email,
         string Role
     );
+
+    // --- Survey Results DTOs --- //
+
+    public record QuestionResultDto(
+        int QuestionId,
+        string QuestionText,
+        string QuestionType,
+        Dictionary<string, int> ResponseCounts,
+        double? AverageRating
+    );
+
+    public record SurveyResultsDto(
+        int SurveyId,
+        string SurveyTitle,
+        int TotalResponses,
+        List<QuestionResultDto> QuestionResults
+    );
 }

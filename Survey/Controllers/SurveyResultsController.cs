@@ -1,7 +1,10 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survey.Models.Dtos;
 using Survey.Services;
+
+using Microsoft.Extensions.Logging;
 
 namespace Survey.Controllers
 {
@@ -16,14 +19,20 @@ namespace Survey.Controllers
     public class SurveyResultsController : ControllerBase
     {
         private readonly ISurveyResultsService _resultsService;
+        private readonly IMapper _mapper;
+        private readonly ILogger<SurveyResultsController> _logger;
 
         /// <summary>
         /// Initializes a new instance of the SurveyResultsController with the specified results service.
         /// </summary>
         /// <param name="resultsService">The service for handling survey results operations</param>
-        public SurveyResultsController(ISurveyResultsService resultsService)
+        /// <param name="mapper">The AutoMapper instance for object mapping</param>
+        /// <param name="logger">The logger instance</param>
+        public SurveyResultsController(ISurveyResultsService resultsService, IMapper mapper, ILogger<SurveyResultsController> logger)
         {
             _resultsService = resultsService;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         /// <summary>
@@ -37,13 +46,17 @@ namespace Survey.Controllers
         [HttpGet("results")]
         public async Task<IActionResult> GetResults(int surveyId)
         {
+            _logger.LogInformation("Attempting to get results for survey {SurveyId}", surveyId);
             try
             {
                 var results = await _resultsService.GetSurveyResults(surveyId);
-                return Ok(results);
+                var resultsDto = _mapper.Map<SurveyResultsDto>(results);
+                _logger.LogInformation("Successfully retrieved results for survey {SurveyId}", surveyId);
+                return Ok(resultsDto);
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex, "Failed to get results for survey {SurveyId}: {ErrorMessage}", surveyId, ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -59,13 +72,16 @@ namespace Survey.Controllers
         [HttpGet("export/csv")]
         public async Task<IActionResult> ExportToCsv(int surveyId)
         {
+            _logger.LogInformation("Attempting to export survey {SurveyId} responses to CSV", surveyId);
             try
             {
                 var csvBytes = await _resultsService.ExportToCsv(surveyId);
+                _logger.LogInformation("Successfully exported survey {SurveyId} responses to CSV", surveyId);
                 return File(csvBytes, "text/csv", $"survey_{surveyId}_responses.csv");
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex, "Failed to export survey {SurveyId} responses to CSV: {ErrorMessage}", surveyId, ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -81,13 +97,16 @@ namespace Survey.Controllers
         [HttpGet("export/pdf")]
         public async Task<IActionResult> ExportToPdf(int surveyId)
         {
+            _logger.LogInformation("Attempting to export survey {SurveyId} responses to PDF", surveyId);
             try
             {
                 var pdfBytes = await _resultsService.ExportToPdf(surveyId);
+                _logger.LogInformation("Successfully exported survey {SurveyId} responses to PDF", surveyId);
                 return File(pdfBytes, "application/pdf", $"survey_{surveyId}_responses.pdf");
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex, "Failed to export survey {SurveyId} responses to PDF: {ErrorMessage}", surveyId, ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -104,13 +123,16 @@ namespace Survey.Controllers
         [HttpGet("share-link")]
         public async Task<IActionResult> GenerateShareLink(int surveyId)
         {
+            _logger.LogInformation("Attempting to generate share link for survey {SurveyId}", surveyId);
             try
             {
                 var shareLink = await _resultsService.GenerateShareLink(surveyId);
+                _logger.LogInformation("Successfully generated share link for survey {SurveyId}", surveyId);
                 return Ok(new { shareLink });
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex, "Failed to generate share link for survey {SurveyId}: {ErrorMessage}", surveyId, ex.Message);
                 return BadRequest(ex.Message);
             }
         }

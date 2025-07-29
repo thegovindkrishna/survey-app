@@ -8,18 +8,26 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Survey.Models.Dtos;
+
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Survey.Tests
 {
     public class ResponseControllerTests
     {
         private readonly Mock<ISurveyService> _mockSurveyService;
+        private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<ILogger<ResponseController>> _mockLogger;
         private readonly ResponseController _controller;
 
         public ResponseControllerTests()
         {
             _mockSurveyService = new Mock<ISurveyService>();
-            _controller = new ResponseController(_mockSurveyService.Object);
+            _mockMapper = new Mock<IMapper>();
+            _mockLogger = new Mock<ILogger<ResponseController>>();
+            _controller = new ResponseController(_mockSurveyService.Object, _mockMapper.Object, _mockLogger.Object);
         }
 
         private void SetUser(string email, string role = "User")
@@ -39,23 +47,27 @@ namespace Survey.Tests
         public async Task SubmitResponse_ReturnsOk_WhenSuccessful()
         {
             SetUser("user@example.com");
-            var response = new SurveyResponse { SurveyId = 1, responses = new List<QuestionResponse>() };
-            _mockSurveyService.Setup(s => s.SubmitResponse(It.IsAny<SurveyResponse>())).ReturnsAsync(response);
+            var submitDto = new SubmitResponseDto(new List<SubmitQuestionResponseDto>());
+            var surveyResponse = new SurveyResponse { Id = 1, SurveyId = 1, RespondentEmail = "user@example.com", SubmissionDate = DateTime.Now, responses = new List<QuestionResponse>() };
+            var surveyResponseDto = new SurveyResponseDto(1, 1, "user@example.com", DateTime.Now, new List<QuestionResponseDetailDto>());
 
-            var result = await _controller.SubmitResponse(1, response);
+            _mockSurveyService.Setup(s => s.SubmitResponse(It.IsAny<SurveyResponse>())).ReturnsAsync(surveyResponse);
+            _mockMapper.Setup(m => m.Map<SurveyResponseDto>(It.IsAny<SurveyResponse>())).Returns(surveyResponseDto);
+
+            var result = await _controller.SubmitResponse(1, submitDto);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(response, okResult.Value);
+            Assert.Equal(surveyResponseDto, okResult.Value);
         }
 
         [Fact]
         public async Task SubmitResponse_ReturnsBadRequest_OnValidationError()
         {
             SetUser("user@example.com");
-            var response = new SurveyResponse { SurveyId = 1, responses = new List<QuestionResponse>() };
+            var submitDto = new SubmitResponseDto(new List<SubmitQuestionResponseDto>());
             _mockSurveyService.Setup(s => s.SubmitResponse(It.IsAny<SurveyResponse>())).ThrowsAsync(new ArgumentException("Validation error"));
 
-            var result = await _controller.SubmitResponse(1, response);
+            var result = await _controller.SubmitResponse(1, submitDto);
 
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Validation error", badRequest.Value);
@@ -65,13 +77,16 @@ namespace Survey.Tests
         public async Task GetResponses_ReturnsOk_WhenSuccessful()
         {
             SetUser("admin@example.com", "Admin");
-            var responses = new List<SurveyResponse> { new SurveyResponse { Id = 1 } };
-            _mockSurveyService.Setup(s => s.GetResponses(1)).ReturnsAsync(responses);
+            var surveyResponses = new List<SurveyResponse> { new SurveyResponse { Id = 1 } };
+            var surveyResponseDtos = new List<SurveyResponseDto> { new SurveyResponseDto(1, 1, "test@test.com", DateTime.Now, new List<QuestionResponseDetailDto>()) };
+
+            _mockSurveyService.Setup(s => s.GetResponses(1)).ReturnsAsync(surveyResponses);
+            _mockMapper.Setup(m => m.Map<IEnumerable<SurveyResponseDto>>(It.IsAny<IEnumerable<SurveyResponse>>())).Returns(surveyResponseDtos);
 
             var result = await _controller.GetResponses(1);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(responses, okResult.Value);
+            Assert.Equal(surveyResponseDtos, okResult.Value);
         }
 
         [Fact]

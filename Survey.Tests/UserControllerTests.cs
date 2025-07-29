@@ -9,18 +9,26 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using SurveyModel = Survey.Models.Survey;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
+using Survey.Models.Dtos;
+using Survey.Models.Dtos;
 
 namespace Survey.Tests
 {
     public class UserControllerTests
     {
         private readonly Mock<ISurveyService> _mockSurveyService;
+        private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<ILogger<UserController>> _mockLogger;
         private readonly UserController _controller;
 
         public UserControllerTests()
         {
             _mockSurveyService = new Mock<ISurveyService>();
-            _controller = new UserController(_mockSurveyService.Object);
+            _mockMapper = new Mock<IMapper>();
+            _mockLogger = new Mock<ILogger<UserController>>();
+            _controller = new UserController(_mockSurveyService.Object, _mockMapper.Object, _mockLogger.Object);
 
             // Setup dummy user
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
@@ -41,12 +49,12 @@ namespace Survey.Tests
             var now = DateTime.UtcNow;
             var activeSurvey = new SurveyModel { Id = 1, Title = "Active", StartDate = now.AddDays(-1), EndDate = now.AddDays(1) };
             var inactiveSurvey = new SurveyModel { Id = 2, Title = "Inactive", StartDate = now.AddDays(-10), EndDate = now.AddDays(-5) };
-            _mockSurveyService.Setup(s => s.GetAll()).ReturnsAsync(new List<SurveyModel> { activeSurvey, inactiveSurvey });
+            _mockSurveyService.Setup(s => s.GetAll()).ReturnsAsync(new List<SurveyDto> { _mockMapper.Object.Map<SurveyDto>(activeSurvey), _mockMapper.Object.Map<SurveyDto>(inactiveSurvey) });
 
             var result = await _controller.GetAvailableSurveys();
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var returned = Assert.IsAssignableFrom<List<SurveyModel>>(okResult.Value);
+            var returned = Assert.IsAssignableFrom<List<SurveyDto>>(okResult.Value);
             Assert.Single(returned);
             Assert.Equal(activeSurvey.Id, returned[0].Id);
         }
@@ -67,7 +75,7 @@ namespace Survey.Tests
         [Fact]
         public async Task GetSurvey_ReturnsNotFound_WhenSurveyNotFound()
         {
-            _mockSurveyService.Setup(s => s.GetById(1)).ReturnsAsync((SurveyModel?)null);
+            _mockSurveyService.Setup(s => s.GetById(1)).ReturnsAsync((SurveyDto?)null);
 
             var result = await _controller.GetSurvey(1);
 

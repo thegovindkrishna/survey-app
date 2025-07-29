@@ -1,7 +1,7 @@
 ﻿using Survey.Models;
 using Survey.Models.Dtos; // Add this line
-using SurveyModel = Survey.Models.Survey;
-using Question = Survey.Models.Question;
+using SurveyModel = Survey.Models.SurveyModel;
+using QuestionModel = Survey.Models.QuestionModel;
 namespace Survey.Services
 {
     /// <summary>
@@ -62,7 +62,7 @@ namespace Survey.Services
         /// <param name="surveyId">The unique identifier of the survey</param>
         /// <param name="question">The question object to add</param>
         /// <returns>The updated survey with all questions, or null if survey not found</returns>
-        Task<SurveyModel?> AddQuestion(int surveyId, Question question);
+        Task<SurveyModel?> AddQuestion(int surveyId, QuestionCreateDto questionDto);
 
         /// <summary>
         /// Updates a specific question within a survey.
@@ -88,7 +88,7 @@ namespace Survey.Services
         /// <param name="response">The survey response object containing answers</param>
         /// <returns>The submitted survey response with generated ID</returns>
         /// <exception cref="ArgumentException">Thrown when survey not found or required questions are missing</exception>
-        Task<SurveyResponse> SubmitResponse(SurveyResponse response);
+        Task<SurveyResponseModel> SubmitResponse(SurveyResponseModel response);
 
         /// <summary>
         /// Retrieves all responses for a specific survey.
@@ -96,7 +96,7 @@ namespace Survey.Services
         /// <param name="surveyId">The unique identifier of the survey</param>
         /// <returns>A collection of all responses for the specified survey</returns>
         /// <exception cref="ArgumentException">Thrown when survey not found</exception>
-        Task<IEnumerable<SurveyResponse>> GetResponses(int surveyId);
+        Task<IEnumerable<SurveyResponseModel>> GetResponses(int surveyId);
 
         /// <summary>
         /// Retrieves a specific survey response by its ID.
@@ -105,7 +105,7 @@ namespace Survey.Services
         /// <param name="responseId">The unique identifier of the response</param>
         /// <returns>The specific survey response, or null if not found</returns>
         /// <exception cref="ArgumentException">Thrown when survey not found</exception>
-        Task<SurveyResponse?> GetResponse(int surveyId, int responseId);
+        Task<SurveyResponseModel?> GetResponse(int surveyId, int responseId);
 
         /// <summary>
         /// Retrieves the text of a specific question by its ID.

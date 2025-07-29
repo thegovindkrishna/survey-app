@@ -1,9 +1,11 @@
-        using Microsoft.AspNetCore.Authorization;
+        using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survey.Models;
 using Survey.Models.Dtos;
 using Survey.Services;
 using System.Security.Claims;
+using Microsoft.Extensions.Logging;
 
 namespace Survey.Controllers
 {
@@ -16,14 +18,20 @@ namespace Survey.Controllers
     public class ResponseController : ControllerBase
     {
         private readonly ISurveyService _surveyService;
+        private readonly IMapper _mapper;
+        private readonly ILogger<ResponseController> _logger;
 
         /// <summary>
         /// Initializes a new instance of the ResponseController with the specified survey service.
         /// </summary>
         /// <param name="surveyService">The service for handling survey and response operations</param>
-        public ResponseController(ISurveyService surveyService)
+        /// <param name="mapper">The AutoMapper instance for object mapping</param>
+        /// <param name="logger">The logger instance</param>
+        public ResponseController(ISurveyService surveyService, IMapper mapper, ILogger<ResponseController> logger)
         {
             _surveyService = surveyService;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         /// <summary>
@@ -41,26 +49,22 @@ namespace Survey.Controllers
         [Authorize]
         public async Task<IActionResult> SubmitResponse(int surveyId, [FromBody] SubmitResponseDto submitResponseDto)
         {
+            _logger.LogInformation("Attempting to submit response for survey {SurveyId}", surveyId);
             try
             {
                 var email = User.FindFirstValue(ClaimTypes.Name)!;
-                var surveyResponse = new SurveyResponse
-                {
-                    RespondentEmail = email,
-                    SubmissionDate = DateTime.UtcNow,
-                    SurveyId = surveyId,
-                    responses = submitResponseDto.Responses.Select(r => new QuestionResponse
-                    {
-                        QuestionId = r.QuestionId,
-                        response = r.Response
-                    }).ToList()
-                };
+                var surveyResponse = _mapper.Map<SurveyResponseModel>(submitResponseDto);
+                surveyResponse.RespondentEmail = email;
+                surveyResponse.SubmissionDate = DateTime.UtcNow;
+                surveyResponse.SurveyId = surveyId;
 
                 var submittedResponse = await _surveyService.SubmitResponse(surveyResponse);
-                return Ok(submittedResponse);
+                _logger.LogInformation("Response submitted successfully for survey {SurveyId} by user {Email}", surveyId, email);
+                return Ok(_mapper.Map<SurveyResponseDto>(submittedResponse));
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex, "Failed to submit response for survey {SurveyId}: {ErrorMessage}", surveyId, ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -78,24 +82,18 @@ namespace Survey.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetResponses(int surveyId)
         {
+            _logger.LogInformation("Attempting to retrieve all responses for survey {SurveyId}", surveyId);
             try
             {
                 var responses = await _surveyService.GetResponses(surveyId);
-                var responseDtos = responses.Select(r => new SurveyResponseDto(
-                    Id: r.Id,
-                    SurveyId: r.SurveyId,
-                    RespondentEmail: r.RespondentEmail,
-                    SubmissionDate: r.SubmissionDate,
-                    Responses: r.responses.Select(qr => new QuestionResponseDetailDto(
-                        QuestionId: qr.QuestionId,
-                        Response: qr.response,
-                        QuestionText: _surveyService.GetQuestionText(qr.QuestionId)
-                    )).ToList()
-                )).ToList();
+                var responseDtos = _mapper.Map<IEnumerable<SurveyResponseDto>>(responses);
+                _logger.LogInformation("Successfully retrieved {Count} responses for survey {SurveyId}", responseDtos.Count(), surveyId);
+                
                 return Ok(responseDtos);
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex, "Failed to retrieve responses for survey {SurveyId}: {ErrorMessage}", surveyId, ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -115,28 +113,23 @@ namespace Survey.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetResponse(int surveyId, int responseId)
         {
+            _logger.LogInformation("Attempting to retrieve response {ResponseId} for survey {SurveyId}", responseId, surveyId);
             try
             {
                 var response = await _surveyService.GetResponse(surveyId, responseId);
                 if (response == null)
                 {
+                    _logger.LogWarning("Response {ResponseId} not found for survey {SurveyId}", responseId, surveyId);
                     return NotFound();
                 }
-                var responseDto = new SurveyResponseDto(
-                    Id: response.Id,
-                    SurveyId: response.SurveyId,
-                    RespondentEmail: response.RespondentEmail,
-                    SubmissionDate: response.SubmissionDate,
-                    Responses: response.responses.Select(qr => new QuestionResponseDetailDto(
-                        QuestionId: qr.QuestionId,
-                        Response: qr.response,
-                        QuestionText: _surveyService.GetQuestionText(qr.QuestionId)
-                    )).ToList()
-                );
+                var responseDto = _mapper.Map<SurveyResponseDto>(response);
+                _logger.LogInformation("Successfully retrieved response {ResponseId} for survey {SurveyId}", responseId, surveyId);
+                
                 return Ok(responseDto);
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex, "Failed to retrieve response {ResponseId} for survey {SurveyId}: {ErrorMessage}", responseId, surveyId, ex.Message);
                 return BadRequest(ex.Message);
             }
         }

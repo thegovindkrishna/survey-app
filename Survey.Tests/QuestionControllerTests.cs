@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using SurveyModel = Survey.Models.Survey;
+using Survey.Models.Dtos;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Survey.Tests
 {
@@ -18,12 +20,16 @@ namespace Survey.Tests
     public class QuestionControllerTests
     {
         private readonly Mock<ISurveyService> _mockSurveyService;
+        private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<ILogger<QuestionController>> _mockLogger;
         private readonly QuestionController _controller;
 
         public QuestionControllerTests()
         {
             _mockSurveyService = new Mock<ISurveyService>();
-            _controller = new QuestionController(_mockSurveyService.Object);
+            _mockMapper = new Mock<IMapper>();
+            _mockLogger = new Mock<ILogger<QuestionController>>();
+            _controller = new QuestionController(_mockSurveyService.Object, _mockMapper.Object, _mockLogger.Object);
 
             // Setup dummy admin user
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
@@ -44,14 +50,15 @@ namespace Survey.Tests
         [Fact]
         public async Task AddQuestion_ReturnsOk_WhenSuccessful()
         {
-            var question = new Question { QuestionText = "Q1", type = "text", required = true };
-            var survey = new SurveyModel { Id = 1, Questions = new List<Question> { question } };
-            _mockSurveyService.Setup(s => s.AddQuestion(1, question)).ReturnsAsync(survey);
+            var createDto = new QuestionCreateDto("Q1", "text", true, null, null);
+            var surveyDto = new SurveyDto(1, "Survey", "Desc", DateTime.Now, DateTime.Now.AddDays(7), "admin@example.com", null, new List<QuestionDto> { new QuestionDto(1, "Q1", "text", true, null, null) });
 
-            var result = await _controller.AddQuestion(1, question);
+            _mockSurveyService.Setup(s => s.AddQuestion(1, createDto)).ReturnsAsync(new Survey.Models.Survey { Id = surveyDto.Id, Title = surveyDto.Title, Description = surveyDto.Description, StartDate = surveyDto.StartDate, EndDate = surveyDto.EndDate, CreatedBy = surveyDto.CreatedBy, ShareLink = surveyDto.ShareLink, Questions = surveyDto.Questions.Select(q => new Question { Id = q.Id, QuestionText = q.QuestionText, Type = q.Type, Required = q.Required, Options = q.Options, MaxRating = q.MaxRating }).ToList() });
+
+            var result = await _controller.AddQuestion(1, createDto);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(survey, okResult.Value);
+            Assert.Equal(surveyDto, okResult.Value);
         }
 
         /// <summary>
@@ -60,10 +67,10 @@ namespace Survey.Tests
         [Fact]
         public async Task AddQuestion_ReturnsNotFound_WhenSurveyMissing()
         {
-            var question = new Question { QuestionText = "Q1", type = "text", required = true };
-            _mockSurveyService.Setup(s => s.AddQuestion(1, question)).ReturnsAsync((SurveyModel?)null);
+            var createDto = new QuestionCreateDto("Q1", "text", true, null, null);
+            _mockSurveyService.Setup(s => s.AddQuestion(1, createDto)).ReturnsAsync((Survey.Models.Survey?)null);
 
-            var result = await _controller.AddQuestion(1, question);
+            var result = await _controller.AddQuestion(1, createDto);
 
             var notFound = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Survey not found", notFound.Value);
@@ -75,14 +82,14 @@ namespace Survey.Tests
         [Fact]
         public async Task GetQuestions_ReturnsOk_WhenSurveyExists()
         {
-            var questions = new List<Question> { new Question { Id = 1, QuestionText = "Q1" } };
-            var survey = new SurveyModel { Id = 1, Questions = questions };
-            _mockSurveyService.Setup(s => s.GetById(1)).ReturnsAsync(survey);
+            var questionDtos = new List<QuestionDto> { new QuestionDto(1, "Q1", "text", true, null, null) };
+            var surveyDto = new SurveyDto(1, "Survey", "Desc", DateTime.Now, DateTime.Now.AddDays(7), "admin@example.com", null, questionDtos);
+            _mockSurveyService.Setup(s => s.GetById(1)).ReturnsAsync(surveyDto);
 
             var result = await _controller.GetQuestions(1);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(questions, okResult.Value);
+            Assert.Equal(questionDtos, okResult.Value);
         }
 
         /// <summary>
@@ -91,7 +98,7 @@ namespace Survey.Tests
         [Fact]
         public async Task GetQuestions_ReturnsNotFound_WhenSurveyMissing()
         {
-            _mockSurveyService.Setup(s => s.GetById(1)).ReturnsAsync((SurveyModel?)null);
+            _mockSurveyService.Setup(s => s.GetById(1)).ReturnsAsync((SurveyDto?)null);
 
             var result = await _controller.GetQuestions(1);
 
@@ -105,14 +112,15 @@ namespace Survey.Tests
         [Fact]
         public async Task UpdateQuestion_ReturnsOk_WhenSuccessful()
         {
-            var question = new Question { Id = 1, QuestionText = "Q1 updated" };
-            var survey = new SurveyModel { Id = 1, Questions = new List<Question> { question } };
-            _mockSurveyService.Setup(s => s.UpdateQuestion(1, 1, question)).ReturnsAsync(survey);
+            var updateDto = new QuestionUpdateDto("Q1 updated", "text", true, null, null);
+            var surveyDto = new SurveyDto(1, "Survey", "Desc", DateTime.Now, DateTime.Now.AddDays(7), "admin@example.com", null, new List<QuestionDto> { new QuestionDto(1, "Q1 updated", "text", true, null, null) });
 
-            var result = await _controller.UpdateQuestion(1, 1, question);
+            _mockSurveyService.Setup(s => s.UpdateQuestion(1, 1, updateDto)).ReturnsAsync(surveyDto);
+
+            var result = await _controller.UpdateQuestion(1, 1, updateDto);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(survey, okResult.Value);
+            Assert.Equal(surveyDto, okResult.Value);
         }
 
         /// <summary>
@@ -121,10 +129,10 @@ namespace Survey.Tests
         [Fact]
         public async Task UpdateQuestion_ReturnsNotFound_WhenSurveyOrQuestionMissing()
         {
-            var question = new Question { Id = 1, QuestionText = "Q1 updated" };
-            _mockSurveyService.Setup(s => s.UpdateQuestion(1, 1, question)).ReturnsAsync((SurveyModel?)null);
+            var updateDto = new QuestionUpdateDto("Q1 updated", "text", true, null, null);
+            _mockSurveyService.Setup(s => s.UpdateQuestion(1, 1, updateDto)).ReturnsAsync((SurveyDto?)null);
 
-            var result = await _controller.UpdateQuestion(1, 1, question);
+            var result = await _controller.UpdateQuestion(1, 1, updateDto);
 
             var notFound = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Survey or question not found", notFound.Value);
@@ -136,13 +144,13 @@ namespace Survey.Tests
         [Fact]
         public async Task DeleteQuestion_ReturnsOk_WhenSuccessful()
         {
-            var survey = new SurveyModel { Id = 1 };
-            _mockSurveyService.Setup(s => s.DeleteQuestion(1, 1)).ReturnsAsync(survey);
+            var surveyDto = new SurveyDto(1, "Survey", "Desc", DateTime.Now, DateTime.Now.AddDays(7), "admin@example.com", null, new List<QuestionDto>());
+            _mockSurveyService.Setup(s => s.DeleteQuestion(1, 1)).ReturnsAsync(surveyDto);
 
             var result = await _controller.DeleteQuestion(1, 1);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(survey, okResult.Value);
+            Assert.Equal(surveyDto, okResult.Value);
         }
 
         /// <summary>
@@ -151,7 +159,7 @@ namespace Survey.Tests
         [Fact]
         public async Task DeleteQuestion_ReturnsNotFound_WhenSurveyOrQuestionMissing()
         {
-            _mockSurveyService.Setup(s => s.DeleteQuestion(1, 1)).ReturnsAsync((SurveyModel?)null);
+            _mockSurveyService.Setup(s => s.DeleteQuestion(1, 1)).ReturnsAsync((SurveyDto?)null);
 
             var result = await _controller.DeleteQuestion(1, 1);
 

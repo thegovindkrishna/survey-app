@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+using Survey.Repositories;
 using Survey.Data;
 using Survey.Models;
 using System.Text;
@@ -6,6 +6,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Microsoft.Extensions.Logging;
 
 namespace Survey.Services
 {
@@ -15,18 +16,21 @@ namespace Survey.Services
     /// </summary>
     public class SurveyResultsService : ISurveyResultsService
     {
-        private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<SurveyResultsService> _logger;
 
         /// <summary>
         /// Initializes a new instance of the SurveyResultsService with the specified database context and configuration.
         /// </summary>
         /// <param name="context">The database context for survey operations</param>
         /// <param name="configuration">The configuration containing base URL settings</param>
-        public SurveyResultsService(AppDbContext context, IConfiguration configuration)
+        /// <param name="logger">The logger instance</param>
+        public SurveyResultsService(IUnitOfWork unitOfWork, IConfiguration configuration, ILogger<SurveyResultsService> logger)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
             _configuration = configuration;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,30 +40,33 @@ namespace Survey.Services
         /// <param name="surveyId">The unique identifier of the survey</param>
         /// <returns>Aggregated survey results with question statistics</returns>
         /// <exception cref="ArgumentException">Thrown when survey not found</exception>
-        public async Task<SurveyResults> GetSurveyResults(int surveyId)
+        public async Task<SurveyResultsModel> GetSurveyResults(int surveyId)
         {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == surveyId);
+            _logger.LogInformation("Getting survey results for survey ID: {SurveyId}", surveyId);
+            var survey = await _unitOfWork.Surveys
+
+                .GetFirstOrDefaultAsync(s => s.Id == surveyId, includeProperties: "Questions");
 
             if (survey == null)
+            {
+                _logger.LogWarning("Survey with ID: {SurveyId} not found for results.", surveyId);
                 throw new ArgumentException("Survey not found");
+            }
 
-            var responses = await _context.SurveyResponses
-                .Where(r => r.SurveyId == surveyId)
-                .ToListAsync();
+            var responses = await _unitOfWork.SurveyResponses
+                .GetAllAsync(r => r.SurveyId == surveyId);
 
-            var results = new SurveyResults
+            var results = new SurveyResultsModel
             {
                 SurveyId = survey.Id,
                 SurveyTitle = survey.Title,
-                TotalResponses = responses.Count,
-                QuestionResults = new List<QuestionResult>()
+                TotalResponses = responses.Count(),
+                QuestionResults = new List<QuestionResultModel>()
             };
 
             foreach (var question in survey.Questions)
             {
-                var questionResult = new QuestionResult
+                var questionResult = new QuestionResultModel
                 {
                     QuestionId = question.Id,
                     QuestionText = question.QuestionText,
@@ -93,7 +100,7 @@ namespace Survey.Services
 
                 results.QuestionResults.Add(questionResult);
             }
-
+            _logger.LogInformation("Successfully retrieved survey results for survey ID: {SurveyId}. Total responses: {TotalResponses}", surveyId, results.TotalResponses);
             return results;
         }
 
@@ -106,16 +113,19 @@ namespace Survey.Services
         /// <exception cref="ArgumentException">Thrown when survey not found</exception>
         public async Task<byte[]> ExportToCsv(int surveyId)
         {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == surveyId);
+            _logger.LogInformation("Exporting survey responses to CSV for survey ID: {SurveyId}", surveyId);
+            var survey = await _unitOfWork.Surveys
+
+                .GetFirstOrDefaultAsync(s => s.Id == surveyId, includeProperties: "Questions");
 
             if (survey == null)
+            {
+                _logger.LogWarning("Survey with ID: {SurveyId} not found for CSV export.", surveyId);
                 throw new ArgumentException("Survey not found");
+            }
 
-            var responses = await _context.SurveyResponses
-                .Where(r => r.SurveyId == surveyId)
-                .ToListAsync();
+            var responses = await _unitOfWork.SurveyResponses
+                .GetAllAsync(r => r.SurveyId == surveyId);
 
             var csv = new StringBuilder();
             
@@ -140,7 +150,7 @@ namespace Survey.Services
 
                 csv.AppendLine(string.Join(",", responseLine));
             }
-
+            _logger.LogInformation("Successfully exported {Count} responses to CSV for survey ID: {SurveyId}", responses.Count(), surveyId);
             return Encoding.UTF8.GetBytes(csv.ToString());
         }
 
@@ -153,16 +163,19 @@ namespace Survey.Services
         /// <exception cref="ArgumentException">Thrown when survey not found</exception>
         public async Task<byte[]> ExportToPdf(int surveyId)
         {
-            var survey = await _context.Surveys
-                .Include(s => s.Questions)
-                .FirstOrDefaultAsync(s => s.Id == surveyId);
+            _logger.LogInformation("Exporting survey responses to PDF for survey ID: {SurveyId}", surveyId);
+            var survey = await _unitOfWork.Surveys
+
+                .GetFirstOrDefaultAsync(s => s.Id == surveyId, includeProperties: "Questions");
 
             if (survey == null)
+            {
+                _logger.LogWarning("Survey with ID: {SurveyId} not found for PDF export.", surveyId);
                 throw new ArgumentException("Survey not found");
+            }
 
-            var responses = await _context.SurveyResponses
-                .Where(r => r.SurveyId == surveyId)
-                .ToListAsync();
+            var responses = await _unitOfWork.SurveyResponses
+                .GetAllAsync(r => r.SurveyId == surveyId);
 
             using var memoryStream = new MemoryStream();
             using var writer = new PdfWriter(memoryStream);
@@ -197,6 +210,7 @@ namespace Survey.Services
             }
 
             document.Close();
+            _logger.LogInformation("Successfully exported {Count} responses to PDF for survey ID: {SurveyId}", responses.Count(), surveyId);
             return memoryStream.ToArray();
         }
 
@@ -209,15 +223,20 @@ namespace Survey.Services
         /// <exception cref="ArgumentException">Thrown when survey not found</exception>
         public async Task<string> GenerateShareLink(int surveyId)
         {
-            var survey = await _context.Surveys.FindAsync(surveyId);
+            _logger.LogInformation("Generating share link for survey ID: {SurveyId}", surveyId);
+            var survey = await _unitOfWork.Surveys.GetByIdAsync(surveyId);
             if (survey == null)
+            {
+                _logger.LogWarning("Survey with ID: {SurveyId} not found for share link generation.", surveyId);
                 throw new ArgumentException("Survey not found");
+            }
 
             var baseUrl = _configuration["BaseUrl"] ?? "http://localhost:4200";
             var shareLink = $"{baseUrl}/survey/{surveyId}";
 
             survey.ShareLink = shareLink;
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
+            _logger.LogInformation("Share link generated and saved for survey ID: {SurveyId}: {ShareLink}", surveyId, shareLink);
 
             return shareLink;
         }

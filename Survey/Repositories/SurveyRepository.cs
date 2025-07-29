@@ -3,7 +3,7 @@ using Survey.Data;
 using Survey.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SurveyModel = Survey.Models.Survey;
+using SurveyModel = Survey.Models.SurveyModel;
 
 namespace Survey.Repositories
 {

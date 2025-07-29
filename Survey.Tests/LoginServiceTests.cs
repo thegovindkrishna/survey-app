@@ -8,20 +8,24 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+using Survey.Repositories;
 
 public class LoginServiceTests
 {
     private readonly LoginService _loginService;
-    private readonly AppDbContext _context;
+    private readonly Mock<IUnitOfWork> _mockUnitOfWork;
+    private readonly Mock<IUserRepository> _mockUserRepository;
     private readonly IConfiguration _config;
+    private readonly Mock<ILogger<LoginService>> _mockLogger;
 
     public LoginServiceTests()
     {
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase("LoginServiceTestsDb")
-            .Options;
+        _mockUnitOfWork = new Mock<IUnitOfWork>();
+        _mockUserRepository = new Mock<IUserRepository>();
+        _mockLogger = new Mock<ILogger<LoginService>>();
 
-        _context = new AppDbContext(options);
+        _mockUnitOfWork.Setup(uow => uow.Users).Returns(_mockUserRepository.Object);
 
         var inMemorySettings = new Dictionary<string, string> {
             {"Jwt:Key", "thisisaverysecurekeyforjwttoken"},
@@ -30,10 +34,10 @@ public class LoginServiceTests
         };
 
         _config = new ConfigurationBuilder()
-            .AddInMemoryCollection(inMemorySettings.Select(kv => new KeyValuePair<string, string?>(kv.Key, kv.Value)))
+            .AddInMemoryCollection(inMemorySettings.Select(kv => new KeyValuePair<string, string?>(kv.Key, kv.Value))!)
             .Build();
 
-        _loginService = new LoginService(_context, _config);
+        _loginService = new LoginService(_mockUnitOfWork.Object, _config, _mockLogger.Object);
     }
 
     [Fact]

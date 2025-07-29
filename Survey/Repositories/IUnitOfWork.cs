@@ -6,6 +6,9 @@ namespace Survey.Repositories
     public interface IUnitOfWork : IDisposable
     {
         ISurveyRepository Surveys { get; }
+        IUserRepository Users { get; }
+        ISurveyResponseRepository SurveyResponses { get; }
+        IQuestionRepository Questions { get; }
         // Add other repositories here, e.g.:
         // IUserRepository Users { get; }
 

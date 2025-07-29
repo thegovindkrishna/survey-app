@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -7,8 +7,15 @@ using Survey.Repositories;
 using Survey.Services;
 using System.Text;
 using Survey.Models;
+using Survey.Filters;
+using Survey.Middleware;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 // ---------------------------
 // Register services
@@ -24,9 +31,22 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ISurveyService, SurveyService>();
 builder.Services.AddScoped<ISurveyResultsService, SurveyResultsService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+// AutoMapper
+builder.Services.AddAutoMapper((serviceProvider, mapperConfiguration) =>
+{
+    mapperConfiguration.AddProfile<Survey.MappingProfiles.SurveyProfile>();
+    mapperConfiguration.AddProfile<Survey.MappingProfiles.SurveyResponseProfile>(); // Re-adding this based on previous context
+    mapperConfiguration.AddProfile<Survey.MappingProfiles.SurveyResultsProfile>();
+    mapperConfiguration.AddProfile<Survey.MappingProfiles.UserProfile>();
+}, new System.Reflection.Assembly[] { typeof(Program).Assembly });
+
 
 // Repositories & Unit of Work
 builder.Services.AddScoped<ISurveyRepository, SurveyRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // CORS (✅ must be before builder.Build)
@@ -65,7 +85,10 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
-builder.Services.AddControllers()
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<GlobalExceptionFilter>();
+})
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
@@ -119,7 +142,7 @@ using (var scope = app.Services.CreateScope())
 
     if (!context.Users.Any(u => u.Email == "admin@example.com"))
     {
-        context.Users.Add(new User
+        context.Users.Add(new UserModel
         {
             Email = "admin@example.com",
             Password = "Admin@123",
@@ -139,6 +162,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

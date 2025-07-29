@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { UserDashboardComponent } from './shared/user-dashboard/user-dashboard.component';
-import { AuthGuard } from './auth/auth.guard';
+import { authGuard } from './shared/guards/auth.guard';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { SurveyBuilderComponent } from './admin/survey-builder/survey-builder.component';
 import { SurveyResponseComponent } from './user/survey-response/survey-response.component';
@@ -17,7 +17,7 @@ export const routes: Routes = [
   // Admin routes
   {
     path: 'admin',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     data: { roles: ['Admin'] },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -31,7 +31,7 @@ export const routes: Routes = [
   // User routes
   {
     path: 'user',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     data: { roles: ['User'] },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

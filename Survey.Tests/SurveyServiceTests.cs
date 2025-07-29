@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Moq;
+using Survey.Repositories;
+using Microsoft.Extensions.Logging;
+using Survey.Models.Dtos;
 
 namespace Survey.Tests
 {
@@ -21,6 +24,7 @@ namespace Survey.Tests
         private readonly AppDbContext _context;
         private readonly Mock<IUnitOfWork> _mockUnitOfWork;
         private readonly Mock<ISurveyRepository> _mockSurveyRepository;
+        private readonly Mock<ILogger<SurveyService>> _mockLogger;
 
         public SurveyServiceTests()
         {
@@ -31,9 +35,10 @@ namespace Survey.Tests
 
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mockSurveyRepository = new Mock<ISurveyRepository>();
+            _mockLogger = new Mock<ILogger<SurveyService>>();
             _mockUnitOfWork.Setup(uow => uow.Surveys).Returns(_mockSurveyRepository.Object);
 
-            _service = new SurveyService(_mockUnitOfWork.Object, _context);
+            _service = new SurveyService(_mockUnitOfWork.Object, _mockLogger.Object);
         }
 
         /// <summary>
@@ -42,10 +47,13 @@ namespace Survey.Tests
         [Fact]
         public async Task Create_AddsSurvey()
         {
-            var survey = new Survey.Models.Survey { Title = "Test", Description = "Desc" };
-            var result = await _service.Create(survey, "admin@example.com");
+            var surveyDto = new SurveyCreateDto("Test", "Desc", DateTime.Now, DateTime.Now.AddDays(7), new List<QuestionCreateDto>());
+            var result = await _service.Create(surveyDto, "admin@example.com");
             Assert.Equal("admin@example.com", result.CreatedBy);
-            Assert.Equal(1, _context.Surveys.Count());
+            // Since we are mocking the UnitOfWork, we can't assert on _context.Surveys.Count() directly.
+            // We should verify that the AddAsync and CompleteAsync methods were called.
+            _mockUnitOfWork.Verify(uow => uow.Surveys.AddAsync(It.IsAny<Survey.Models.Survey>()), Times.Once);
+            _mockUnitOfWork.Verify(uow => uow.CompleteAsync(), Times.Once);
         }
 
         /// <summary>
@@ -54,9 +62,13 @@ namespace Survey.Tests
         [Fact]
         public async Task GetAll_ReturnsAllSurveys()
         {
-            _context.Surveys.Add(new Survey.Models.Survey { Title = "A" });
-            _context.Surveys.Add(new Survey.Models.Survey { Title = "B" });
-            await _context.SaveChangesAsync();
+            var surveys = new List<Survey.Models.Survey>
+            {
+                new Survey.Models.Survey { Id = 1, Title = "A" },
+                new Survey.Models.Survey { Id = 2, Title = "B" }
+            };
+            _mockSurveyRepository.Setup(r => r.GetAllWithQuestionsAsync()).ReturnsAsync(surveys);
+
             var all = await _service.GetAll();
             Assert.Equal(2, all.Count());
         }
@@ -67,11 +79,12 @@ namespace Survey.Tests
         [Fact]
         public async Task GetById_ReturnsSurvey_WhenExists()
         {
-            var survey = new Survey.Models.Survey { Title = "A" };
-            _context.Surveys.Add(survey);
-            await _context.SaveChangesAsync();
-            var found = await _service.GetById(survey.Id);
+            var survey = new Survey.Models.Survey { Id = 1, Title = "A" };
+            _mockSurveyRepository.Setup(r => r.GetByIdWithQuestionsAsync(1)).ReturnsAsync(survey);
+
+            var found = await _service.GetById(1);
             Assert.NotNull(found);
+            Assert.Equal(survey.Id, found.Id);
         }
 
         /// <summary>
@@ -90,11 +103,13 @@ namespace Survey.Tests
         [Fact]
         public async Task Update_UpdatesSurvey_WhenExists()
         {
-            var survey = new Survey.Models.Survey { Title = "A", Description = "D" };
-            _context.Surveys.Add(survey);
-            await _context.SaveChangesAsync();
-            survey.Title = "B";
-            var updated = await _service.Update(survey.Id, survey);
+            var survey = new Survey.Models.Survey { Id = 1, Title = "A", Description = "D", Questions = new List<Question>() };
+            var updateDto = new SurveyUpdateDto("B", "D", DateTime.Now, DateTime.Now.AddDays(1), new List<QuestionUpdateDto>());
+
+            _mockSurveyRepository.Setup(r => r.GetByIdWithQuestionsAsync(survey.Id)).ReturnsAsync(survey);
+            _mockUnitOfWork.Setup(uow => uow.CompleteAsync()).Returns(Task.CompletedTask);
+
+            var updated = await _service.Update(survey.Id, updateDto);
             Assert.Equal("B", updated.Title);
         }
 
@@ -104,8 +119,10 @@ namespace Survey.Tests
         [Fact]
         public async Task Update_ReturnsNull_WhenMissing()
         {
-            var survey = new Survey.Models.Survey { Id = 999, Title = "B" };
-            var updated = await _service.Update(999, survey);
+            var updateDto = new SurveyUpdateDto("B", "D", DateTime.Now, DateTime.Now.AddDays(1), new List<QuestionUpdateDto>());
+            _mockSurveyRepository.Setup(r => r.GetByIdWithQuestionsAsync(999)).ReturnsAsync((Survey.Models.Survey?)null);
+
+            var updated = await _service.Update(999, updateDto);
             Assert.Null(updated);
         }
 
@@ -334,6 +351,9 @@ namespace Survey.Tests
             var survey = new Survey.Models.Survey { Title = "A" };
             _context.Surveys.Add(survey);
             await _context.SaveChangesAsync();
+            _mockSurveyRepository.Setup(r => r.GetByIdWithQuestionsAsync(survey.Id)).ReturnsAsync(survey);
+            _mockUnitOfWork.Setup(uow => uow.CompleteAsync()).Returns(Task.CompletedTask);
+
             var updated = await _service.DeleteQuestion(survey.Id, 1);
             Assert.Null(updated);
         }

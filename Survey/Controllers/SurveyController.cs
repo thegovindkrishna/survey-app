@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survey.Services;
 using System.Security.Claims;
+using Microsoft.Extensions.Logging;
 using Survey.Models.Dtos;
-using SurveyModel = Survey.Models.Survey;
+using SurveyModel = Survey.Models.SurveyModel;
 
 namespace Survey.Controllers
 {
@@ -17,14 +19,20 @@ namespace Survey.Controllers
     public class SurveyController : ControllerBase
     {
         private readonly ISurveyService _surveyService;
+        private readonly IMapper _mapper;
+        private readonly ILogger<SurveyController> _logger;
 
         /// <summary>
         /// Initializes a new instance of the SurveyController with the specified survey service.
         /// </summary>
         /// <param name="surveyService">The service for handling survey operations</param>
-        public SurveyController(ISurveyService surveyService)
+        /// <param name="mapper">The AutoMapper instance for object mapping</param>
+        /// <param name="logger">The logger instance</param>
+        public SurveyController(ISurveyService surveyService, IMapper mapper, ILogger<SurveyController> logger)
         {
             _surveyService = surveyService;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         /// <summary>
@@ -40,8 +48,11 @@ namespace Survey.Controllers
         public async Task<IActionResult> Create([FromBody] SurveyCreateDto surveyDto)
         {
             var email = User.FindFirstValue(ClaimTypes.Name)!;
+            _logger.LogInformation("Admin user {Email} attempting to create a new survey.", email);
             var createdSurvey = await _surveyService.Create(surveyDto, email);
-            return CreatedAtAction(nameof(GetById), new { id = createdSurvey.Id }, createdSurvey);
+            var createdSurveyDto = _mapper.Map<SurveyDto>(createdSurvey);
+            _logger.LogInformation("Survey {SurveyId} created successfully by {Email}.", createdSurveyDto.Id, email);
+            return CreatedAtAction(nameof(GetById), new { id = createdSurveyDto.Id }, createdSurveyDto);
         }
 
         /// <summary>
@@ -51,8 +62,11 @@ namespace Survey.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            _logger.LogInformation("Retrieving all surveys.");
             var surveys = await _surveyService.GetAll();
-            return Ok(surveys);
+            var surveyDtos = _mapper.Map<IEnumerable<SurveyDto>>(surveys);
+            _logger.LogInformation("Retrieved {Count} surveys.", surveyDtos.Count());
+            return Ok(surveyDtos);
         }
 
         /// <summary>
@@ -66,8 +80,16 @@ namespace Survey.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            _logger.LogInformation("Attempting to retrieve survey {SurveyId}.", id);
             var survey = await _surveyService.GetById(id);
-            return survey != null ? Ok(survey) : NotFound();
+            if (survey == null)
+            {
+                _logger.LogWarning("Survey {SurveyId} not found.", id);
+                return NotFound();
+            }
+            var surveyDto = _mapper.Map<SurveyDto>(survey);
+            _logger.LogInformation("Survey {SurveyId} retrieved successfully.", id);
+            return Ok(surveyDto);
         }
 
         /// <summary>
@@ -82,8 +104,16 @@ namespace Survey.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] SurveyUpdateDto surveyDto)
         {
+            _logger.LogInformation("Attempting to update survey {SurveyId}.", id);
             var updatedSurvey = await _surveyService.Update(id, surveyDto);
-            return updatedSurvey != null ? Ok(updatedSurvey) : NotFound();
+            if (updatedSurvey == null)
+            {
+                _logger.LogWarning("Update failed: Survey {SurveyId} not found.", id);
+                return NotFound();
+            }
+            var updatedSurveyDto = _mapper.Map<SurveyDto>(updatedSurvey);
+            _logger.LogInformation("Survey {SurveyId} updated successfully.", id);
+            return Ok(updatedSurveyDto);
         }
 
         /// <summary>
@@ -99,8 +129,18 @@ namespace Survey.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            _logger.LogInformation("Attempting to delete survey {SurveyId}.", id);
             var success = await _surveyService.Delete(id);
-            return success ? Ok(new { message = "Deleted successfully." }) : NotFound(new { message = "Survey not found." });
+            if (success)
+            {
+                _logger.LogInformation("Survey {SurveyId} deleted successfully.", id);
+                return Ok(new { message = "Deleted successfully." });
+            }
+            else
+            {
+                _logger.LogWarning("Delete failed: Survey {SurveyId} not found.", id);
+                return NotFound(new { message = "Survey not found." });
+            }
         }
     }
 }

@@ -7,18 +7,26 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Survey.Models.Dtos;
+
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Survey.Tests
 {
     public class SurveyResultsControllerTests
     {
         private readonly Mock<ISurveyResultsService> _mockResultsService;
+        private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<ILogger<SurveyResultsController>> _mockLogger;
         private readonly SurveyResultsController _controller;
 
         public SurveyResultsControllerTests()
         {
             _mockResultsService = new Mock<ISurveyResultsService>();
-            _controller = new SurveyResultsController(_mockResultsService.Object);
+            _mockMapper = new Mock<IMapper>();
+            _mockLogger = new Mock<ILogger<SurveyResultsController>>();
+            _controller = new SurveyResultsController(_mockResultsService.Object, _mockMapper.Object, _mockLogger.Object);
 
             // Setup dummy admin user
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]

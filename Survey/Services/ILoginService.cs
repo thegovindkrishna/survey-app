@@ -30,6 +30,6 @@ namespace Survey.Services
         /// </summary>
         /// <param name="email">The user's email address</param>
         /// <returns>The user object if found, null otherwise</returns>
-        Task<User?> GetUser(string email);
+        Task<UserModel?> GetUser(string email);
     }
 }

@@ -1,0 +1,93 @@
+2025-07-29 09:28:00.763 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+System.MissingMethodException: Cannot dynamically create an instance of type 'Survey.MappingProfiles.SurveyResponseProfile'. Reason: No parameterless constructor defined.
+   at System.RuntimeType.ActivatorCache..ctor(RuntimeType rt)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+   at AutoMapper.MapperConfigurationExpression.AddProfile(Type profileType)
+   at AutoMapper.MapperConfigurationExpression.AddMapsCore(IEnumerable`1 assembliesToScan)
+   at AutoMapper.MapperConfigurationExpression.AddMaps(IEnumerable`1 assembliesToScan)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c__DisplayClass12_0.<AddAutoMapperClasses>b__5(MapperConfigurationExpression options)
+   at Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure(String name, TOptions options)
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_2(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_3(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method16(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-29 09:36:36.083 +05:30 [INF] Attempting to register user string
+2025-07-29 09:36:36.124 +05:30 [INF] Attempting to register user string with role string
+2025-07-29 09:36:36.245 +05:30 [WRN] Registration failed for string: User already exists.
+2025-07-29 09:36:36.247 +05:30 [INF] Retrieving user by email: string
+2025-07-29 09:36:36.251 +05:30 [INF] User with email string retrieved successfully.
+2025-07-29 09:36:36.252 +05:30 [WRN] Registration failed: User with email string already exists
+2025-07-29 09:36:59.154 +05:30 [INF] Attempting to register user stringeeee
+2025-07-29 09:36:59.155 +05:30 [INF] Attempting to register user stringeeee with role User
+2025-07-29 09:36:59.256 +05:30 [INF] User stringeeee registered successfully with role User
+2025-07-29 09:36:59.257 +05:30 [INF] User stringeeee registered successfully
+2025-07-29 09:37:19.575 +05:30 [INF] Attempting to log in user stringeeee
+2025-07-29 09:37:19.578 +05:30 [INF] Attempting to log in user stringeeee
+2025-07-29 09:37:19.610 +05:30 [INF] User stringeeee logged in successfully.
+2025-07-29 09:37:19.612 +05:30 [INF] Retrieving user by email: stringeeee
+2025-07-29 09:37:19.614 +05:30 [INF] User with email stringeeee retrieved successfully.
+2025-07-29 09:37:19.615 +05:30 [INF] User stringeeee logged in successfully with role User
+2025-07-29 09:37:52.411 +05:30 [INF] Retrieving available surveys for user.
+2025-07-29 09:37:52.413 +05:30 [INF] Retrieving all surveys.
+2025-07-29 09:37:52.512 +05:30 [INF] Retrieved 3 surveys.
+2025-07-29 09:37:52.522 +05:30 [INF] Retrieved 2 active surveys.
+2025-07-29 09:38:11.272 +05:30 [INF] Attempting to retrieve survey 5 for user.
+2025-07-29 09:38:11.274 +05:30 [INF] Retrieving survey with ID: 5
+2025-07-29 09:38:11.298 +05:30 [WRN] Survey with ID: 5 not found.
+2025-07-29 09:38:11.299 +05:30 [WRN] Survey 5 not found for user.
+2025-07-29 09:38:24.591 +05:30 [INF] Attempting to retrieve survey 3 for user.
+2025-07-29 09:38:24.593 +05:30 [INF] Retrieving survey with ID: 3
+2025-07-29 09:38:24.597 +05:30 [INF] Survey with ID: 3 retrieved successfully.
+2025-07-29 09:38:24.602 +05:30 [INF] Survey 3 retrieved successfully for user.
+2025-07-29 09:38:32.316 +05:30 [INF] Attempting to retrieve responses for user stringeeee
+2025-07-29 09:38:32.317 +05:30 [INF] Retrieving all surveys.
+2025-07-29 09:38:32.320 +05:30 [INF] Retrieved 3 surveys.
+2025-07-29 09:38:32.323 +05:30 [INF] Retrieving all responses for survey 1
+2025-07-29 09:38:32.350 +05:30 [INF] Retrieved 1 responses for survey 1
+2025-07-29 09:38:32.351 +05:30 [INF] Retrieving all responses for survey 3
+2025-07-29 09:38:32.353 +05:30 [INF] Retrieved 1 responses for survey 3
+2025-07-29 09:38:32.355 +05:30 [INF] Retrieving all responses for survey 4
+2025-07-29 09:38:32.357 +05:30 [INF] Retrieved 1 responses for survey 4
+2025-07-29 09:38:32.358 +05:30 [INF] Retrieved 0 responses for user stringeeee
+2025-07-29 11:02:41.057 +05:30 [INF] Attempting to log in user stringeee
+2025-07-29 11:02:41.087 +05:30 [INF] Attempting to log in user stringeee
+2025-07-29 11:02:41.155 +05:30 [WRN] Login failed for stringeee: Invalid credentials.
+2025-07-29 11:02:41.156 +05:30 [WRN] Login failed: Invalid credentials for user stringeee
+2025-07-29 11:02:46.621 +05:30 [INF] Attempting to log in user stringeeee
+2025-07-29 11:02:46.622 +05:30 [INF] Attempting to log in user stringeeee
+2025-07-29 11:02:46.666 +05:30 [INF] User stringeeee logged in successfully.
+2025-07-29 11:02:46.669 +05:30 [INF] Retrieving user by email: stringeeee
+2025-07-29 11:02:46.675 +05:30 [INF] User with email stringeeee retrieved successfully.
+2025-07-29 11:02:46.676 +05:30 [INF] User stringeeee logged in successfully with role User

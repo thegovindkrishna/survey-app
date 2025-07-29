@@ -6,19 +6,30 @@ using Survey.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Reflection;
+using Survey.Models.Dtos;
+
+/// <summary>
+/// Unit tests for LoginController covering registration and login scenarios using mocked ILoginService.
+/// </summary>
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Unit tests for LoginController covering registration and login scenarios using mocked ILoginService.
 /// </summary>
 public class LoginControllerTests
 {
-    private readonly Mock<ILoginService> _mockLoginService;//fake loginservice
+    private readonly Mock<ILoginService> _mockLoginService;
+    private readonly Mock<IMapper> _mockMapper;
+    private readonly Mock<ILogger<LoginController>> _mockLogger;
     private readonly LoginController _controller;
 
     public LoginControllerTests()
     {
         _mockLoginService = new Mock<ILoginService>();
-        _controller = new LoginController(_mockLoginService.Object);
+        _mockMapper = new Mock<IMapper>();
+        _mockLogger = new Mock<ILogger<LoginController>>();
+        _controller = new LoginController(_mockLoginService.Object, _mockMapper.Object, _mockLogger.Object);
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Survey.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Survey.Data;
@@ -6,6 +6,7 @@ using Survey.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Survey.Services
 {
@@ -15,8 +16,9 @@ namespace Survey.Services
     /// </summary>
     public class LoginService : ILoginService
     {
-        private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
+        private readonly ILogger<LoginService> _logger;
         private static readonly string[] ValidRoles = { "User", "Admin" };
 
         /// <summary>
@@ -24,10 +26,12 @@ namespace Survey.Services
         /// </summary>
         /// <param name="context">The database context for user operations</param>
         /// <param name="config">The configuration containing JWT settings</param>
-        public LoginService(AppDbContext context, IConfiguration config)
+        /// <param name="logger">The logger instance</param>
+        public LoginService(IUnitOfWork unitOfWork, IConfiguration config, ILogger<LoginService> logger)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
             _config = config;
+            _logger = logger;
         }
 
         /// <summary>
@@ -40,19 +44,30 @@ namespace Survey.Services
         /// <returns>True if registration was successful, false otherwise</returns>
         public async Task<bool> Register(string email, string password, string role = "User")
         {
+            _logger.LogInformation("Attempting to register user {Email} with role {Role}", email, role);
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                _logger.LogWarning("Registration failed for {Email}: Email or password not provided.", email);
                 return false;
+            }
 
-            if (await _context.Users.AnyAsync(u => u.Email == email))
+            if (await _unitOfWork.Users.GetFirstOrDefaultAsync(u => u.Email == email) != null)
+            {
+                _logger.LogWarning("Registration failed for {Email}: User already exists.", email);
                 return false;
+            }
 
             // Validate role
             if (!ValidRoles.Contains(role))
+            {
+                _logger.LogWarning("Registration failed for {Email}: Invalid role '{Role}' provided.", email, role);
                 return false;
+            }
 
-            var user = new User { Email = email, Password = password, Role = role };
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            var user = new UserModel { Email = email, Password = password, Role = role };
+            await _unitOfWork.Users.AddAsync(user);
+            await _unitOfWork.CompleteAsync();
+            _logger.LogInformation("User {Email} registered successfully with role {Role}", email, role);
             return true;
         }
 
@@ -65,8 +80,13 @@ namespace Survey.Services
         /// <returns>A JWT token if authentication is successful, null otherwise</returns>
         public async Task<string?> Login(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
-            if (user == null) return null;
+            _logger.LogInformation("Attempting to log in user {Email}", email);
+            var user = await _unitOfWork.Users.GetFirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            if (user == null)
+            {
+                _logger.LogWarning("Login failed for {Email}: Invalid credentials.", email);
+                return null;
+            }
 
             var claims = new[]
             {
@@ -85,7 +105,9 @@ namespace Survey.Services
                 signingCredentials: creds
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+            _logger.LogInformation("User {Email} logged in successfully.", email);
+            return jwtToken;
         }
 
         /// <summary>
@@ -93,9 +115,19 @@ namespace Survey.Services
         /// </summary>
         /// <param name="email">The user's email address</param>
         /// <returns>The user object if found, null otherwise</returns>
-        public async Task<User?> GetUser(string email)
+        public async Task<UserModel?> GetUser(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            _logger.LogInformation("Retrieving user by email: {Email}", email);
+            var user = await _unitOfWork.Users.GetFirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                _logger.LogWarning("User with email {Email} not found.", email);
+            }
+            else
+            {
+                _logger.LogInformation("User with email {Email} retrieved successfully.", email);
+            }
+            return user;
         }
     }
 }

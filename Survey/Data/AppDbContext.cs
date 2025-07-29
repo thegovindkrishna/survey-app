@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking; // <-- Add this using statem
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Survey.Models;
 using System.Text.Json;
-using SurveyModel = Survey.Models.Survey;
+using SurveyModel = Survey.Models.SurveyModel;
 
 namespace Survey.Data
 {
@@ -11,10 +11,10 @@ namespace Survey.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserModel> Users { get; set; }
         public DbSet<SurveyModel> Surveys { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<SurveyResponse> SurveyResponses { get; set; }
+        public DbSet<QuestionModel> Questions { get; set; }
+        public DbSet<SurveyResponseModel> SurveyResponses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,7 @@ namespace Survey.Data
                 entity.Property(e => e.ShareLink).HasColumnType("nvarchar(max)");
             });
 
-            modelBuilder.Entity<Question>(entity =>
+            modelBuilder.Entity<QuestionModel>(entity =>
             {
                 entity.ToTable("Question");
                 entity.Property(e => e.QuestionText).HasColumnType("nvarchar(max)");
@@ -54,18 +54,18 @@ namespace Survey.Data
             //     .OnDelete(DeleteBehavior.Cascade);
 
             // --- Value converter AND comparer for List<QuestionResponse> ---
-            var questionResponseConverter = new ValueConverter<List<QuestionResponse>, string>(
+            var questionResponseConverter = new ValueConverter<List<QuestionResponseModel>, string>(
                 v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                v => JsonSerializer.Deserialize<List<QuestionResponse>>(v, (JsonSerializerOptions)null) ?? new List<QuestionResponse>()
+                v => JsonSerializer.Deserialize<List<QuestionResponseModel>>(v, (JsonSerializerOptions)null) ?? new List<QuestionResponseModel>()
             );
 
             // This tells EF Core how to compare the lists to detect changes
-            var questionResponseComparer = new ValueComparer<List<QuestionResponse>>(
+            var questionResponseComparer = new ValueComparer<List<QuestionResponseModel>>(
                 (c1, c2) => c1.SequenceEqual(c2),
                 c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
                 c => c.ToList());
 
-            modelBuilder.Entity<SurveyResponse>(entity =>
+            modelBuilder.Entity<SurveyResponseModel>(entity =>
             {
                 entity.Property(e => e.RespondentEmail).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.SubmissionDate).HasColumnType("datetime2"); // Use 'datetime2' for SQL Server

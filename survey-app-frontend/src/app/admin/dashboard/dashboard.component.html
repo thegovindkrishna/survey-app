@@ -10,7 +10,7 @@
 
   <mat-card *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-card>
   <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
-
+  
   <table *ngIf="!isLoading && surveys.length" class="survey-table">
     <thead>
       <tr>

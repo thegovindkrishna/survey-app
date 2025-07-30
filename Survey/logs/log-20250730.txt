@@ -1,0 +1,16 @@
+2025-07-30 10:19:31.243 +05:30 [INF] Attempting to log in user string
+2025-07-30 10:19:31.268 +05:30 [INF] Attempting to log in user string
+2025-07-30 10:19:31.400 +05:30 [INF] User string logged in successfully.
+2025-07-30 10:19:31.402 +05:30 [INF] Retrieving user by email: string
+2025-07-30 10:19:31.407 +05:30 [INF] User with email string retrieved successfully.
+2025-07-30 10:19:31.408 +05:30 [INF] User string logged in successfully with role User
+2025-07-30 10:36:07.464 +05:30 [INF] Attempting to log in user string
+2025-07-30 10:36:07.490 +05:30 [INF] Attempting to log in user string
+2025-07-30 10:36:07.577 +05:30 [INF] User string logged in successfully.
+2025-07-30 10:36:07.579 +05:30 [INF] Retrieving user by email: string
+2025-07-30 10:36:07.584 +05:30 [INF] User with email string retrieved successfully.
+2025-07-30 10:36:07.584 +05:30 [INF] User string logged in successfully with role User
+2025-07-30 10:36:07.703 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {
+  "email": "string",
+  "password": "string"
+} Responded with [200] in 330ms

@@ -10,6 +10,7 @@ using Survey.Models;
 using Survey.Filters;
 using Survey.Middleware;
 using Serilog;
+using AutoWrapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,23 +34,19 @@ builder.Services.AddScoped<ISurveyService, SurveyService>();
 builder.Services.AddScoped<ISurveyResultsService, SurveyResultsService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-
 // AutoMapper
 builder.Services.AddAutoMapper((serviceProvider, mapperConfiguration) =>
 {
     mapperConfiguration.AddProfile<Survey.MappingProfiles.SurveyProfile>();
-    mapperConfiguration.AddProfile<Survey.MappingProfiles.SurveyResponseProfile>(); // Re-adding this based on previous context
+    mapperConfiguration.AddProfile<Survey.MappingProfiles.SurveyResponseProfile>();
     mapperConfiguration.AddProfile<Survey.MappingProfiles.SurveyResultsProfile>();
     mapperConfiguration.AddProfile<Survey.MappingProfiles.UserProfile>();
 }, new System.Reflection.Assembly[] { typeof(Program).Assembly });
 
-
 // Repositories & Unit of Work
-builder.Services.AddScoped<ISurveyRepository, SurveyRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// CORS (✅ must be before builder.Build)
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
@@ -89,12 +86,12 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<GlobalExceptionFilter>();
 })
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-    });
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
 
 // Swagger
 builder.Services.AddSwaggerGen(c =>
@@ -133,7 +130,7 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // ---------------------------
-// Seed admin user AFTER builder.Build()
+// Seed admin user
 // ---------------------------
 using (var scope = app.Services.CreateScope())
 {
@@ -149,14 +146,12 @@ using (var scope = app.Services.CreateScope())
             Role = "Admin"
         });
         context.SaveChanges();
-        Console.WriteLine("✅ Admin user seeded.");
     }
 }
 
 // ---------------------------
 // Middleware pipeline
 // ---------------------------
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -171,6 +166,14 @@ app.UseCors("AllowAngularApp");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// AutoWrapper middleware
+app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions
+{
+    ShowApiVersion = true,
+    ApiVersion = "1.0",
+    ShowStatusCode = true
+});
 
 app.MapControllers();
 

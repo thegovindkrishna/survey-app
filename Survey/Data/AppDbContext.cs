@@ -15,9 +15,17 @@ namespace Survey.Data
         public DbSet<SurveyModel> Surveys { get; set; }
         public DbSet<QuestionModel> Questions { get; set; }
         public DbSet<SurveyResponseModel> SurveyResponses { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; } // Add this line
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<RefreshToken>()
+                .HasOne(rt => rt.User)
+                .WithMany()
+                .HasForeignKey(rt => rt.UserId)
+                .OnDelete(DeleteBehavior.Cascade); // Or other appropriate delete behavior
             base.OnModelCreating(modelBuilder);
 
             // Corrected data types for SQL Server

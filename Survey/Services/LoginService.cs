@@ -7,6 +7,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using BCrypt.Net; // Add this for password hashing
+using Survey.Models.Dtos; // Add this for AuthResponseDto
 
 namespace Survey.Services
 {
@@ -19,6 +21,7 @@ namespace Survey.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
         private readonly ILogger<LoginService> _logger;
+        private readonly IRefreshTokenService _refreshTokenService; // Declare the field
         private static readonly string[] ValidRoles = { "User", "Admin" };
 
         /// <summary>
@@ -27,11 +30,12 @@ namespace Survey.Services
         /// <param name="context">The database context for user operations</param>
         /// <param name="config">The configuration containing JWT settings</param>
         /// <param name="logger">The logger instance</param>
-        public LoginService(IUnitOfWork unitOfWork, IConfiguration config, ILogger<LoginService> logger)
+        public LoginService(IUnitOfWork unitOfWork, IConfiguration config, ILogger<LoginService> logger, IRefreshTokenService refreshTokenService)
         {
             _unitOfWork = unitOfWork;
             _config = config;
             _logger = logger;
+            _refreshTokenService = refreshTokenService;
         }
 
         /// <summary>
@@ -64,7 +68,8 @@ namespace Survey.Services
                 return false;
             }
 
-            var user = new UserModel { Email = email, Password = password, Role = role };
+            CreatePasswordHash(password, out string passwordHash);
+            var user = new UserModel { Email = email, PasswordHash = passwordHash, Role = role };
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.CompleteAsync();
             _logger.LogInformation("User {Email} registered successfully with role {Role}", email, role);
@@ -77,12 +82,12 @@ namespace Survey.Services
         /// </summary>
         /// <param name="email">The user's email address</param>
         /// <param name="password">The user's password</param>
-        /// <returns>A JWT token if authentication is successful, null otherwise</returns>
-        public async Task<string?> Login(string email, string password)
+        /// <returns>An AuthResponseDto containing JWT and refresh tokens if authentication is successful, null otherwise</returns>
+        public async Task<AuthResponseDto?> Login(string email, string password)
         {
             _logger.LogInformation("Attempting to log in user {Email}", email);
-            var user = await _unitOfWork.Users.GetFirstOrDefaultAsync(u => u.Email == email && u.Password == password);
-            if (user == null)
+            var user = await _unitOfWork.Users.GetFirstOrDefaultAsync(u => u.Email == email);
+            if (user == null || !VerifyPasswordHash(password, user.PasswordHash))
             {
                 _logger.LogWarning("Login failed for {Email}: Invalid credentials.", email);
                 return null;
@@ -90,6 +95,7 @@ namespace Survey.Services
 
             var claims = new[]
             {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), // Use NameIdentifier for UserId
                 new Claim(ClaimTypes.Name, user.Email),
                 new Claim(ClaimTypes.Role, user.Role)
             };
@@ -97,17 +103,37 @@ namespace Survey.Services
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(
+            var accessToken = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(2),
+                expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["Jwt:AccessTokenValidityInMinutes"])),
                 signingCredentials: creds
             );
 
-            var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+            var accessTokenString = new JwtSecurityTokenHandler().WriteToken(accessToken);
+
+            var (generatedAccessToken, generatedRefreshToken) = await _refreshTokenService.GenerateTokens(user);
+            var refreshToken = generatedRefreshToken; 
+
             _logger.LogInformation("User {Email} logged in successfully.", email);
-            return jwtToken;
+            return new AuthResponseDto
+            {
+                AccessToken = accessTokenString,
+                RefreshToken = refreshToken,
+                Email = user.Email,
+                Username = user.Email // Assuming email is used as username
+            };
+        }
+
+        private void CreatePasswordHash(string password, out string passwordHash)
+        {
+            passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        private bool VerifyPasswordHash(string password, string storedHash)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Survey.Models;
+using Survey.Models.Dtos;
 
 namespace Survey.Services
 {
@@ -22,8 +23,8 @@ namespace Survey.Services
         /// </summary>
         /// <param name="email">The user's email address</param>
         /// <param name="password">The user's password</param>
-        /// <returns>A JWT token if authentication is successful, null otherwise</returns>
-        Task<string?> Login(string email, string password);
+        /// <returns>An AuthResponseDto containing JWT and refresh tokens if authentication is successful, null otherwise</returns>
+        Task<AuthResponseDto?> Login(string email, string password);
 
         /// <summary>
         /// Retrieves a user by their email address.

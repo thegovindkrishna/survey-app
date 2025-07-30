@@ -14,3 +14,72 @@
   "email": "string",
   "password": "string"
 } Responded with [200] in 330ms
+2025-07-30 12:02:21.193 +05:30 [INF] Attempting to log in user string
+2025-07-30 12:02:21.229 +05:30 [INF] Attempting to log in user string
+2025-07-30 12:02:21.337 +05:30 [ERR] An unhandled exception occurred in an MVC action.
+System.ArgumentException: Invalid salt: salt cannot be null or empty (Parameter 'salt')
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at Survey.Services.LoginService.VerifyPasswordHash(String password, String storedHash, String storedSalt) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 137
+   at Survey.Services.LoginService.Login(String email, String password) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 90
+   at Survey.Controllers.LoginController.Login(AuthRequestModel request) in C:\Project\survey-app\Survey\Controllers\LoginController.cs:line 96
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2025-07-30 12:02:21.488 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {
+  "email": "string",
+  "password": "string"
+} Responded with [500] in 426ms
+2025-07-30 12:06:32.619 +05:30 [INF] Attempting to log in user string
+2025-07-30 12:06:32.654 +05:30 [INF] Attempting to log in user string
+2025-07-30 12:06:32.753 +05:30 [ERR] An unhandled exception occurred in an MVC action.
+System.ArgumentException: Invalid salt: salt cannot be null or empty (Parameter 'salt')
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at Survey.Services.LoginService.VerifyPasswordHash(String password, String storedHash) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 136
+   at Survey.Services.LoginService.Login(String email, String password) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 90
+   at Survey.Controllers.LoginController.Login(AuthRequestModel request) in C:\Project\survey-app\Survey\Controllers\LoginController.cs:line 96
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2025-07-30 12:06:32.898 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {
+  "email": "string",
+  "password": "string"
+} Responded with [500] in 409ms
+2025-07-30 12:13:03.876 +05:30 [INF] Attempting to register user stringer
+2025-07-30 12:13:03.908 +05:30 [INF] Attempting to register user stringer with role User
+2025-07-30 12:13:04.463 +05:30 [INF] User stringer registered successfully with role User
+2025-07-30 12:13:04.465 +05:30 [INF] User stringer registered successfully
+2025-07-30 12:13:04.595 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/register  {
+  "email": "stringer",
+  "password": "string"
+} Responded with [200] in 832ms
+2025-07-30 12:13:15.035 +05:30 [INF] Attempting to log in user stringer
+2025-07-30 12:13:15.038 +05:30 [INF] Attempting to log in user stringer
+2025-07-30 12:13:15.398 +05:30 [INF] User stringer logged in successfully.
+2025-07-30 12:13:15.400 +05:30 [INF] User stringer logged in successfully.
+2025-07-30 12:13:15.405 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {
+  "email": "stringer",
+  "password": "string"
+} Responded with [200] in 418ms
+2025-07-30 12:13:44.635 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/refresh  {
+  "refreshToken": "N+c3+RBXLT4quGLNHW+eai73KZY0xur1GmLD/tsAqvc="
+} Responded with [200] in 108ms
+2025-07-30 12:18:06.203 +05:30 [INF] Attempting to retrieve user information for null
+2025-07-30 12:18:06.207 +05:30 [INF] Retrieving user by email: null
+2025-07-30 12:18:06.260 +05:30 [WRN] User with email null not found.
+2025-07-30 12:18:06.262 +05:30 [WRN] User information retrieval failed: User null not found
+2025-07-30 12:18:06.272 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/auth/user   Responded with [404] in 79ms
+2025-07-30 12:18:51.499 +05:30 [INF] Attempting to retrieve user information for stringer
+2025-07-30 12:18:51.501 +05:30 [INF] Retrieving user by email: stringer
+2025-07-30 12:18:51.507 +05:30 [INF] User with email stringer retrieved successfully.
+2025-07-30 12:18:51.508 +05:30 [INF] User information retrieved successfully for stringer
+2025-07-30 12:18:51.517 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/auth/user   Responded with [200] in 18ms

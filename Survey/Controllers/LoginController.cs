@@ -20,6 +20,7 @@ namespace Survey.Controllers
         private readonly ILoginService _loginService;
         private readonly IMapper _mapper;
         private readonly ILogger<LoginController> _logger;
+        private readonly IRefreshTokenService _refreshTokenService; // Declare the field
 
         /// <summary>
         /// Initializes a new instance of the LoginController with the specified login service.
@@ -27,11 +28,12 @@ namespace Survey.Controllers
         /// <param name="loginService">The service for handling authentication operations</param>
         /// <param name="mapper">The AutoMapper instance for object mapping</param>
         /// <param name="logger">The logger instance</param>
-        public LoginController(ILoginService loginService, IMapper mapper, ILogger<LoginController> logger)
+        public LoginController(ILoginService loginService, IMapper mapper, ILogger<LoginController> logger, IRefreshTokenService refreshTokenService)
         {
             _loginService = loginService;
             _mapper = mapper;
             _logger = logger;
+            _refreshTokenService = refreshTokenService;
         }
 
         /// <summary>
@@ -84,27 +86,58 @@ namespace Survey.Controllers
         /// </summary>
         /// <param name="request">The login request containing email and password</param>
         /// <returns>
-        /// 200 OK with JWT token and user role if authentication is successful,
+        /// 200 OK with JWT token and refresh token if authentication is successful,
         /// 401 Unauthorized if credentials are invalid
         /// </returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] AuthRequestModel request)
         {
             _logger.LogInformation("Attempting to log in user {Email}", request.Email);
-            var token = await _loginService.Login(request.Email, request.Password);
-            if (token == null)
+            var authResponse = await _loginService.Login(request.Email, request.Password);
+            if (authResponse == null)
             {
                 _logger.LogWarning("Login failed: Invalid credentials for user {Email}", request.Email);
                 return Unauthorized(new { message = "Invalid credentials." });
             }
 
-            var user = await _loginService.GetUser(request.Email);
+            _logger.LogInformation("User {Email} logged in successfully.", request.Email);
+            return Ok(authResponse);
+        }
 
-            // Ensure role is always present and never null
-            var role = user?.Role ?? "User";
-            _logger.LogInformation("User {Email} logged in successfully with role {Role}", request.Email, role);
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequestDto model)
+        {
+            try
+            {
+                var (newAccessToken, newRefreshToken) = await _refreshTokenService.RefreshAccessToken(model.RefreshToken);
 
-            return Ok(new { token = token, role = role });
+                return Ok(new AuthResponseDto
+                {
+                    AccessToken = newAccessToken,
+                    RefreshToken = newRefreshToken
+                });
+            }
+            catch (ApplicationException ex)
+            {
+                _logger.LogWarning("Refresh token failed: {Message}", ex.Message);
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("revoke")]
+        public async Task<IActionResult> Revoke([FromBody] RefreshTokenRequestDto model)
+        {
+            try
+            {
+                await _refreshTokenService.RevokeRefreshToken(model.RefreshToken);
+                _logger.LogInformation("Refresh token revoked successfully.");
+                return Ok(new { message = "Refresh token revoked" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error revoking refresh token.");
+                return StatusCode(500, new { message = "Error revoking refresh token." });
+            }
         }
 
         /// <summary>

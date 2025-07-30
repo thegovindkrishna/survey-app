@@ -11,6 +11,7 @@ using Survey.Filters;
 using Survey.Middleware;
 using Serilog;
 using AutoWrapper;
+using BCrypt.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ISurveyService, SurveyService>();
 builder.Services.AddScoped<ISurveyResultsService, SurveyResultsService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>(); // Register RefreshTokenService
 
 // AutoMapper
 builder.Services.AddAutoMapper((serviceProvider, mapperConfiguration) =>
@@ -77,7 +79,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtIssuer,
         ValidAudience = jwtAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!)),
+        ClockSkew = TimeSpan.Zero // Remove delay when token expires
     };
 });
 
@@ -142,7 +145,7 @@ using (var scope = app.Services.CreateScope())
         context.Users.Add(new UserModel
         {
             Email = "admin@example.com",
-            Password = "Admin@123",
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
             Role = "Admin"
         });
         context.SaveChanges();

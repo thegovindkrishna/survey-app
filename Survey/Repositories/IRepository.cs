@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Survey.Models;
 
 namespace Survey.Repositories
 {
@@ -17,11 +18,18 @@ namespace Survey.Repositories
             string includeProperties = ""
         );
 
-        Task<IEnumerable<T>> GetAllAsync(
+        Task<PagedList<T>> GetAllAsync(
+            PaginationParams paginationParams,
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = ""
         );
+
+        Task<IEnumerable<T>> GetAllAsync(
+           Expression<Func<T, bool>> filter = null,
+           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+           string includeProperties = ""
+       );
 
         Task AddAsync(T entity);
         Task AddRangeAsync(IEnumerable<T> entities);

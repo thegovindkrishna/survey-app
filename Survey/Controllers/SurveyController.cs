@@ -1,20 +1,18 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Survey.Models;
 using Survey.Services;
-using System.Security.Claims;
-using Microsoft.Extensions.Logging;
+using AutoMapper;
 using Survey.Models.Dtos;
-using SurveyModel = Survey.Models.SurveyModel;
+using Microsoft.AspNetCore.Authorization;
+using Survey.Repositories;
+using System.Security.Claims;
+using Asp.Versioning;
 
 namespace Survey.Controllers
 {
-    /// <summary>
-    /// Controller for managing surveys.
-    /// Provides CRUD operations for surveys. All endpoints require Admin role authorization.
-    /// </summary>
     [ApiController]
-    [Route("api/surveys")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "Admin")]
     public class SurveyController : ControllerBase
     {
@@ -60,13 +58,12 @@ namespace Survey.Controllers
         /// </summary>
         /// <returns>200 OK with a collection of all surveys</returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PaginationParams paginationParams)
         {
             _logger.LogInformation("Retrieving all surveys.");
-            var surveys = await _surveyService.GetAll();
-            var surveyDtos = _mapper.Map<IEnumerable<SurveyDto>>(surveys);
-            _logger.LogInformation("Retrieved {Count} surveys.", surveyDtos.Count());
-            return Ok(surveyDtos);
+            var surveys = await _surveyService.GetAll(paginationParams);
+            _logger.LogInformation("Retrieved {Count} surveys.", surveys.Count());
+            return Ok(surveys);
         }
 
         /// <summary>

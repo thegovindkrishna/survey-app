@@ -83,3 +83,54 @@ System.ArgumentException: Invalid salt: salt cannot be null or empty (Parameter 
 2025-07-30 12:18:51.507 +05:30 [INF] User with email stringer retrieved successfully.
 2025-07-30 12:18:51.508 +05:30 [INF] User information retrieved successfully for stringer
 2025-07-30 12:18:51.517 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/auth/user   Responded with [200] in 18ms
+2025-07-30 12:46:45.020 +05:30 [INF] Attempting to log in user admin@example.com
+2025-07-30 12:46:45.055 +05:30 [INF] Attempting to log in user admin@example.com
+2025-07-30 12:46:45.166 +05:30 [ERR] An unhandled exception occurred in an MVC action.
+System.ArgumentException: Invalid salt: salt cannot be null or empty (Parameter 'salt')
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at Survey.Services.LoginService.VerifyPasswordHash(String password, String storedHash) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 136
+   at Survey.Services.LoginService.Login(String email, String password) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 90
+   at Survey.Controllers.LoginController.Login(AuthRequestModel request) in C:\Project\survey-app\Survey\Controllers\LoginController.cs:line 96
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2025-07-30 12:46:45.305 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"admin@123"} Responded with [500] in 408ms
+2025-07-30 12:46:49.779 +05:30 [INF] Attempting to log in user admin@example.com
+2025-07-30 12:46:49.780 +05:30 [INF] Attempting to log in user admin@example.com
+2025-07-30 12:46:49.786 +05:30 [ERR] An unhandled exception occurred in an MVC action.
+System.ArgumentException: Invalid salt: salt cannot be null or empty (Parameter 'salt')
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at Survey.Services.LoginService.VerifyPasswordHash(String password, String storedHash) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 136
+   at Survey.Services.LoginService.Login(String email, String password) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 90
+   at Survey.Controllers.LoginController.Login(AuthRequestModel request) in C:\Project\survey-app\Survey\Controllers\LoginController.cs:line 96
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2025-07-30 12:46:49.794 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"admin@123"} Responded with [500] in 56ms
+2025-07-30 12:47:41.113 +05:30 [INF] Attempting to log in user thegovindkrishna@gmail.com
+2025-07-30 12:47:41.115 +05:30 [INF] Attempting to log in user thegovindkrishna@gmail.com
+2025-07-30 12:47:41.118 +05:30 [ERR] An unhandled exception occurred in an MVC action.
+System.ArgumentException: Invalid salt: salt cannot be null or empty (Parameter 'salt')
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at Survey.Services.LoginService.VerifyPasswordHash(String password, String storedHash) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 136
+   at Survey.Services.LoginService.Login(String email, String password) in C:\Project\survey-app\Survey\Services\LoginService.cs:line 90
+   at Survey.Controllers.LoginController.Login(AuthRequestModel request) in C:\Project\survey-app\Survey\Controllers\LoginController.cs:line 96
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2025-07-30 12:47:41.129 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"thegovindkrishna@gmail.com","password":"goof"} Responded with [500] in 20ms

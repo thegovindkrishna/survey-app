@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using Survey.Data;
 using Survey.Models;
 using Survey.Models.Dtos;
@@ -6,6 +7,7 @@ using Survey.Repositories;
 using Microsoft.Extensions.Logging;
 using SurveyModel = Survey.Models.SurveyModel;
 using QuestionModel = Survey.Models.QuestionModel;
+using Survey.Models;
 
 namespace Survey.Services
 {
@@ -69,6 +71,17 @@ namespace Survey.Services
             _logger.LogInformation("Retrieved {Count} surveys.", surveys.Count());
             return surveys.Select(s => new SurveyDto(s.Id, s.Title, s.Description, s.StartDate, s.EndDate, s.CreatedBy, s.ShareLink,
                 s.Questions.Select(q => new QuestionDto(q.Id, q.QuestionText, q.Type, q.Required, q.Options, q.MaxRating)).ToList()));
+        }
+
+        public async Task<PagedList<SurveyDto>> GetAll(PaginationParams paginationParams)
+        {
+            _logger.LogInformation("Retrieving all surveys.");
+            var surveys = await _unitOfWork.Surveys.GetAllWithQuestionsAsync(paginationParams);
+            _logger.LogInformation("Retrieved {Count} surveys.", surveys.Count());
+            var surveyDtos = surveys.Select(s => new SurveyDto(s.Id, s.Title, s.Description, s.StartDate, s.EndDate, s.CreatedBy, s.ShareLink,
+                                 s.Questions.Select(q => new QuestionDto(q.Id, q.QuestionText, q.Type, q.Required, q.Options, q.MaxRating)).ToList()));
+
+            return new PagedList<SurveyDto>(surveyDtos.ToList(), surveys.TotalCount, surveys.CurrentPage, surveys.PageSize);
         }
 
         /// <summary>

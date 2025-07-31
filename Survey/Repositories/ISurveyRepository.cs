@@ -7,6 +7,7 @@ namespace Survey.Repositories
 {
     public interface ISurveyRepository : IRepository<SurveyModel>
     {
+        Task<PagedList<SurveyModel>> GetAllWithQuestionsAsync(PaginationParams paginationParams);
         Task<IEnumerable<SurveyModel>> GetAllWithQuestionsAsync();
         Task<SurveyModel?> GetByIdWithQuestionsAsync(int id);
     }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Survey.Models;
 
 namespace Survey.Repositories
 {
@@ -85,6 +86,36 @@ namespace Survey.Repositories
             {
                 return await query.ToListAsync();
             }
+        }
+
+        public async Task<PagedList<T>> GetAllAsync(
+            PaginationParams paginationParams,
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = ""
+        )
+        {
+            IQueryable<T> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            return await PagedList<T>.CreateAsync(query, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
         public void Remove(T entity)

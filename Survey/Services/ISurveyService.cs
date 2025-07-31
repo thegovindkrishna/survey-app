@@ -2,6 +2,8 @@
 using Survey.Models.Dtos; // Add this line
 using SurveyModel = Survey.Models.SurveyModel;
 using QuestionModel = Survey.Models.QuestionModel;
+using Survey.Models;
+
 namespace Survey.Services
 {
     /// <summary>
@@ -23,6 +25,12 @@ namespace Survey.Services
         /// </summary>
         /// <returns>A collection of all surveys with their associated questions</returns>
         Task<IEnumerable<SurveyDto>> GetAll();
+
+        /// <summary>
+        /// Retrieves all surveys from the database with their questions included.
+        /// </summary>
+        /// <returns>A paginated list of all surveys with their associated questions</returns>
+        Task<PagedList<SurveyDto>> GetAll(PaginationParams paginationParams);
 
         /// <summary>
         /// Retrieves a specific survey by its ID with questions included.

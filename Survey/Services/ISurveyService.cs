@@ -1,8 +1,7 @@
 ﻿using Survey.Models;
-using Survey.Models.Dtos; // Add this line
+using Survey.Models.Dtos;
 using SurveyModel = Survey.Models.SurveyModel;
 using QuestionModel = Survey.Models.QuestionModel;
-using Survey.Models;
 
 namespace Survey.Services
 {

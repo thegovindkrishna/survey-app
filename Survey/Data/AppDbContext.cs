@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking; // <-- Add this using statement
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Survey.Models;
 using System.Text.Json;
@@ -15,7 +15,7 @@ namespace Survey.Data
         public DbSet<SurveyModel> Surveys { get; set; }
         public DbSet<QuestionModel> Questions { get; set; }
         public DbSet<SurveyResponseModel> SurveyResponses { get; set; }
-        public DbSet<RefreshToken> RefreshTokens { get; set; } // Add this line
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,7 @@ namespace Survey.Data
                 .HasOne(rt => rt.User)
                 .WithMany()
                 .HasForeignKey(rt => rt.UserId)
-                .OnDelete(DeleteBehavior.Cascade); // Or other appropriate delete behavior
+                .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
             // Corrected data types for SQL Server
@@ -42,25 +42,16 @@ namespace Survey.Data
                 entity.ToTable("Question");
                 entity.Property(e => e.QuestionText).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.Type).HasColumnType("nvarchar(max)");
-                entity.Property(e => e.Required).HasColumnType("bit"); // Use 'bit' for boolean in SQL Server
-                entity.Property(e => e.Options).HasColumnType("nvarchar(max)"); // Store JSON as string
+                entity.Property(e => e.Required).HasColumnType("bit"); // 'bit' for boolean in SQL Server
+                entity.Property(e => e.Options).HasColumnType("nvarchar(max)"); //to  Store JSON as string
                 entity.Property(e => e.MaxRating).HasColumnType("int");
                 entity.Property(e => e.SurveyId).HasColumnType("int");
 
-                // This relationship is sufficient, the one below is a duplicate
                 entity.HasOne(q => q.Survey)
                     .WithMany(s => s.Questions)
                     .HasForeignKey(q => q.SurveyId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
-
-            // This is redundant as it's defined above from the Question entity's perspective.
-            // modelBuilder.Entity<SurveyModel>()
-            //     .HasMany(s => s.Questions)
-            //     .WithOne(q => q.Survey)
-            //     .HasForeignKey(q => q.SurveyId)
-            //     .OnDelete(DeleteBehavior.Cascade);
-
             // --- Value converter AND comparer for List<QuestionResponse> ---
             var questionResponseConverter = new ValueConverter<List<QuestionResponseModel>, string>(
                 v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
@@ -76,11 +67,11 @@ namespace Survey.Data
             modelBuilder.Entity<SurveyResponseModel>(entity =>
             {
                 entity.Property(e => e.RespondentEmail).HasColumnType("nvarchar(max)");
-                entity.Property(e => e.SubmissionDate).HasColumnType("datetime2"); // Use 'datetime2' for SQL Server
+                entity.Property(e => e.SubmissionDate).HasColumnType("datetime2"); 
                 entity.Property(e => e.responses)
-                    .HasColumnType("nvarchar(max)") // Store JSON as string
+                    .HasColumnType("nvarchar(max)") 
                     .HasConversion(questionResponseConverter)
-                    .Metadata.SetValueComparer(questionResponseComparer); // <-- Set the comparer here
+                    .Metadata.SetValueComparer(questionResponseComparer);
 
                 entity.HasOne<SurveyModel>()
                     .WithMany()

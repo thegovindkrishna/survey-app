@@ -18,7 +18,7 @@ namespace Survey.Services
     {
         private readonly IConfiguration _configuration;
         private readonly AppDbContext _dbContext;
-        private readonly IUnitOfWork _unitOfWork; // Assuming you have a UnitOfWork
+        private readonly IUnitOfWork _unitOfWork; 
 
         public RefreshTokenService(IConfiguration configuration, AppDbContext dbContext, IUnitOfWork unitOfWork)
         {

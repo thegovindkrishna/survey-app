@@ -7,7 +7,6 @@ using Survey.Repositories;
 using Microsoft.Extensions.Logging;
 using SurveyModel = Survey.Models.SurveyModel;
 using QuestionModel = Survey.Models.QuestionModel;
-using Survey.Models;
 
 namespace Survey.Services
 {

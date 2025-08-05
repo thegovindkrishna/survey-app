@@ -11,7 +11,7 @@ using Asp.Versioning;
 namespace Survey.Controllers
 {
     [ApiController]
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "Admin")]
     public class SurveyController : ControllerBase
@@ -19,7 +19,7 @@ namespace Survey.Controllers
         private readonly ISurveyService _surveyService;
         private readonly IMapper _mapper;
         private readonly ILogger<SurveyController> _logger;
-
+        
         /// <summary>
         /// Initializes a new instance of the SurveyController with the specified survey service.
         /// </summary>
@@ -50,7 +50,7 @@ namespace Survey.Controllers
             var createdSurvey = await _surveyService.Create(surveyDto, email);
             var createdSurveyDto = _mapper.Map<SurveyDto>(createdSurvey);
             _logger.LogInformation("Survey {SurveyId} created successfully by {Email}.", createdSurveyDto.Id, email);
-            return CreatedAtAction(nameof(GetById), new { id = createdSurveyDto.Id }, createdSurveyDto);
+            return CreatedAtAction(nameof(GetById), new { id = createdSurveyDto.Id }, createdSurveyDto);//returns 201 created with the location of the new resource
         }
 
         /// <summary>

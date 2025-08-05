@@ -159,7 +159,8 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     context.Database.Migrate();
 
-    if (!context.Users.Any(u => u.Email == "admin@example.com"))
+    var adminUser = context.Users.FirstOrDefault(u => u.Email == "admin@example.com");
+    if (adminUser == null)
     {
         context.Users.Add(new UserModel
         {
@@ -167,8 +168,12 @@ using (var scope = app.Services.CreateScope())
             PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
             Role = "Admin"
         });
-        context.SaveChanges();
     }
+    else
+    {
+        adminUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123");
+    }
+    context.SaveChanges();
 }
 
 // ---------------------------

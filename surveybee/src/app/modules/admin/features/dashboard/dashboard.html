@@ -1,0 +1,100 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome to the SurveyBee Admin Panel</p>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-content">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Total Surveys</div>
+      </div>
+      <div class="stat-icon">📋</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-content">
+        <div class="stat-number">8</div>
+        <div class="stat-label">Active Surveys</div>
+      </div>
+      <div class="stat-icon">✅</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-content">
+        <div class="stat-number">1,247</div>
+        <div class="stat-label">Total Responses</div>
+      </div>
+      <div class="stat-icon">📊</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-content">
+        <div class="stat-number">156</div>
+        <div class="stat-label">Registered Users</div>
+      </div>
+      <div class="stat-icon">👥</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <h2>Quick Actions</h2>
+    <div class="actions-grid">
+      <button class="action-btn primary" (click)="navigateToSurveys()">
+        <i class="icon">➕</i>
+        <span>Create New Survey</span>
+      </button>
+      
+      <button class="action-btn secondary" (click)="navigateToSurveys()">
+        <i class="icon">📋</i>
+        <span>View All Surveys</span>
+      </button>
+      
+      <button class="action-btn secondary">
+        <i class="icon">📈</i>
+        <span>View Analytics</span>
+      </button>
+      
+      <button class="action-btn secondary">
+        <i class="icon">👥</i>
+        <span>Manage Users</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="recent-activity">
+    <h2>Recent Activity</h2>
+    <div class="activity-list">
+      <div class="activity-item">
+        <div class="activity-icon">📋</div>
+        <div class="activity-content">
+          <div class="activity-title">New Survey Created</div>
+          <div class="activity-description">Customer Satisfaction Survey was created</div>
+          <div class="activity-time">2 hours ago</div>
+        </div>
+      </div>
+      
+      <div class="activity-item">
+        <div class="activity-icon">📊</div>
+        <div class="activity-content">
+          <div class="activity-title">Survey Completed</div>
+          <div class="activity-description">Employee Feedback Survey received 50 responses</div>
+          <div class="activity-time">4 hours ago</div>
+        </div>
+      </div>
+      
+      <div class="activity-item">
+        <div class="activity-icon">👤</div>
+        <div class="activity-content">
+          <div class="activity-title">New User Registration</div>
+          <div class="activity-description">3 new users registered today</div>
+          <div class="activity-time">6 hours ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

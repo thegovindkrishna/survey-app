@@ -1,0 +1,55 @@
+<div class="admin-layout">
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="logo">
+        <h2>SurveyBee Admin</h2>
+      </div>
+      <div class="user-menu">
+        <span class="user-name">Administrator</span>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar">
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a (click)="navigateTo('/admin/dashboard')" class="nav-link">
+          <i class="icon">📊</i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="navigateTo('/admin/surveys')" class="nav-link">
+          <i class="icon">📋</i>
+          <span>Surveys</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="navigateTo('/admin/analytics')" class="nav-link">
+          <i class="icon">📈</i>
+          <span>Analytics</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="navigateTo('/admin/users')" class="nav-link">
+          <i class="icon">👥</i>
+          <span>Users</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="navigateTo('/admin/settings')" class="nav-link">
+          <i class="icon">⚙️</i>
+          <span>Settings</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

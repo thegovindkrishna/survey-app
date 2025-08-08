@@ -1,0 +1,98 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Register for <a routerLink="/" class="highlight">SurveyBee</a></h2>
+    
+    <!-- Success Message -->
+    @if (successMessage()) {
+      <div class="alert alert-success">
+        {{ successMessage() }}
+      </div>
+    }
+    
+    <!-- Error Message -->
+    @if (errorMessage()) {
+      <div class="alert alert-error">
+        {{ errorMessage() }}
+      </div>
+    }
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          autocomplete="username"
+          [class.invalid]="f['email'].touched && f['email'].invalid" />
+        @if (f['email'].touched && f['email'].invalid) {
+          <div class="error">
+            @if (f['email'].errors?.['required']) {
+              <small>Email is required</small>
+            }
+            @if (f['email'].errors?.['email']) {
+              <small>Please enter a valid email address</small>
+            }
+          </div>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          autocomplete="new-password"
+          [class.invalid]="f['password'].touched && f['password'].invalid" />
+        @if (f['password'].touched && f['password'].invalid) {
+          <div class="error">
+            @if (f['password'].errors?.['required']) {
+              <small>Password is required</small>
+            }
+            @if (f['password'].errors?.['minlength']) {
+              <small>Password must be at least 6 characters</small>
+            }
+          </div>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+          id="confirmPassword" 
+          type="password" 
+          formControlName="confirmPassword" 
+          autocomplete="new-password"
+          [class.invalid]="f['confirmPassword'].touched && f['confirmPassword'].invalid" />
+        @if (f['confirmPassword'].touched && f['confirmPassword'].invalid) {
+          <div class="error">
+            @if (f['confirmPassword'].errors?.['required']) {
+              <small>Please confirm your password</small>
+            }
+          </div>
+        }
+        @if (registerForm.errors?.['passwordMismatch'] && f['confirmPassword'].touched) {
+          <div class="error">
+            <small>Passwords do not match</small>
+          </div>
+        }
+      </div>
+      
+      <button 
+        type="submit" 
+        [disabled]="registerForm.invalid || isLoading()"
+        class="btn-primary">
+        @if (isLoading()) {
+          <span class="spinner"></span>
+        }
+        {{ isLoading() ? 'Creating account...' : 'Register' }}
+      </button>
+    </form>
+    
+    <p>
+      Already have an account?
+      <a routerLink="/auth/login">Login here</a>
+    </p>
+  </div>
+</div>

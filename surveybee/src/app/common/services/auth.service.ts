@@ -103,13 +103,13 @@ export class AuthService {
       complete: () => {
         this.clearAuthData();
         this.toastService.info('You have been logged out successfully.', 'Logged Out');
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/']);
       },
       error: () => {
         // Clear local data even if backend call fails
         this.clearAuthData();
         this.toastService.info('You have been logged out.', 'Logged Out');
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/']);
       }
     });
   }

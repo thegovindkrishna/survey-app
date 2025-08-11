@@ -3,42 +3,32 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-unauthorized',
+  selector: 'app-not-found',
   standalone: true,
   imports: [RouterModule],
   template: `
-    <div class="unauthorized-container">
-      <div class="unauthorized-content">
-        <h1>🚫 Access Denied</h1>
-        <p>You don't have permission to access this page.</p>
+    <div class="not-found-container">
+      <div class="not-found-content">
+        <h1>🔍 404 - Page Not Found</h1>
+        <p>The page you're looking for doesn't exist or has been moved.</p>
         
-        @if (authService.isAuthenticated()) {
-          <div class="user-info">
-            <p>Current role: <strong>{{ authService.currentUser()?.role }}</strong></p>
-            <p class="help-text">You are logged in but don't have the required permissions for this page.</p>
-          </div>
-          <div class="actions">
+        <div class="actions">
+          @if (authService.isAuthenticated()) {
             @if (authService.isAdmin()) {
               <a routerLink="/admin" class="btn-primary">Go to Admin Dashboard</a>
             } @else if (authService.isUser()) {
               <a routerLink="/user" class="btn-primary">Go to User Dashboard</a>
             }
-            <a routerLink="/" class="btn-secondary">Go to Home</a>
-          </div>
-        } @else {
-          <div class="login-prompt">
-            <p class="help-text">Please log in to access this page.</p>
-          </div>
-          <div class="actions">
+          } @else {
             <a routerLink="/auth/login" class="btn-primary">Login</a>
-            <a routerLink="/" class="btn-secondary">Go to Home</a>
-          </div>
-        }
+          }
+          <a routerLink="/" class="btn-secondary">Go to Home</a>
+        </div>
       </div>
     </div>
   `,
   styles: [`
-    .unauthorized-container {
+    .not-found-container {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -47,59 +37,27 @@ import { AuthService } from '../../services/auth.service';
       background: #f8f9fa;
     }
     
-    .unauthorized-content {
+    .not-found-content {
       text-align: center;
       max-width: 500px;
       background: white;
       padding: 3rem 2rem;
       border-radius: 12px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      border-left: 4px solid #e74c3c;
     }
     
     h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
-      color: #e74c3c;
+      color: #6c757d;
       font-weight: 700;
     }
     
     p {
       font-size: 1.1rem;
       color: #6c757d;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       line-height: 1.6;
-    }
-    
-    .user-info {
-      background: #f8f9fa;
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-bottom: 2rem;
-      border-left: 3px solid #fece22;
-    }
-    
-    .user-info p {
-      margin-bottom: 0.5rem;
-    }
-    
-    .user-info p:last-child {
-      margin-bottom: 0;
-    }
-    
-    .login-prompt {
-      background: #fff3cd;
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-bottom: 2rem;
-      border-left: 3px solid #ffc107;
-    }
-    
-    .help-text {
-      font-size: 1rem;
-      color: #6c757d;
-      font-style: italic;
-      margin-bottom: 0 !important;
     }
     
     .actions {
@@ -145,11 +103,11 @@ import { AuthService } from '../../services/auth.service';
     }
     
     @media (max-width: 768px) {
-      .unauthorized-container {
+      .not-found-container {
         padding: 1rem;
       }
       
-      .unauthorized-content {
+      .not-found-content {
         padding: 2rem 1.5rem;
       }
       
@@ -170,6 +128,6 @@ import { AuthService } from '../../services/auth.service';
     }
   `]
 })
-export class UnauthorizedComponent {
+export class NotFoundComponent {
   constructor(public authService: AuthService) {}
 }

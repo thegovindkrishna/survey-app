@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SurveyService, SurveyDto } from '../../../../common/services/survey.service';
 import { ResponseService, SurveyResponseDto } from '../../../../common/services/response.service';
 import { UserService, UserResponseDto } from '../../../../common/services/user.service';
+import { AuthService } from '../../../../common/services/auth.service';
 import { DashboardRefreshService } from '../../../../common/services/dashboard-refresh.service';
 import { ResponseViewerComponent, ResponseViewerData } from '../response-viewer/response-viewer.component';
 import { Subscription } from 'rxjs';
@@ -58,6 +59,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     private surveyService: SurveyService, 
     private responseService: ResponseService,
     private userService: UserService,
+    private authService: AuthService,
     private dashboardRefreshService: DashboardRefreshService,
     private router: Router,
     private dialog: MatDialog
@@ -461,13 +463,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    // Clear any stored authentication data
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userEmail');
-    
-    console.log('User logged out');
-    this.router.navigate(['/auth/login']);
+    this.authService.logout();
   }
 
   // Pagination methods

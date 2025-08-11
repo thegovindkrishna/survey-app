@@ -36,3 +36,1077 @@
 2025-08-12 00:04:01.740 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
 2025-08-12 00:04:02.903 +05:30 [INF] Retrieving results for survey 4.
 2025-08-12 00:04:02.909 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4/results   Responded with [200] in 6ms
+2025-08-12 00:07:42.389 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/4/results   Responded with [404] in 11ms
+2025-08-12 00:07:57.303 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:07:57.308 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:07:57.330 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:07:57.342 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:07:57.344 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 47ms
+2025-08-12 00:08:10.081 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:08:10.083 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:08:10.087 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:08:10.088 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:08:10.091 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 11ms
+2025-08-12 00:08:55.061 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:08:55.062 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:08:55.074 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:08:55.076 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:08:55.079 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 20ms
+2025-08-12 00:09:13.115 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:09:13.116 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:09:13.129 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:09:13.134 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:09:13.137 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 22ms
+2025-08-12 00:10:45.034 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:10:45.035 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:10:45.048 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:10:45.050 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:10:45.056 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 22ms
+2025-08-12 00:10:46.855 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:10:46.856 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:10:46.867 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:10:46.869 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:10:46.871 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 16ms
+2025-08-12 00:10:57.302 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:10:57.304 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:10:57.446 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:10:57.447 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:10:57.450 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 150ms
+2025-08-12 00:10:57.541 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/survey ?pageNumber=1&pageSize=100  Responded with [404] in 0ms
+2025-08-12 00:10:59.223 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [404] in 0ms
+2025-08-12 00:11:01.702 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [404] in 0ms
+2025-08-12 00:12:01.030 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:12:01.031 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:12:01.040 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:12:01.041 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:12:01.047 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 17ms
+2025-08-12 00:12:24.079 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:12:24.080 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:12:24.086 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:12:24.087 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:12:24.096 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 19ms
+2025-08-12 00:12:37.475 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:12:37.476 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:12:37.484 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:12:37.485 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:12:37.487 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 13ms
+2025-08-12 00:13:07.496 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:13:07.497 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:13:07.506 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:13:07.507 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:13:07.509 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 13ms
+2025-08-12 00:13:07.519 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:13:07.522 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:13:07.530 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:13:07.532 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:13:07.534 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 15ms
+2025-08-12 00:13:07.544 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:13:07.545 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:13:07.548 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:13:07.549 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:13:07.550 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 6ms
+2025-08-12 00:13:07.558 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:13:07.559 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:13:07.562 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:13:07.566 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:13:07.567 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 9ms
+2025-08-12 00:13:07.574 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:13:07.575 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:13:07.577 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:13:07.578 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:13:07.579 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 5ms
+2025-08-12 00:13:07.587 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:13:07.588 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:13:07.590 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:13:07.591 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:13:07.592 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 5ms
+2025-08-12 00:13:07.601 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:13:07.601 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:13:07.605 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:13:07.606 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:13:07.607 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 7ms
+2025-08-12 00:13:09.036 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:13:09.037 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:13:09.050 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:13:09.052 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:13:09.055 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 19ms
+2025-08-12 00:13:11.622 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:13:11.624 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:13:11.638 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:13:11.640 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:13:11.643 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 21ms
+2025-08-12 00:13:17.368 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:13:17.369 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:13:17.381 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:13:17.382 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:13:17.385 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 17ms
+2025-08-12 00:13:19.708 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:13:19.709 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:13:19.719 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:13:19.720 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:13:19.722 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 15ms
+2025-08-12 00:13:50.101 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:13:50.102 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:13:50.111 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:13:50.112 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:13:50.114 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 13ms
+2025-08-12 00:14:07.067 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:14:07.068 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:14:07.078 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:14:07.080 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:14:07.082 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 15ms
+2025-08-12 00:15:22.751 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:15:22.752 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:15:22.765 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:15:22.769 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:15:22.772 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 21ms
+2025-08-12 00:15:55.383 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:15:55.384 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:15:55.396 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:15:55.397 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:15:55.408 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 26ms
+2025-08-12 00:16:50.585 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:16:50.586 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:16:50.596 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:16:50.598 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:16:50.600 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 16ms
+2025-08-12 00:16:54.152 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:16:54.153 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:16:54.161 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:16:54.165 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:16:54.167 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 16ms
+2025-08-12 00:16:55.822 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:16:55.824 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:16:55.827 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:16:55.828 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:16:55.830 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 8ms
+2025-08-12 00:17:03.237 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:17:03.238 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:17:03.407 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:17:03.408 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:17:03.410 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 177ms
+2025-08-12 00:17:03.446 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:03.447 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:03.455 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:17:03.456 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:17:03.460 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 15ms
+2025-08-12 00:17:03.502 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:17:03.503 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:17:03.508 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:17:03.509 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:17:03.510 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 8ms
+2025-08-12 00:17:03.526 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:17:03.528 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:17:03.532 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:17:03.534 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:17:03.536 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 10ms
+2025-08-12 00:17:03.549 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:17:03.550 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:17:03.554 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:17:03.554 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:17:03.558 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 9ms
+2025-08-12 00:17:03.571 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:17:03.571 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:17:03.576 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:17:03.577 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:17:03.578 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 8ms
+2025-08-12 00:17:03.593 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:17:03.594 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:17:03.596 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:17:03.597 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:17:03.599 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 6ms
+2025-08-12 00:17:03.613 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:17:03.614 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:17:03.617 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:17:03.618 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:17:03.621 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 9ms
+2025-08-12 00:17:04.752 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:04.753 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:04.758 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:04.760 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:04.762 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 11ms
+2025-08-12 00:17:06.000 +05:30 [INF] Attempting to get results for survey 4
+2025-08-12 00:17:06.001 +05:30 [INF] Getting survey results for survey ID: 4
+2025-08-12 00:17:06.004 +05:30 [INF] Successfully retrieved survey results for survey ID: 4. Total responses: 4
+2025-08-12 00:17:06.006 +05:30 [INF] Successfully retrieved results for survey 4
+2025-08-12 00:17:06.008 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/4/results   Responded with [200] in 9ms
+2025-08-12 00:17:09.370 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:09.371 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:09.375 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:09.376 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:09.378 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
+2025-08-12 00:17:13.720 +05:30 [INF] Attempting to delete survey 4.
+2025-08-12 00:17:13.722 +05:30 [INF] Deleting survey with ID: 4
+2025-08-12 00:17:13.764 +05:30 [INF] Survey with ID: 4 deleted successfully.
+2025-08-12 00:17:13.765 +05:30 [INF] Survey 4 deleted successfully.
+2025-08-12 00:17:13.768 +05:30 [INF] Source:[::1] Request: DELETE https localhost:7245/api/v1.0/survey/4   Responded with [200] in 53ms
+2025-08-12 00:17:13.779 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:13.780 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:13.786 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:13.786 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:13.788 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 9ms
+2025-08-12 00:17:15.262 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:17:15.264 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:17:15.267 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:17:15.269 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:17:15.270 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 8ms
+2025-08-12 00:17:18.237 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:18.238 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:18.242 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:18.243 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:18.245 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
+2025-08-12 00:17:21.839 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:17:21.840 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:17:21.851 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:17:21.852 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:17:21.854 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 17ms
+2025-08-12 00:17:25.367 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:25.368 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:17:25.373 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:25.374 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:17:25.376 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 9ms
+2025-08-12 00:17:25.388 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:17:25.390 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:17:25.393 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:17:25.394 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:17:25.396 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:17:25.425 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:17:25.426 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:17:25.429 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:17:25.431 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:17:25.433 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 8ms
+2025-08-12 00:17:25.446 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:17:25.448 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:17:25.451 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:17:25.452 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:17:25.454 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 9ms
+2025-08-12 00:17:25.464 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:17:25.465 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:17:25.468 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:17:25.469 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:17:25.471 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 7ms
+2025-08-12 00:17:25.479 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:17:25.480 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:17:25.483 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:17:25.484 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:17:25.486 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 7ms
+2025-08-12 00:18:04.101 +05:30 [INF] Admin user admin@example.com attempting to create a new survey.
+2025-08-12 00:18:04.103 +05:30 [INF] Creating new survey with title 'this better have resukts' by admin admin@example.com
+2025-08-12 00:18:04.169 +05:30 [INF] Survey 'this better have resukts' (ID: 12) created successfully.
+2025-08-12 00:18:04.180 +05:30 [INF] Survey 12 created successfully by admin@example.com.
+2025-08-12 00:18:04.200 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/v1.0/survey  {"title":"this better have resukts","description":"gjdgajhda","startDate":"2025-08-12T00:00:00.000Z","endDate":"2025-08-31T00:00:00.000Z","questions":[{"questionText":"does this work","type":"text","required":false,"options":null,"maxRating":null},{"questionText":"how bad","type":"rating","required":false,"options":null,"maxRating":5}]} Responded with [201] in 131ms
+2025-08-12 00:18:04.228 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:04.229 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:04.234 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:04.236 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:04.239 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 11ms
+2025-08-12 00:18:04.278 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:18:04.279 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:18:04.282 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 0
+2025-08-12 00:18:04.283 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:18:04.284 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 7ms
+2025-08-12 00:18:04.299 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:18:04.300 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:18:04.304 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:18:04.306 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:18:04.309 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 10ms
+2025-08-12 00:18:04.321 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:18:04.324 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:18:04.328 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:18:04.328 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:18:04.330 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 9ms
+2025-08-12 00:18:04.344 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:18:04.345 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:18:04.351 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:18:04.352 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:18:04.353 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 9ms
+2025-08-12 00:18:04.367 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:18:04.368 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:18:04.371 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:18:04.372 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:18:04.374 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 7ms
+2025-08-12 00:18:04.388 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:18:04.389 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:18:04.393 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:18:04.394 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:18:04.395 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 8ms
+2025-08-12 00:18:13.320 +05:30 [INF] Attempting to log in user asdfgh@gmail.com
+2025-08-12 00:18:13.321 +05:30 [INF] Attempting to log in user asdfgh@gmail.com
+2025-08-12 00:18:13.460 +05:30 [INF] User asdfgh@gmail.com logged in successfully.
+2025-08-12 00:18:13.461 +05:30 [INF] User asdfgh@gmail.com logged in successfully.
+2025-08-12 00:18:13.463 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"asdfgh@gmail.com","password":"Goofind@2003"} Responded with [200] in 147ms
+2025-08-12 00:18:13.538 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:13.540 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:13.545 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:13.547 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:13.549 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=6&sortBy=startDate&sortOrder=desc  Responded with [200] in 11ms
+2025-08-12 00:18:13.603 +05:30 [INF] Attempting to retrieve responses for user asdfgh@gmail.com
+2025-08-12 00:18:13.605 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:13.620 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:13.625 +05:30 [INF] Retrieving all responses for survey 1
+2025-08-12 00:18:13.631 +05:30 [INF] Retrieved 1 responses for survey 1
+2025-08-12 00:18:13.633 +05:30 [INF] Retrieving all responses for survey 3
+2025-08-12 00:18:13.635 +05:30 [INF] Retrieved 4 responses for survey 3
+2025-08-12 00:18:13.642 +05:30 [INF] Found response for survey 3 by user asdfgh@gmail.com
+2025-08-12 00:18:13.644 +05:30 [INF] Retrieving all responses for survey 5
+2025-08-12 00:18:13.646 +05:30 [INF] Retrieved 2 responses for survey 5
+2025-08-12 00:18:13.647 +05:30 [INF] Found response for survey 5 by user asdfgh@gmail.com
+2025-08-12 00:18:13.649 +05:30 [INF] Retrieving all responses for survey 6
+2025-08-12 00:18:13.650 +05:30 [INF] Retrieved 0 responses for survey 6
+2025-08-12 00:18:13.653 +05:30 [INF] Retrieving all responses for survey 9
+2025-08-12 00:18:13.656 +05:30 [INF] Retrieved 2 responses for survey 9
+2025-08-12 00:18:13.657 +05:30 [INF] Found response for survey 9 by user asdfgh@gmail.com
+2025-08-12 00:18:13.659 +05:30 [INF] Retrieving all responses for survey 12
+2025-08-12 00:18:13.661 +05:30 [INF] Retrieved 0 responses for survey 12
+2025-08-12 00:18:13.662 +05:30 [INF] Retrieved 3 responses for user asdfgh@gmail.com
+2025-08-12 00:18:13.676 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/user/responses   Responded with [200] in 78ms
+2025-08-12 00:18:20.777 +05:30 [INF] Attempting to retrieve survey 12.
+2025-08-12 00:18:20.779 +05:30 [INF] Retrieving survey with ID: 12
+2025-08-12 00:18:20.784 +05:30 [INF] Survey with ID: 12 retrieved successfully.
+2025-08-12 00:18:20.788 +05:30 [INF] Survey 12 retrieved successfully.
+2025-08-12 00:18:20.789 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey/12   Responded with [200] in 19ms
+2025-08-12 00:18:27.323 +05:30 [INF] Attempting to submit response for survey 12
+2025-08-12 00:18:27.329 +05:30 [INF] Submitting response for survey 12 by asdfgh@gmail.com
+2025-08-12 00:18:27.347 +05:30 [INF] Response submitted successfully for survey 12 by asdfgh@gmail.com
+2025-08-12 00:18:27.348 +05:30 [INF] Response submitted successfully for survey 12 by user asdfgh@gmail.com
+2025-08-12 00:18:27.356 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/surveys/12/responses  {"responses":[{"questionId":22,"response":"plis work"},{"questionId":23,"response":"3"}]} Responded with [200] in 48ms
+2025-08-12 00:18:29.173 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:29.175 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:29.178 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:29.179 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:29.182 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=6&sortBy=startDate&sortOrder=desc  Responded with [200] in 10ms
+2025-08-12 00:18:29.198 +05:30 [INF] Attempting to retrieve responses for user asdfgh@gmail.com
+2025-08-12 00:18:29.199 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:29.202 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:29.203 +05:30 [INF] Retrieving all responses for survey 1
+2025-08-12 00:18:29.207 +05:30 [INF] Retrieved 1 responses for survey 1
+2025-08-12 00:18:29.209 +05:30 [INF] Retrieving all responses for survey 3
+2025-08-12 00:18:29.211 +05:30 [INF] Retrieved 4 responses for survey 3
+2025-08-12 00:18:29.212 +05:30 [INF] Found response for survey 3 by user asdfgh@gmail.com
+2025-08-12 00:18:29.213 +05:30 [INF] Retrieving all responses for survey 5
+2025-08-12 00:18:29.216 +05:30 [INF] Retrieved 2 responses for survey 5
+2025-08-12 00:18:29.217 +05:30 [INF] Found response for survey 5 by user asdfgh@gmail.com
+2025-08-12 00:18:29.218 +05:30 [INF] Retrieving all responses for survey 6
+2025-08-12 00:18:29.220 +05:30 [INF] Retrieved 0 responses for survey 6
+2025-08-12 00:18:29.221 +05:30 [INF] Retrieving all responses for survey 9
+2025-08-12 00:18:29.225 +05:30 [INF] Retrieved 2 responses for survey 9
+2025-08-12 00:18:29.229 +05:30 [INF] Found response for survey 9 by user asdfgh@gmail.com
+2025-08-12 00:18:29.231 +05:30 [INF] Retrieving all responses for survey 12
+2025-08-12 00:18:29.233 +05:30 [INF] Retrieved 1 responses for survey 12
+2025-08-12 00:18:29.234 +05:30 [INF] Found response for survey 12 by user asdfgh@gmail.com
+2025-08-12 00:18:29.235 +05:30 [INF] Retrieved 4 responses for user asdfgh@gmail.com
+2025-08-12 00:18:29.238 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/user/responses   Responded with [200] in 40ms
+2025-08-12 00:18:44.760 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:18:44.761 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:18:44.925 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:18:44.926 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:18:44.928 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 168ms
+2025-08-12 00:18:44.959 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:44.961 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:44.965 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:44.966 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:18:44.968 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 9ms
+2025-08-12 00:18:45.022 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:18:45.023 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:18:45.031 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:18:45.032 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:18:45.036 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 14ms
+2025-08-12 00:18:45.049 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:18:45.049 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:18:45.052 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:18:45.053 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:18:45.055 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:18:45.065 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:18:45.066 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:18:45.069 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:18:45.070 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:18:45.073 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 8ms
+2025-08-12 00:18:45.083 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:18:45.084 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:18:45.088 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:18:45.089 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:18:45.090 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 7ms
+2025-08-12 00:18:45.101 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:18:45.102 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:18:45.107 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:18:45.108 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:18:45.109 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 8ms
+2025-08-12 00:18:45.120 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:18:45.121 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:18:45.138 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:18:45.140 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:18:45.142 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 22ms
+2025-08-12 00:18:46.703 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:46.704 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:18:46.710 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:18:46.711 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:18:46.714 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 13ms
+2025-08-12 00:18:48.004 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:18:48.005 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:18:48.009 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:18:48.010 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:18:48.012 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 8ms
+2025-08-12 00:22:47.116 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:22:47.117 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:22:47.128 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:22:47.133 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:22:47.135 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 19ms
+2025-08-12 00:24:06.748 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:24:06.749 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:24:06.759 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:24:06.760 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:24:06.763 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 15ms
+2025-08-12 00:24:06.790 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:24:06.791 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:24:06.798 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:24:06.799 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:24:06.800 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 11ms
+2025-08-12 00:24:06.810 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:24:06.811 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:24:06.815 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:24:06.815 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:24:06.817 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:24:06.826 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:24:06.828 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:24:06.831 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:24:06.832 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:24:06.833 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 7ms
+2025-08-12 00:24:06.842 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:24:06.843 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:24:06.848 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:24:06.849 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:24:06.850 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 9ms
+2025-08-12 00:24:06.861 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:24:06.862 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:24:06.866 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:24:06.868 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:24:06.870 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 9ms
+2025-08-12 00:24:06.879 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:24:06.880 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:24:06.883 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:24:06.885 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:24:06.887 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 8ms
+2025-08-12 00:24:08.891 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:24:08.892 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:24:08.899 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:24:08.901 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:24:08.903 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 12ms
+2025-08-12 00:24:10.138 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:24:10.140 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:24:10.143 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:24:10.144 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:24:10.145 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 7ms
+2025-08-12 00:24:56.752 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:24:56.754 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:24:56.765 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:24:56.767 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:24:56.769 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 17ms
+2025-08-12 00:24:56.778 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:24:56.782 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:24:56.791 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:24:56.792 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:24:56.793 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 15ms
+2025-08-12 00:24:56.815 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:24:56.816 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:24:56.819 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:24:56.822 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:24:56.823 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 9ms
+2025-08-12 00:24:56.833 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:24:56.834 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:24:56.840 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:24:56.840 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:24:56.842 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 10ms
+2025-08-12 00:24:56.852 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:24:56.853 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:24:56.856 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:24:56.856 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:24:56.858 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 6ms
+2025-08-12 00:24:56.869 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:24:56.870 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:24:56.879 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:24:56.881 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:24:56.882 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 14ms
+2025-08-12 00:24:56.893 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:24:56.895 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:24:56.905 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:24:56.906 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:24:56.908 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 15ms
+2025-08-12 00:26:13.861 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:26:13.862 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:26:13.873 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:26:13.876 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:26:13.878 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 18ms
+2025-08-12 00:26:13.888 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:26:13.889 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:26:13.895 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:26:13.899 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:26:13.902 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 14ms
+2025-08-12 00:26:13.910 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:26:13.911 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:26:13.918 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:26:13.920 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:26:13.922 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 12ms
+2025-08-12 00:26:13.930 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:26:13.931 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:26:13.935 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:26:13.936 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:26:13.938 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 8ms
+2025-08-12 00:26:13.944 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:26:13.946 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:26:13.950 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:26:13.951 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:26:13.953 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 9ms
+2025-08-12 00:26:13.962 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:26:13.963 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:26:13.966 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:26:13.970 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:26:13.972 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 10ms
+2025-08-12 00:26:13.979 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:26:13.980 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:26:13.984 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:26:13.986 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:26:13.988 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 9ms
+2025-08-12 00:27:12.387 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:12.388 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:12.394 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:27:12.395 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:27:12.397 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 10ms
+2025-08-12 00:27:15.132 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:27:15.133 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:27:15.138 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:27:15.139 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:27:15.140 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 9ms
+2025-08-12 00:27:18.549 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:18.550 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:18.554 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:27:18.555 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:27:18.556 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 7ms
+2025-08-12 00:27:21.073 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:27:21.074 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:27:21.077 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:27:21.078 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:27:21.080 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 7ms
+2025-08-12 00:27:23.030 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:23.031 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:23.035 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:27:23.036 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:27:23.038 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
+2025-08-12 00:27:30.889 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:27:30.890 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:27:30.895 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:27:30.896 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:27:30.898 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 9ms
+2025-08-12 00:27:33.233 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:33.234 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:33.238 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:27:33.239 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:27:33.240 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 7ms
+2025-08-12 00:27:33.246 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:27:33.248 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:27:33.251 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:27:33.252 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:27:33.253 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 7ms
+2025-08-12 00:27:33.280 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:27:33.281 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:27:33.284 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:27:33.285 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:27:33.286 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:27:33.293 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:27:33.294 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:27:33.297 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:27:33.298 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:27:33.299 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 6ms
+2025-08-12 00:27:33.306 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:27:33.307 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:27:33.310 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:27:33.311 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:27:33.312 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 6ms
+2025-08-12 00:27:33.318 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:27:33.319 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:27:33.321 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:27:33.322 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:27:33.323 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 5ms
+2025-08-12 00:27:33.330 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:27:33.331 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:27:33.333 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:27:33.334 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:27:33.336 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 6ms
+2025-08-12 00:27:36.554 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:36.555 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:27:36.559 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:27:36.560 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:27:36.562 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
+2025-08-12 00:29:33.230 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:29:33.231 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:29:33.238 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:29:33.242 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:29:33.244 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 14ms
+2025-08-12 00:29:35.973 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:29:35.973 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:29:35.980 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:29:35.981 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:29:35.983 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 10ms
+2025-08-12 00:29:35.987 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:29:35.987 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:29:35.992 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:29:35.993 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:29:35.994 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 7ms
+2025-08-12 00:29:36.008 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:29:36.009 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:29:36.011 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:29:36.014 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:29:36.015 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:29:36.020 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:29:36.021 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:29:36.023 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:29:36.024 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:29:36.025 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 4ms
+2025-08-12 00:29:36.030 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:29:36.030 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:29:36.032 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:29:36.033 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:29:36.034 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 4ms
+2025-08-12 00:29:36.039 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:29:36.039 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:29:36.041 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:29:36.042 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:29:36.043 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 4ms
+2025-08-12 00:29:36.050 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:29:36.050 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:29:36.052 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:29:36.053 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:29:36.054 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 4ms
+2025-08-12 00:29:37.635 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:29:37.636 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:29:37.644 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:29:37.646 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:29:37.648 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 13ms
+2025-08-12 00:30:07.046 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:30:07.047 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:30:07.061 +05:30 [INF] Retrieved 1 surveys.
+2025-08-12 00:30:07.062 +05:30 [INF] Retrieved 1 surveys.
+2025-08-12 00:30:07.063 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=2&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 18ms
+2025-08-12 00:30:08.795 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:30:08.796 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:30:08.802 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:30:08.803 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:30:08.805 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 11ms
+2025-08-12 00:30:11.043 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:30:11.044 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:30:11.051 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:30:11.052 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:30:11.059 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 16ms
+2025-08-12 00:30:11.067 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:30:11.068 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:30:11.076 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:30:11.077 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:30:11.081 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 14ms
+2025-08-12 00:30:11.099 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:30:11.100 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:30:11.103 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:30:11.104 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:30:11.105 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 6ms
+2025-08-12 00:30:11.111 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:30:11.112 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:30:11.115 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:30:11.115 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:30:11.117 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 6ms
+2025-08-12 00:30:11.127 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:30:11.128 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:30:11.131 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:30:11.131 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:30:11.133 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 6ms
+2025-08-12 00:30:11.139 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:30:11.140 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:30:11.143 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:30:11.144 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:30:11.145 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 6ms
+2025-08-12 00:30:11.151 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:30:11.152 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:30:11.155 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:30:11.155 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:30:11.157 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 6ms
+2025-08-12 00:31:36.057 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:31:36.058 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:31:36.069 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:31:36.070 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:31:36.072 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 16ms
+2025-08-12 00:31:36.083 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:31:36.084 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:31:36.092 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:31:36.095 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:31:36.098 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 14ms
+2025-08-12 00:31:36.105 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:31:36.106 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:31:36.109 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:31:36.112 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:31:36.114 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 9ms
+2025-08-12 00:31:36.122 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:31:36.123 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:31:36.126 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:31:36.126 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:31:36.128 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 7ms
+2025-08-12 00:31:36.139 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:31:36.139 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:31:36.143 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:31:36.145 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:31:36.146 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 8ms
+2025-08-12 00:31:36.154 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:31:36.155 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:31:36.162 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:31:36.164 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:31:36.169 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 14ms
+2025-08-12 00:31:36.176 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:31:36.178 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:31:36.191 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:31:36.192 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:31:36.193 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 17ms
+2025-08-12 00:31:42.825 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:31:42.826 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:31:42.834 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:31:42.836 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:31:42.838 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 13ms
+2025-08-12 00:31:42.848 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:31:42.849 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:31:42.855 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:31:42.859 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:31:42.861 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 13ms
+2025-08-12 00:31:42.868 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:31:42.869 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:31:42.871 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:31:42.872 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:31:42.876 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 8ms
+2025-08-12 00:31:42.884 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:31:42.885 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:31:42.887 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:31:42.888 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:31:42.890 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 6ms
+2025-08-12 00:31:42.898 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:31:42.899 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:31:42.902 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:31:42.902 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:31:42.904 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 6ms
+2025-08-12 00:31:42.917 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:31:42.918 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:31:42.921 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:31:42.922 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:31:42.924 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 6ms
+2025-08-12 00:31:42.933 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:31:42.934 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:31:42.938 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:31:42.939 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:31:42.940 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 7ms
+2025-08-12 00:32:02.831 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:32:02.831 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:32:02.834 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:32:02.835 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:32:02.837 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 7ms
+2025-08-12 00:32:02.843 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:32:02.844 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:32:02.846 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:32:02.852 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:32:02.853 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 10ms
+2025-08-12 00:32:02.860 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:32:02.861 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:32:02.864 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:32:02.866 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:32:02.867 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:32:02.876 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:32:02.877 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:32:02.879 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:32:02.880 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:32:02.881 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 5ms
+2025-08-12 00:32:02.888 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:32:02.891 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:32:02.893 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:32:02.894 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:32:02.895 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 8ms
+2025-08-12 00:32:02.903 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:32:02.904 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:32:02.907 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:32:02.907 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:32:02.909 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 5ms
+2025-08-12 00:32:02.916 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:32:02.916 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:32:02.919 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:32:02.920 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:32:02.921 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 5ms
+2025-08-12 00:32:02.943 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/admin/users   Responded with [200] in 13ms
+2025-08-12 00:32:39.001 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:32:39.002 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:32:39.008 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:32:39.010 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:32:39.011 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 11ms
+2025-08-12 00:32:41.719 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:32:41.720 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:32:41.729 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:32:41.730 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:32:41.731 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 13ms
+2025-08-12 00:32:41.743 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:32:41.746 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:32:41.753 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:32:41.755 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:32:41.757 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 14ms
+2025-08-12 00:32:41.766 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:32:41.767 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:32:41.770 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:32:41.771 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:32:41.773 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:32:41.780 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:32:41.781 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:32:41.784 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:32:41.786 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:32:41.787 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 7ms
+2025-08-12 00:32:41.794 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:32:41.795 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:32:41.798 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:32:41.799 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:32:41.800 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 6ms
+2025-08-12 00:32:41.810 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:32:41.811 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:32:41.816 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:32:41.817 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:32:41.819 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 9ms
+2025-08-12 00:32:41.827 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:32:41.828 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:32:41.831 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:32:41.835 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:32:41.837 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 11ms
+2025-08-12 00:32:41.864 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/admin/users   Responded with [200] in 5ms
+2025-08-12 00:33:39.871 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:33:39.872 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:33:39.881 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:33:39.884 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:33:39.886 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 15ms
+2025-08-12 00:33:39.894 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:33:39.895 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:33:39.902 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:33:39.903 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:33:39.905 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 10ms
+2025-08-12 00:33:39.913 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:33:39.914 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:33:39.917 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:33:39.917 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:33:39.919 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 6ms
+2025-08-12 00:33:39.925 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:33:39.927 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:33:39.930 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:33:39.931 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:33:39.932 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 8ms
+2025-08-12 00:33:39.939 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:33:39.940 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:33:39.946 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:33:39.947 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:33:39.948 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 9ms
+2025-08-12 00:33:39.955 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:33:39.956 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:33:39.962 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:33:39.962 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:33:39.964 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 9ms
+2025-08-12 00:33:39.971 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:33:39.971 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:33:39.974 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:33:39.975 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:33:39.977 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 6ms
+2025-08-12 00:38:54.797 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/refresh  {"refreshToken":"w8hWTM4LxjTdpsnajP5rlXG0qQDE3kxplstxLmxkFYo="} Responded with [200] in 91ms
+2025-08-12 00:39:02.138 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:39:02.139 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:39:02.288 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:39:02.289 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:39:02.291 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 155ms
+2025-08-12 00:39:02.315 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:02.316 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:02.333 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:02.335 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:02.337 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 22ms
+2025-08-12 00:39:02.362 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:39:02.363 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:39:02.371 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:39:02.372 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:39:02.374 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 12ms
+2025-08-12 00:39:02.381 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:39:02.383 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:39:02.391 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:39:02.392 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:39:02.394 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 13ms
+2025-08-12 00:39:02.400 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:39:02.403 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:39:02.406 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:39:02.407 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:39:02.409 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 8ms
+2025-08-12 00:39:02.415 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:39:02.415 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:39:02.419 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:39:02.420 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:39:02.422 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 7ms
+2025-08-12 00:39:02.428 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:39:02.428 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:39:02.431 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:39:02.432 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:39:02.433 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 5ms
+2025-08-12 00:39:02.441 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:39:02.442 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:39:02.445 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:39:02.445 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:39:02.447 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 5ms
+2025-08-12 00:39:04.191 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/admin/users   Responded with [200] in 4ms
+2025-08-12 00:39:20.522 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:20.523 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:20.534 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:20.538 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:20.541 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 19ms
+2025-08-12 00:39:20.548 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:39:20.549 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:39:20.557 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:39:20.561 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:39:20.563 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 15ms
+2025-08-12 00:39:20.579 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:39:20.580 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:39:20.583 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:39:20.584 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:39:20.585 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 6ms
+2025-08-12 00:39:20.592 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:39:20.593 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:39:20.596 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:39:20.597 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:39:20.599 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 7ms
+2025-08-12 00:39:20.606 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:39:20.607 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:39:20.612 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:39:20.613 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:39:20.614 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 9ms
+2025-08-12 00:39:20.620 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:39:20.621 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:39:20.624 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:39:20.627 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:39:20.628 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 8ms
+2025-08-12 00:39:20.635 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:39:20.635 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:39:20.641 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:39:20.642 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:39:20.644 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 9ms
+2025-08-12 00:39:28.697 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:39:28.698 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:39:28.849 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:39:28.850 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:39:28.852 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 156ms
+2025-08-12 00:39:28.878 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:28.879 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:28.888 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:28.890 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:28.892 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 15ms
+2025-08-12 00:39:28.900 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:39:28.901 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:39:28.910 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:39:28.912 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:39:28.913 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 14ms
+2025-08-12 00:39:28.937 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:39:28.938 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:39:28.944 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:39:28.944 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:39:28.946 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 9ms
+2025-08-12 00:39:28.952 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:39:28.955 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:39:28.958 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:39:28.959 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:39:28.960 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 8ms
+2025-08-12 00:39:28.966 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:39:28.967 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:39:28.970 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:39:28.972 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:39:28.973 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 7ms
+2025-08-12 00:39:28.979 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:39:28.982 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:39:28.985 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:39:28.985 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:39:28.987 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 8ms
+2025-08-12 00:39:28.993 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:39:28.994 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:39:28.996 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:39:28.997 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:39:28.998 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 5ms
+2025-08-12 00:39:38.770 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:38.771 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:38.776 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:39:38.777 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:39:38.778 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 9ms
+2025-08-12 00:39:40.942 +05:30 [INF] Attempting to retrieve survey 3.
+2025-08-12 00:39:40.943 +05:30 [INF] Retrieving survey with ID: 3
+2025-08-12 00:39:40.950 +05:30 [INF] Survey with ID: 3 retrieved successfully.
+2025-08-12 00:39:40.951 +05:30 [INF] Survey 3 retrieved successfully.
+2025-08-12 00:39:40.953 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey/3   Responded with [200] in 13ms
+2025-08-12 00:39:43.873 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:43.875 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:43.879 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:43.879 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:43.881 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 8ms
+2025-08-12 00:39:43.888 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:39:43.889 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:39:43.896 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:39:43.897 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:39:43.899 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 11ms
+2025-08-12 00:39:43.926 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:39:43.926 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:39:43.929 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:39:43.930 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:39:43.932 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:39:43.939 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:39:43.940 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:39:43.943 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:39:43.944 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:39:43.945 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 7ms
+2025-08-12 00:39:43.952 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:39:43.953 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:39:43.956 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:39:43.957 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:39:43.958 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 6ms
+2025-08-12 00:39:43.970 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:39:43.971 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:39:43.974 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:39:43.974 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:39:43.976 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 6ms
+2025-08-12 00:39:43.981 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:39:43.982 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:39:43.985 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:39:43.986 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:39:43.987 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 6ms
+2025-08-12 00:39:45.648 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:45.649 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:45.653 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:39:45.654 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:39:45.656 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
+2025-08-12 00:39:47.842 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:47.843 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:39:47.846 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:47.847 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:39:47.850 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1.0/survey ?pageNumber=1&pageSize=100  Responded with [200] in 9ms
+2025-08-12 00:39:47.857 +05:30 [INF] Attempting to get results for survey 12
+2025-08-12 00:39:47.858 +05:30 [INF] Getting survey results for survey ID: 12
+2025-08-12 00:39:47.861 +05:30 [INF] Successfully retrieved survey results for survey ID: 12. Total responses: 1
+2025-08-12 00:39:47.862 +05:30 [INF] Successfully retrieved results for survey 12
+2025-08-12 00:39:47.863 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/12/results   Responded with [200] in 7ms
+2025-08-12 00:39:47.870 +05:30 [INF] Attempting to get results for survey 5
+2025-08-12 00:39:47.872 +05:30 [INF] Getting survey results for survey ID: 5
+2025-08-12 00:39:47.875 +05:30 [INF] Successfully retrieved survey results for survey ID: 5. Total responses: 2
+2025-08-12 00:39:47.876 +05:30 [INF] Successfully retrieved results for survey 5
+2025-08-12 00:39:47.877 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/5/results   Responded with [200] in 7ms
+2025-08-12 00:39:47.882 +05:30 [INF] Attempting to get results for survey 6
+2025-08-12 00:39:47.883 +05:30 [INF] Getting survey results for survey ID: 6
+2025-08-12 00:39:47.886 +05:30 [INF] Successfully retrieved survey results for survey ID: 6. Total responses: 0
+2025-08-12 00:39:47.890 +05:30 [INF] Successfully retrieved results for survey 6
+2025-08-12 00:39:47.893 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/6/results   Responded with [200] in 10ms
+2025-08-12 00:39:47.900 +05:30 [INF] Attempting to get results for survey 9
+2025-08-12 00:39:47.901 +05:30 [INF] Getting survey results for survey ID: 9
+2025-08-12 00:39:47.905 +05:30 [INF] Successfully retrieved survey results for survey ID: 9. Total responses: 2
+2025-08-12 00:39:47.906 +05:30 [INF] Successfully retrieved results for survey 9
+2025-08-12 00:39:47.908 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/9/results   Responded with [200] in 8ms
+2025-08-12 00:39:47.934 +05:30 [INF] Attempting to get results for survey 3
+2025-08-12 00:39:47.935 +05:30 [INF] Getting survey results for survey ID: 3
+2025-08-12 00:39:47.938 +05:30 [INF] Successfully retrieved survey results for survey ID: 3. Total responses: 4
+2025-08-12 00:39:47.939 +05:30 [INF] Successfully retrieved results for survey 3
+2025-08-12 00:39:47.940 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/3/results   Responded with [200] in 6ms
+2025-08-12 00:39:47.946 +05:30 [INF] Attempting to get results for survey 1
+2025-08-12 00:39:47.947 +05:30 [INF] Getting survey results for survey ID: 1
+2025-08-12 00:39:47.950 +05:30 [INF] Successfully retrieved survey results for survey ID: 1. Total responses: 1
+2025-08-12 00:39:47.952 +05:30 [INF] Successfully retrieved results for survey 1
+2025-08-12 00:39:47.954 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/surveys/1/results   Responded with [200] in 8ms

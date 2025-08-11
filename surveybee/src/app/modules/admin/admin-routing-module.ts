@@ -4,11 +4,13 @@ import { AdminLayout } from './shared/components/admin-layout/admin-layout';
 import { Dashboard } from './features/dashboard/dashboard';
 import { CreateSurveyComponent } from './features/surveys/survey-create/create-survey';
 import { ManageUsersComponent } from './features/users/manage-users.component';
+import { adminOnlyGuard } from '../../common/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminLayout,
+    canActivate: [adminOnlyGuard], // Additional security check
     children: [
       { path: '', component: Dashboard },
       { path: 'dashboard', component: Dashboard },
@@ -17,9 +19,9 @@ const routes: Routes = [
         { path: 'create', loadComponent: () => import('./features/surveys/survey-create/create-survey').then(m => m.CreateSurveyComponent) },
         { path: 'results', loadComponent: () => import('./features/surveys/survey-results/survey-results').then(m => m.SurveyResultsComponent) },
         { path: ':id/results', loadComponent: () => import('./features/surveys/survey-results-detail/survey-results-detail').then(m => m.SurveyResultsDetailComponent) },
-        { path: ':id', loadComponent: () => import('./features/surveys/survey-edit/edit-survey').then(m => m.EditSurveyComponent) } // Added route for editing a survey
+        { path: ':id', loadComponent: () => import('./features/surveys/survey-edit/edit-survey').then(m => m.EditSurveyComponent) }
       ] },
-      { path: 'users', component: ManageUsersComponent } // Changed from loadComponent to component
+      { path: 'users', component: ManageUsersComponent }
     ]
   }
 ];

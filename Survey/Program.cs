@@ -59,9 +59,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:4200") 
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
@@ -113,7 +114,7 @@ builder.Services.AddApiVersioning(options =>
     options.GroupNameFormat = "'v'VVV";
     options.SubstituteApiVersionInUrl = true;
 });
-
+builder.Services.AddEndpointsApiExplorer();
 // Swagger
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.AddSwaggerGen(options =>
@@ -208,6 +209,6 @@ app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions
     ShowStatusCode = true
 });
 
-app.MapControllers();
+app.MapControllers(); //map routes to controllers automatically
 
 app.Run();

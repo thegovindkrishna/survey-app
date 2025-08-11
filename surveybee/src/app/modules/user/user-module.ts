@@ -8,7 +8,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { AttendSurveyComponent } from './features/attend-survey/attend-survey.component';
+import { ResponseViewerComponent } from './features/response-viewer/response-viewer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { AttendSurveyComponent } from './features/attend-survey/attend-survey.co
     MatIconModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    AttendSurveyComponent
+    MatDialogModule,
+    MatButtonModule,
+    AttendSurveyComponent,
+    ResponseViewerComponent
   ]
 })
 export class UserModule {}

@@ -2,10 +2,7 @@ using Survey.Repositories;
 using Survey.Data;
 using Survey.Models;
 using System.Text;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
+
 using Microsoft.Extensions.Logging;
 
 namespace Survey.Services
@@ -152,66 +149,6 @@ namespace Survey.Services
             }
             _logger.LogInformation("Successfully exported {Count} responses to CSV for survey ID: {SurveyId}", responses.Count(), surveyId);
             return Encoding.UTF8.GetBytes(csv.ToString());
-        }
-
-        /// <summary>
-        /// Exports survey responses to PDF format for reporting.
-        /// Creates a formatted PDF document with survey title and all responses.
-        /// </summary>
-        /// <param name="surveyId">The unique identifier of the survey</param>
-        /// <returns>PDF file content as byte array</returns>
-        /// <exception cref="ArgumentException">Thrown when survey not found</exception>
-        public async Task<byte[]> ExportToPdf(int surveyId)
-        {
-            _logger.LogInformation("Exporting survey responses to PDF for survey ID: {SurveyId}", surveyId);
-            var survey = await _unitOfWork.Surveys
-
-                .GetFirstOrDefaultAsync(s => s.Id == surveyId, includeProperties: "Questions");
-
-            if (survey == null)
-            {
-                _logger.LogWarning("Survey with ID: {SurveyId} not found for PDF export.", surveyId);
-                throw new ArgumentException("Survey not found");
-            }
-
-            var responses = await _unitOfWork.SurveyResponses
-                .GetAllAsync(r => r.SurveyId == surveyId);
-
-            using var memoryStream = new MemoryStream();
-            using var writer = new PdfWriter(memoryStream);
-            using var pdf = new PdfDocument(writer);
-            using var document = new Document(pdf);
-
-            // Add title
-            document.Add(new Paragraph($"Survey Results: {survey.Title}")
-                .SetTextAlignment(TextAlignment.CENTER)
-                .SetFontSize(20));
-
-            // Add responses
-            foreach (var response in responses)
-            {
-                document.Add(new Paragraph($"\nResponse from: {response.RespondentEmail}")
-                    .SetFontSize(14));
-                document.Add(new Paragraph($"Submitted on: {response.SubmissionDate:yyyy-MM-dd HH:mm:ss}")
-                    .SetFontSize(12));
-
-                foreach (var questionResponse in response.responses)
-                {
-                    var question = survey.Questions.FirstOrDefault(q => q.Id == questionResponse.QuestionId);
-                    if (question != null)
-                    {
-                        document.Add(new Paragraph($"Q: {question.QuestionText}")
-                            .SetFontSize(12)
-                            .SetBold());
-                        document.Add(new Paragraph($"A: {questionResponse.response}")
-                            .SetFontSize(12));
-                    }
-                }
-            }
-
-            document.Close();
-            _logger.LogInformation("Successfully exported {Count} responses to PDF for survey ID: {SurveyId}", responses.Count(), surveyId);
-            return memoryStream.ToArray();
         }
 
         /// <summary>

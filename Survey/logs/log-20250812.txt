@@ -1,0 +1,38 @@
+2025-08-12 00:02:05.044 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:02:05.069 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:02:05.206 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:02:05.210 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:02:05.359 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 403ms
+2025-08-12 00:02:06.948 +05:30 [INF] Retrieving results for survey 4.
+2025-08-12 00:02:07.001 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4/results   Responded with [200] in 102ms
+2025-08-12 00:03:56.517 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:03:56.520 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-12 00:03:56.755 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:03:56.757 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-12 00:03:56.761 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 260ms
+2025-08-12 00:03:56.871 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:03:56.872 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:03:56.886 +05:30 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-08-12 00:03:56.889 +05:30 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-08-12 00:03:56.903 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:03:56.908 +05:30 [INF] Retrieved 6 surveys.
+2025-08-12 00:03:56.911 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 43ms
+2025-08-12 00:03:56.936 +05:30 [INF] Retrieving results for survey 4.
+2025-08-12 00:03:56.948 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4/results   Responded with [200] in 13ms
+2025-08-12 00:03:56.958 +05:30 [INF] Retrieving results for survey 5.
+2025-08-12 00:03:56.963 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/5/results   Responded with [200] in 6ms
+2025-08-12 00:03:56.975 +05:30 [INF] Retrieving results for survey 6.
+2025-08-12 00:03:56.985 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/6/results   Responded with [200] in 10ms
+2025-08-12 00:03:56.996 +05:30 [INF] Retrieving results for survey 9.
+2025-08-12 00:03:57.001 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/9/results   Responded with [200] in 6ms
+2025-08-12 00:03:57.011 +05:30 [INF] Retrieving results for survey 3.
+2025-08-12 00:03:57.016 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/3/results   Responded with [200] in 5ms
+2025-08-12 00:03:57.025 +05:30 [INF] Retrieving results for survey 1.
+2025-08-12 00:03:57.030 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/1/results   Responded with [200] in 5ms
+2025-08-12 00:04:01.732 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:04:01.733 +05:30 [INF] Retrieving all surveys.
+2025-08-12 00:04:01.737 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:04:01.738 +05:30 [INF] Retrieved 5 surveys.
+2025-08-12 00:04:01.740 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
+2025-08-12 00:04:02.903 +05:30 [INF] Retrieving results for survey 4.
+2025-08-12 00:04:02.909 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4/results   Responded with [200] in 6ms

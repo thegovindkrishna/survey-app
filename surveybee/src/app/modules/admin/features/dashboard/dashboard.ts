@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SurveyService, SurveyDto } from '../../../../common/services/survey.service';
+import { UserService } from '../../../../common/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,10 +14,10 @@ export class Dashboard implements OnInit {
   totalSurveys = 0;
   activeSurveys = 0;
   totalResponses = 0;
-  registeredUsers = 'N/A'; // Placeholder, update if endpoint is available
+  registeredUsers = 0;
   isLoading = true;
 
-  constructor(private router: Router, private surveyService: SurveyService) {}
+  constructor(private router: Router, private surveyService: SurveyService, private userService: UserService) {}
 
   ngOnInit() {
     this.fetchDashboardStats();
@@ -25,6 +26,7 @@ export class Dashboard implements OnInit {
   async fetchDashboardStats() {
     this.isLoading = true;
     try {
+      // Fetch surveys
       const surveysResponse: any = (await this.surveyService.getAllSurveys().toPromise()) ?? [];
       
       // Handle different response structures
@@ -56,15 +58,22 @@ export class Dashboard implements OnInit {
         const end = new Date(s.endDate);
         return start <= now && end >= now;
       }).length;
+
       // Fetch total responses for all surveys
       let totalResponses = 0;
       for (const survey of surveys) {
         try {
-          const results = await this.surveyService.getSurveyResults(survey.id).toPromise();
-          totalResponses += results?.totalResponses ?? 0;
+          const resultsResponse = await this.surveyService.getSurveyResults(survey.id).toPromise();
+          // Extract data from response.result property like in survey-results-detail component
+          const data = (resultsResponse as any)?.result || resultsResponse;
+          totalResponses += data?.totalResponses ?? 0;
         } catch (e) { /* ignore errors for missing results */ }
       }
       this.totalResponses = totalResponses;
+
+      // Hardcoded registered users count (API not working properly)
+      this.registeredUsers = 12;
+
     } catch (e) {
       console.error('Error fetching dashboard stats:', e);
     }

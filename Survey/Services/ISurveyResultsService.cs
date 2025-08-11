@@ -25,14 +25,6 @@ namespace Survey.Services
         Task<byte[]> ExportToCsv(int surveyId);
 
         /// <summary>
-        /// Exports survey responses to PDF format for reporting.
-        /// </summary>
-        /// <param name="surveyId">The unique identifier of the survey</param>
-        /// <returns>PDF file content as byte array</returns>
-        /// <exception cref="ArgumentException">Thrown when survey not found</exception>
-        Task<byte[]> ExportToPdf(int surveyId);
-
-        /// <summary>
         /// Generates a shareable link for a survey.
         /// Updates the survey's ShareLink property in the database.
         /// </summary>

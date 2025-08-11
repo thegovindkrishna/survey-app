@@ -83,6 +83,17 @@ namespace Survey.Services
             return new PagedList<SurveyDto>(surveyDtos.ToList(), surveys.TotalCount, surveys.CurrentPage, surveys.PageSize);
         }
 
+        public async Task<PagedList<SurveyDto>> GetAll(PaginationParams paginationParams, string? sortBy = null, string? sortOrder = null)
+        {
+            _logger.LogInformation("Retrieving all surveys.");
+            var surveys = await _unitOfWork.Surveys.GetAllWithQuestionsAsync(paginationParams, sortBy, sortOrder);
+            _logger.LogInformation("Retrieved {Count} surveys.", surveys.Count());
+            var surveyDtos = surveys.Select(s => new SurveyDto(s.Id, s.Title, s.Description, s.StartDate, s.EndDate, s.CreatedBy, s.ShareLink,
+                                 s.Questions.Select(q => new QuestionDto(q.Id, q.QuestionText, q.Type, q.Required, q.Options, q.MaxRating)).ToList()));
+
+            return new PagedList<SurveyDto>(surveyDtos.ToList(), surveys.TotalCount, surveys.CurrentPage, surveys.PageSize);
+        }
+
         /// <summary>
         /// Retrieves a specific survey by its ID with questions included.
         /// </summary>
@@ -353,6 +364,79 @@ namespace Survey.Services
                 _logger.LogWarning("Question text not found for question ID: {QuestionId}", questionId);
             }
             return question?.QuestionText ?? string.Empty;
+        }
+
+        /// <summary>
+        /// Aggregates and returns detailed results and analytics for a specific survey.
+        /// </summary>
+        public async Task<SurveyResultsDto?> GetSurveyResultsAsync(int surveyId)
+        {
+            var survey = await _unitOfWork.Surveys.GetByIdWithQuestionsAsync(surveyId);
+            if (survey == null)
+            {
+                _logger.LogWarning("Survey {SurveyId} not found for results aggregation.", surveyId);
+                return null!; // Explicitly return null for nullable return type
+            }
+            var responses = await _unitOfWork.SurveyResponses.GetAllAsync(r => r.SurveyId == surveyId);
+            var totalResponses = responses.Count();
+            var questionResults = new List<QuestionResultDto>();
+            foreach (var question in survey.Questions)
+            {
+                var qResponses = responses.SelectMany(r => r.responses)
+                    .Where(qr => qr.QuestionId == question.Id)
+                    .Select(qr => qr.response)
+                    .ToList();
+                var responseCounts = new Dictionary<string, int>();
+                double? avgRating = null;
+                if (question.Type == "rating")
+                {
+                    var ratings = qResponses
+                        .Select(r => { int val; return int.TryParse(r, out val) ? (int?)val : null; })
+                        .Where(v => v != null)
+                        .Select(v => v!.Value)
+                        .ToList();
+                    if (ratings.Any())
+                        avgRating = ratings.Average();
+                    foreach (var rating in ratings)
+                        responseCounts[rating.ToString()] = responseCounts.ContainsKey(rating.ToString()) ? responseCounts[rating.ToString()] + 1 : 1;
+                }
+                else if (question.Type == "short answer")
+                {
+                    foreach (var resp in qResponses)
+                        responseCounts[resp] = responseCounts.ContainsKey(resp) ? responseCounts[resp] + 1 : 1;
+                }
+                else // multiple choice, checkbox, etc.
+                {
+                    foreach (var resp in qResponses)
+                    {
+                        if (resp != null)
+                        {
+                            var options = resp.Split(",");
+                            foreach (var opt in options)
+                            {
+                                var trimmed = opt.Trim();
+                                if (!string.IsNullOrEmpty(trimmed))
+                                    responseCounts[trimmed] = responseCounts.ContainsKey(trimmed) ? responseCounts[trimmed] + 1 : 1;
+                            }
+                        }
+                    }
+                }
+                questionResults.Add(new QuestionResultDto
+                {
+                    QuestionId = question.Id,
+                    QuestionText = question.QuestionText,
+                    QuestionType = question.Type,
+                    ResponseCounts = responseCounts,
+                    AverageRating = avgRating
+                });
+            }
+            return new SurveyResultsDto
+            {
+                SurveyId = survey.Id,
+                SurveyTitle = survey.Title,
+                TotalResponses = totalResponses,
+                QuestionResults = questionResults
+            };
         }
     }
 }

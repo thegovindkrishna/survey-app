@@ -20,20 +20,61 @@ export class SurveyResultsDetailComponent implements OnInit {
 
   ngOnInit() {
     this.surveyId = Number(this.route.snapshot.paramMap.get('id'));
-    this.fetchSurveyResults();
+    if (this.surveyId && !isNaN(this.surveyId)) {
+      this.fetchSurveyResults();
+    } else {
+      this.error = 'Invalid survey ID';
+      this.isLoading = false;
+    }
   }
 
   fetchSurveyResults() {
     this.isLoading = true;
+    this.error = null;
+    
     this.surveyService.getSurveyResults(this.surveyId).subscribe({
-      next: (data) => {
-        console.log('Survey results API response:', data);
+      next: (response) => {
+        if (!response) {
+          this.error = 'No data received from server';
+          this.isLoading = false;
+          return;
+        }
+
+        // Extract the actual data from the response.result property
+        const data = (response as any).result || response;
+        
+        if (!data) {
+          this.error = 'No survey results found in response';
+          this.isLoading = false;
+          return;
+        }
+
+        // Ensure questionResults is an array
+        if (data.questionResults && !Array.isArray(data.questionResults)) {
+          data.questionResults = [];
+        } else if (!data.questionResults) {
+          data.questionResults = [];
+        }
+
+        // Ensure totalResponses is a valid number
+        if (typeof data.totalResponses !== 'number' || isNaN(data.totalResponses)) {
+          data.totalResponses = 0;
+        }
+
+        // Ensure each question result has the required properties
+        if (Array.isArray(data.questionResults)) {
+          data.questionResults = data.questionResults.map((qr: any) => ({
+            ...qr,
+            responseCounts: qr.responseCounts || {},
+            averageRating: qr.averageRating || undefined
+          }));
+        }
+
         this.survey = data;
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Survey results API error:', err);
-        this.error = 'Failed to load survey results. ' + (err?.error?.message || err.message || '');
+        this.error = 'Failed to load survey results. ' + (err?.error?.message || err.message || 'Unknown error');
         this.isLoading = false;
       }
     });
@@ -41,5 +82,13 @@ export class SurveyResultsDetailComponent implements OnInit {
 
   getKeys(obj: any): string[] {
     return obj ? Object.keys(obj) : [];
+  }
+
+  getBarWidth(responseCounts: any, option: string, totalResponses?: number): number {
+    if (!responseCounts || !option || !totalResponses || totalResponses === 0) {
+      return 0;
+    }
+    const count = responseCounts[option] || 0;
+    return (count / totalResponses) * 100;
   }
 }

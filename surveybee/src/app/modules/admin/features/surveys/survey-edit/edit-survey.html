@@ -85,7 +85,9 @@
         <button type="submit" class="btn-primary" [disabled]="form.invalid">Update Survey</button>
         <button type="button" class="btn-secondary" (click)="router.navigate(['/admin/surveys'])">Cancel</button>
       </div>
-      <div *ngIf="success" class="success">{{ success }}</div>
+      @if (success) {
+        <div class="success">{{ success }}</div>
+      }
     </form>
   }
 </div>

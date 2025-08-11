@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Survey.Models;
 using Survey.Models.Dtos;
 using Survey.Services;
 using System.Security.Claims;
@@ -47,7 +46,9 @@ namespace Survey.Controllers
         /// 409 Conflict if user already exists
         /// </returns>
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] AuthRequestModel request)
+        [ProducesResponseType(typeof(AuthResponseDto), StatusCodes.Status200OK)] //proper way to document response types
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Register([FromBody] AuthRequestDto request)
         {
             _logger.LogInformation("Attempting to register user {Email}", request.Email);
 
@@ -57,13 +58,9 @@ namespace Survey.Controllers
                 return BadRequest(new { message = "Email and password are required." });
             }
 
-            if (string.IsNullOrWhiteSpace(request.Role))
-            {
-                request.Role = "User"; // Default to User if no role specified
-                _logger.LogInformation("No role specified for user {Email}, defaulting to 'User'", request.Email);
-            }
+            var role = string.IsNullOrWhiteSpace(request.Role) ? "User" : request.Role;
 
-            var result = await _loginService.Register(request.Email, request.Password, request.Role);
+            var result = await _loginService.Register(request.Email, request.Password, role);
             
             if (!result)
             {
@@ -90,7 +87,7 @@ namespace Survey.Controllers
         /// 401 Unauthorized if credentials are invalid
         /// </returns>
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] AuthRequestModel request)
+        public async Task<IActionResult> Login([FromBody] AuthRequestDto request)
         {
             _logger.LogInformation("Attempting to log in user {Email}", request.Email);
             var authResponse = await _loginService.Login(request.Email, request.Password);

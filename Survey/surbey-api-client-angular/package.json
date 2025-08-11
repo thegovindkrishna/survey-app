@@ -1,0 +1,22 @@
+{
+
+  "name": "surbey-api-client-angular",
+
+  "version": "1.0.0",
+
+  "main": "index.ts",
+
+  "types": "index.ts",
+
+  "peerDependencies": {
+
+    "@angular/core": "^20.1.0",
+
+    "@angular/common": "^20.1.0",
+
+    "rxjs": "~7.8.0"
+
+  }
+
+}
+ 

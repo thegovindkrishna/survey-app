@@ -1,0 +1,530 @@
+2025-08-10 10:24:45.326 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 10:24:45.380 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 10:24:45.778 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 10:24:45.779 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 10:24:46.083 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 1005ms
+2025-08-10 10:24:51.806 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:24:51.808 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:24:51.974 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:24:51.979 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:24:52.014 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 268ms
+2025-08-10 10:24:53.209 +05:30 [INF] Retrieving results for survey 9.
+2025-08-10 10:24:53.265 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/9/results   Responded with [200] in 61ms
+2025-08-10 10:24:55.133 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:24:55.134 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:24:55.147 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:24:55.148 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:24:55.150 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 21ms
+2025-08-10 10:24:57.739 +05:30 [INF] Attempting to retrieve survey 9.
+2025-08-10 10:24:57.754 +05:30 [INF] Retrieving survey with ID: 9
+2025-08-10 10:24:57.761 +05:30 [INF] Survey with ID: 9 retrieved successfully.
+2025-08-10 10:24:57.769 +05:30 [INF] Survey 9 retrieved successfully.
+2025-08-10 10:24:57.771 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/9   Responded with [200] in 40ms
+2025-08-10 10:25:02.369 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:25:02.372 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:25:02.383 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:25:02.384 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:25:02.386 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 17ms
+2025-08-10 10:25:04.090 +05:30 [INF] Retrieving results for survey 9.
+2025-08-10 10:25:04.102 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/9/results   Responded with [200] in 13ms
+2025-08-10 10:25:06.378 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:25:06.379 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:25:06.391 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:25:06.392 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:25:06.395 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 18ms
+2025-08-10 10:25:07.799 +05:30 [INF] Attempting to retrieve survey 9.
+2025-08-10 10:25:07.809 +05:30 [INF] Retrieving survey with ID: 9
+2025-08-10 10:25:07.817 +05:30 [INF] Survey with ID: 9 retrieved successfully.
+2025-08-10 10:25:07.820 +05:30 [INF] Survey 9 retrieved successfully.
+2025-08-10 10:25:07.821 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/9   Responded with [200] in 23ms
+2025-08-10 10:25:09.744 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:25:09.746 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:25:09.773 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:25:09.775 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:25:09.777 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 41ms
+2025-08-10 10:26:03.330 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:26:03.331 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:26:03.339 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:26:03.340 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:26:03.346 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 17ms
+2025-08-10 10:27:17.851 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:27:17.852 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:27:17.864 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:27:17.865 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:27:17.868 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 17ms
+2025-08-10 10:27:26.820 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:27:26.821 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:27:26.831 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:27:26.832 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:27:26.835 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 14ms
+2025-08-10 10:28:10.050 +05:30 [INF] Attempting to delete survey 8.
+2025-08-10 10:28:10.053 +05:30 [INF] Deleting survey with ID: 8
+2025-08-10 10:28:10.100 +05:30 [INF] Survey with ID: 8 deleted successfully.
+2025-08-10 10:28:10.101 +05:30 [INF] Survey 8 deleted successfully.
+2025-08-10 10:28:10.105 +05:30 [INF] Source:[::1] Request: DELETE https localhost:7245/api/v1/survey/8   Responded with [200] in 60ms
+2025-08-10 10:28:10.113 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:10.114 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:10.126 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:28:10.127 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:28:10.129 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 16ms
+2025-08-10 10:28:19.548 +05:30 [INF] Attempting to delete survey 7.
+2025-08-10 10:28:19.549 +05:30 [INF] Deleting survey with ID: 7
+2025-08-10 10:28:19.555 +05:30 [INF] Survey with ID: 7 deleted successfully.
+2025-08-10 10:28:19.556 +05:30 [INF] Survey 7 deleted successfully.
+2025-08-10 10:28:19.561 +05:30 [INF] Source:[::1] Request: DELETE https localhost:7245/api/v1/survey/7   Responded with [200] in 15ms
+2025-08-10 10:28:19.572 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:19.575 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:19.579 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:28:19.580 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:28:19.582 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 10ms
+2025-08-10 10:28:24.178 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:24.179 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:24.198 +05:30 [INF] Retrieved 2 surveys.
+2025-08-10 10:28:24.201 +05:30 [INF] Retrieved 2 surveys.
+2025-08-10 10:28:24.203 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=2&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 26ms
+2025-08-10 10:28:26.340 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:26.341 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:26.354 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:28:26.360 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:28:26.362 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 23ms
+2025-08-10 10:28:54.205 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:54.206 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:28:54.215 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:28:54.217 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:28:54.219 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 14ms
+2025-08-10 10:36:17.125 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:36:17.127 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:36:17.258 +05:30 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-08-10 10:36:17.261 +05:30 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-08-10 10:36:17.287 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 10:36:17.289 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 10:36:17.298 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 174ms
+2025-08-10 10:38:17.956 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:38:17.958 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:38:17.978 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 10:38:17.981 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 10:38:17.986 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 31ms
+2025-08-10 10:38:23.241 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:38:23.242 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:38:23.248 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:38:23.249 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 10:38:23.252 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 12ms
+2025-08-10 10:38:25.761 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:38:25.762 +05:30 [INF] Retrieving all surveys.
+2025-08-10 10:38:25.765 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 10:38:25.766 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 10:38:25.768 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 7ms
+2025-08-10 10:39:48.405 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/refresh  {"refreshToken":"HXmTvNhtIosITyL78rLB4P5hztaswO/bSTSP2feIPpA="} Responded with [200] in 66ms
+2025-08-10 10:39:48.445 +05:30 [WRN] Refresh token failed: Invalid or expired refresh token.
+2025-08-10 10:39:48.459 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/refresh  {"refreshToken":"undefined"} Responded with [400] in 20ms
+2025-08-10 21:37:21.250 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 21:37:21.286 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 21:37:21.845 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 21:37:21.846 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 21:37:22.020 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 890ms
+2025-08-10 21:37:22.201 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:37:22.203 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:37:22.279 +05:30 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-08-10 21:37:22.281 +05:30 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-08-10 21:37:22.402 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:37:22.406 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:37:22.438 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 313ms
+2025-08-10 21:37:28.143 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:37:28.144 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:37:28.181 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:37:28.182 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:37:28.186 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 45ms
+2025-08-10 21:38:01.297 +05:30 [INF] Attempting to retrieve survey 4.
+2025-08-10 21:38:01.300 +05:30 [INF] Retrieving survey with ID: 4
+2025-08-10 21:38:01.324 +05:30 [INF] Survey with ID: 4 retrieved successfully.
+2025-08-10 21:38:01.330 +05:30 [INF] Survey 4 retrieved successfully.
+2025-08-10 21:38:01.334 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4   Responded with [200] in 44ms
+2025-08-10 21:39:38.825 +05:30 [INF] Attempting to retrieve survey 4.
+2025-08-10 21:39:38.827 +05:30 [INF] Retrieving survey with ID: 4
+2025-08-10 21:39:38.838 +05:30 [INF] Survey with ID: 4 retrieved successfully.
+2025-08-10 21:39:38.840 +05:30 [INF] Survey 4 retrieved successfully.
+2025-08-10 21:39:38.842 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4   Responded with [200] in 17ms
+2025-08-10 21:40:29.436 +05:30 [INF] Attempting to retrieve survey 4.
+2025-08-10 21:40:29.437 +05:30 [INF] Retrieving survey with ID: 4
+2025-08-10 21:40:29.443 +05:30 [INF] Survey with ID: 4 retrieved successfully.
+2025-08-10 21:40:29.444 +05:30 [INF] Survey 4 retrieved successfully.
+2025-08-10 21:40:29.445 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4   Responded with [200] in 9ms
+2025-08-10 21:41:30.514 +05:30 [INF] Attempting to retrieve survey 4.
+2025-08-10 21:41:30.516 +05:30 [INF] Retrieving survey with ID: 4
+2025-08-10 21:41:30.522 +05:30 [INF] Survey with ID: 4 retrieved successfully.
+2025-08-10 21:41:30.523 +05:30 [INF] Survey 4 retrieved successfully.
+2025-08-10 21:41:30.525 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4   Responded with [200] in 11ms
+2025-08-10 21:41:37.810 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 21:41:37.811 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 21:41:37.972 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 21:41:37.974 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 21:41:37.976 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 167ms
+2025-08-10 21:41:37.996 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:41:37.997 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:41:38.006 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:41:38.008 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:41:38.011 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 16ms
+2025-08-10 21:41:39.459 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:41:39.460 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:41:39.466 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:41:39.467 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:41:39.469 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 10ms
+2025-08-10 21:41:40.811 +05:30 [INF] Attempting to retrieve survey 4.
+2025-08-10 21:41:40.812 +05:30 [INF] Retrieving survey with ID: 4
+2025-08-10 21:41:40.816 +05:30 [INF] Survey with ID: 4 retrieved successfully.
+2025-08-10 21:41:40.817 +05:30 [INF] Survey 4 retrieved successfully.
+2025-08-10 21:41:40.818 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4   Responded with [200] in 7ms
+2025-08-10 21:42:54.037 +05:30 [INF] Attempting to update survey 4.
+2025-08-10 21:42:54.040 +05:30 [INF] Updating survey with ID: 4
+2025-08-10 21:42:54.157 +05:30 [INF] Survey with ID: 4 updated successfully.
+2025-08-10 21:42:54.201 +05:30 [INF] Survey 4 updated successfully.
+2025-08-10 21:42:54.207 +05:30 [INF] Source:[::1] Request: PUT https localhost:7245/api/v1/survey/4  {"title":"Dummy with repos","description":"dummy repos work ","startDate":"2025-08-10","endDate":"2025-08-31","questions":[{"questionText":"wassup again ","type":"text","required":false,"options":["hey ","hello "],"maxRating":null},{"questionText":"nnckjana","type":"text","required":false,"options":[],"maxRating":null}]} Responded with [200] in 193ms
+2025-08-10 21:42:55.440 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:42:55.442 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:42:55.458 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:42:55.462 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:42:55.465 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 25ms
+2025-08-10 21:42:59.242 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:42:59.243 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:42:59.260 +05:30 [INF] Retrieved 2 surveys.
+2025-08-10 21:42:59.261 +05:30 [INF] Retrieved 2 surveys.
+2025-08-10 21:42:59.262 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=2&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 21ms
+2025-08-10 21:43:03.525 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:43:03.526 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:43:03.534 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:43:03.535 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:43:03.537 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 12ms
+2025-08-10 21:43:11.850 +05:30 [INF] Attempting to retrieve survey 4.
+2025-08-10 21:43:11.851 +05:30 [INF] Retrieving survey with ID: 4
+2025-08-10 21:43:11.857 +05:30 [INF] Survey with ID: 4 retrieved successfully.
+2025-08-10 21:43:11.858 +05:30 [INF] Survey 4 retrieved successfully.
+2025-08-10 21:43:11.859 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/4   Responded with [200] in 10ms
+2025-08-10 21:43:16.811 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:43:16.812 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:43:16.822 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:43:16.823 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:43:16.827 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 16ms
+2025-08-10 21:43:54.822 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:43:54.823 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:43:54.840 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:43:54.842 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:43:54.850 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 29ms
+2025-08-10 21:44:13.444 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:13.445 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:13.448 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:44:13.449 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:44:13.451 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
+2025-08-10 21:44:15.181 +05:30 [INF] Attempting to retrieve survey 10.
+2025-08-10 21:44:15.183 +05:30 [INF] Retrieving survey with ID: 10
+2025-08-10 21:44:15.188 +05:30 [INF] Survey with ID: 10 retrieved successfully.
+2025-08-10 21:44:15.189 +05:30 [INF] Survey 10 retrieved successfully.
+2025-08-10 21:44:15.190 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/10   Responded with [200] in 9ms
+2025-08-10 21:44:27.461 +05:30 [INF] Attempting to update survey 10.
+2025-08-10 21:44:27.462 +05:30 [INF] Updating survey with ID: 10
+2025-08-10 21:44:27.473 +05:30 [INF] Survey with ID: 10 updated successfully.
+2025-08-10 21:44:27.474 +05:30 [INF] Survey 10 updated successfully.
+2025-08-10 21:44:27.475 +05:30 [INF] Source:[::1] Request: PUT https localhost:7245/api/v1/survey/10  {"title":"newkad","description":"abdjbanankdna","startDate":"2025-08-08","endDate":"2025-08-24","questions":[{"questionText":"njiajhda","type":"text","required":false,"options":[],"maxRating":null},{"questionText":"dnmasnbdjkandkja","type":"rating","required":false,"options":[],"maxRating":10}]} Responded with [200] in 16ms
+2025-08-10 21:44:28.715 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:28.716 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:28.719 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:44:28.720 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:44:28.722 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 8ms
+2025-08-10 21:44:37.555 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:37.555 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:37.561 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:44:37.563 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:44:37.565 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 11ms
+2025-08-10 21:44:46.704 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:46.705 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:46.707 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:44:46.708 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 21:44:46.709 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 6ms
+2025-08-10 21:44:48.307 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:48.308 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:48.311 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:44:48.312 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:44:48.314 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 6ms
+2025-08-10 21:44:54.042 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:54.043 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:44:54.045 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:44:54.046 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:44:54.048 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 6ms
+2025-08-10 21:45:07.753 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:45:07.754 +05:30 [INF] Retrieving all surveys.
+2025-08-10 21:45:07.757 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:45:07.758 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 21:45:07.760 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 7ms
+2025-08-10 22:03:59.457 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:03:59.491 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:03:59.753 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:03:59.754 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:03:59.896 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 610ms
+2025-08-10 22:04:00.037 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:04:00.039 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:04:00.106 +05:30 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-08-10 22:04:00.108 +05:30 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-08-10 22:04:00.185 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:04:00.190 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:04:00.214 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 238ms
+2025-08-10 22:04:07.449 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:04:07.450 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:04:07.478 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:04:07.479 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:04:07.483 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 36ms
+2025-08-10 22:04:09.214 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:04:09.215 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:04:09.226 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:04:09.227 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:04:09.230 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 17ms
+2025-08-10 22:04:31.446 +05:30 [INF] Attempting to register user asdfghjkl@gmail.com
+2025-08-10 22:04:31.449 +05:30 [INF] Attempting to register user asdfghjkl@gmail.com with role User
+2025-08-10 22:04:31.620 +05:30 [INF] User asdfghjkl@gmail.com registered successfully with role User
+2025-08-10 22:04:31.621 +05:30 [INF] User asdfghjkl@gmail.com registered successfully
+2025-08-10 22:04:31.624 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/register  {"email":"asdfghjkl@gmail.com","password":"asdfghjkl"} Responded with [200] in 185ms
+2025-08-10 22:04:44.406 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:04:44.408 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:04:44.554 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:04:44.555 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:04:44.556 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 152ms
+2025-08-10 22:04:44.575 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:04:44.576 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:04:44.584 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:04:44.585 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:04:44.588 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 13ms
+2025-08-10 22:06:28.899 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:28.901 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:28.911 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:06:28.913 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:06:28.916 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 17ms
+2025-08-10 22:06:34.848 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:34.850 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:34.860 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:06:34.862 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:06:34.864 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 16ms
+2025-08-10 22:06:36.822 +05:30 [INF] Retrieving results for survey 10.
+2025-08-10 22:06:36.886 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey/10/results   Responded with [200] in 70ms
+2025-08-10 22:06:38.410 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:38.411 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:38.423 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:06:38.425 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:06:38.427 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 18ms
+2025-08-10 22:06:40.918 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:40.919 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:40.934 +05:30 [INF] Retrieved 2 surveys.
+2025-08-10 22:06:40.935 +05:30 [INF] Retrieved 2 surveys.
+2025-08-10 22:06:40.936 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=2&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 19ms
+2025-08-10 22:06:44.584 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:44.585 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:44.593 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:06:44.595 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:06:44.598 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 13ms
+2025-08-10 22:06:49.058 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:49.059 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:49.066 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:06:49.067 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:06:49.072 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 14ms
+2025-08-10 22:06:51.372 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:51.373 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:51.380 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:06:51.381 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:06:51.383 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 11ms
+2025-08-10 22:06:52.963 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:52.963 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:06:52.971 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:06:52.973 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:06:52.976 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 13ms
+2025-08-10 22:08:23.819 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:23.820 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:23.829 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:08:23.830 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:08:23.832 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 13ms
+2025-08-10 22:08:25.462 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:25.463 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:25.471 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:08:25.472 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:08:25.474 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 12ms
+2025-08-10 22:08:40.310 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:08:40.311 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:08:40.495 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:08:40.497 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:08:40.498 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 189ms
+2025-08-10 22:08:40.548 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:40.550 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:40.563 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:08:40.567 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:08:40.570 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 23ms
+2025-08-10 22:08:42.435 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:42.437 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:42.442 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:08:42.443 +05:30 [INF] Retrieved 5 surveys.
+2025-08-10 22:08:42.445 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=5&sortBy=startDate&sortOrder=desc  Responded with [200] in 10ms
+2025-08-10 22:08:44.458 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:44.459 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:08:44.463 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:08:44.464 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:08:44.466 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 8ms
+2025-08-10 22:10:27.810 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:10:27.811 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:10:27.820 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:10:27.823 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:10:27.825 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 15ms
+2025-08-10 22:10:48.624 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:10:48.625 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:10:48.643 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:10:48.644 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:10:48.648 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 25ms
+2025-08-10 22:11:00.943 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:11:00.944 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:11:01.092 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:11:01.093 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:11:01.094 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 152ms
+2025-08-10 22:11:01.122 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:11:01.123 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:11:01.138 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:11:01.139 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:11:01.142 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 20ms
+2025-08-10 22:13:20.100 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:13:20.102 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:13:20.294 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:13:20.295 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:13:20.297 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 197ms
+2025-08-10 22:13:20.344 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:13:20.345 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:13:20.356 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:13:20.358 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:13:20.361 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 17ms
+2025-08-10 22:15:04.233 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:15:04.235 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:15:04.245 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:15:04.249 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:15:04.253 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 20ms
+2025-08-10 22:16:43.335 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:16:43.343 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:16:43.362 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:16:43.363 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:16:43.372 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 39ms
+2025-08-10 22:17:00.677 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:17:00.678 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:17:00.848 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:17:00.849 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:17:00.851 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 174ms
+2025-08-10 22:17:00.881 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:17:00.882 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:17:00.893 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:17:00.895 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:17:00.898 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 17ms
+2025-08-10 22:18:03.829 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:18:03.830 +05:30 [INF] Retrieving all surveys.
+2025-08-10 22:18:03.843 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:18:03.844 +05:30 [INF] Retrieved 7 surveys.
+2025-08-10 22:18:03.847 +05:30 [INF] Source:[::1] Request: GET https localhost:7245/api/v1/survey ?pageNumber=1&pageSize=100  Responded with [200] in 18ms
+2025-08-10 22:25:59.083 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:25:59.084 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:25:59.281 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:25:59.282 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:25:59.283 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 201ms
+2025-08-10 22:26:12.673 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:26:12.674 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:26:12.822 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:26:12.823 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:26:12.825 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 152ms
+2025-08-10 22:27:24.301 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:27:24.302 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:27:24.441 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:27:24.442 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:27:24.443 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 143ms
+2025-08-10 22:28:08.767 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:28:08.799 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:28:09.073 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:28:09.077 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:28:09.293 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 650ms
+2025-08-10 22:29:36.480 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:29:36.481 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:29:36.626 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:29:36.627 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:29:36.630 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 193ms
+2025-08-10 22:30:06.099 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:30:06.100 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:30:06.267 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:30:06.268 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:30:06.270 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 173ms
+2025-08-10 22:31:22.355 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:31:22.356 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:31:22.497 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:31:22.498 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:31:22.500 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 145ms
+2025-08-10 22:33:19.841 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:33:19.842 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:33:19.981 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:33:19.983 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:33:19.984 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 144ms
+2025-08-10 22:48:37.894 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:48:37.895 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:48:39.107 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:48:39.109 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:48:39.111 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 1217ms
+2025-08-10 22:53:01.399 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:53:01.401 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:53:01.554 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:53:01.556 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:53:01.558 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 159ms
+2025-08-10 22:54:47.365 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:54:47.366 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:54:47.529 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:54:47.530 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:54:47.533 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 168ms
+2025-08-10 22:59:45.351 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:59:45.354 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:59:45.711 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:59:45.712 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:59:45.714 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 364ms
+2025-08-10 22:59:52.327 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:59:52.328 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 22:59:52.559 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:59:52.560 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 22:59:52.563 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 237ms
+2025-08-10 23:01:29.291 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:01:29.292 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:01:29.549 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:01:29.550 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:01:29.552 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 262ms
+2025-08-10 23:04:00.351 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:04:00.352 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:04:00.567 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:04:00.568 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:04:00.570 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 220ms
+2025-08-10 23:06:25.416 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:06:25.417 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:06:25.617 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:06:25.618 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:06:25.620 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 204ms
+2025-08-10 23:06:49.300 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:06:49.302 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:06:49.556 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:06:49.558 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:06:49.561 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 262ms
+2025-08-10 23:09:03.224 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:09:03.225 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:09:03.363 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:09:03.364 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:09:03.366 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 143ms
+2025-08-10 23:09:30.421 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:09:30.422 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:09:30.568 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:09:30.569 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:09:30.571 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 151ms
+2025-08-10 23:22:13.896 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:22:13.897 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:22:15.317 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:22:15.318 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:22:15.319 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 1424ms
+2025-08-10 23:24:37.769 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:24:37.770 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:24:37.940 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:24:37.941 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:24:37.944 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 176ms
+2025-08-10 23:24:47.454 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:24:47.456 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-10 23:24:47.665 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:24:47.666 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-10 23:24:47.668 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 215ms

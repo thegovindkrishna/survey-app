@@ -14,9 +14,26 @@ namespace Survey.Repositories
         {
         } 
 
-        public async Task<PagedList<SurveyModel>> GetAllWithQuestionsAsync(PaginationParams paginationParams)
+        public async Task<PagedList<SurveyModel>> GetAllWithQuestionsAsync(PaginationParams paginationParams, string? sortBy = null, string? sortOrder = null)
         {
             var query = _context.Surveys.Include(s => s.Questions).AsQueryable();
+            // Add sorting support
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                if (sortBy.ToLower() == "startdate")
+                {
+                    query = (sortOrder?.ToLower() == "desc")
+                        ? query.OrderByDescending(s => s.StartDate)
+                        : query.OrderBy(s => s.StartDate);
+                }
+                else if (sortBy.ToLower() == "id")
+                {
+                    query = (sortOrder?.ToLower() == "desc")
+                        ? query.OrderByDescending(s => s.Id)
+                        : query.OrderBy(s => s.Id);
+                }
+                // Add more sort options as needed
+            }
             return await PagedList<SurveyModel>.CreateAsync(query, paginationParams.PageNumber, paginationParams.PageSize);
         }
 

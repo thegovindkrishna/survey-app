@@ -1,0 +1,197 @@
+2025-08-07 15:23:51.945 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:23:51.981 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:23:52.117 +05:30 [WRN] Login failed for admin@example.com: Invalid credentials.
+2025-08-07 15:23:52.118 +05:30 [WRN] Login failed: Invalid credentials for user admin@example.com
+2025-08-07 15:23:52.241 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"admin@123"} Responded with [401] in 404ms
+2025-08-07 15:26:44.439 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:26:44.462 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:26:44.682 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:26:44.683 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:26:44.778 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 422ms
+2025-08-07 15:32:39.223 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:32:39.224 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:32:39.345 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:32:39.345 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:32:39.348 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 161ms
+2025-08-07 15:36:36.966 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:36:36.967 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:36:37.121 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:36:37.122 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:36:37.125 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 161ms
+2025-08-07 15:36:56.177 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:36:56.178 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:36:56.285 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:36:56.287 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:36:56.288 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 111ms
+2025-08-07 15:38:05.151 +05:30 [INF] Attempting to register user thegovindkrishna@gmail.com
+2025-08-07 15:38:05.178 +05:30 [INF] Attempting to register user thegovindkrishna@gmail.com with role User
+2025-08-07 15:38:05.225 +05:30 [WRN] Registration failed for thegovindkrishna@gmail.com: User already exists.
+2025-08-07 15:38:05.227 +05:30 [INF] Retrieving user by email: thegovindkrishna@gmail.com
+2025-08-07 15:38:05.230 +05:30 [INF] User with email thegovindkrishna@gmail.com retrieved successfully.
+2025-08-07 15:38:05.231 +05:30 [WRN] Registration failed: User with email thegovindkrishna@gmail.com already exists
+2025-08-07 15:38:05.395 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/register  {"email":"thegovindkrishna@gmail.com","password":"Govind@2003"} Responded with [409] in 377ms
+2025-08-07 15:38:23.485 +05:30 [INF] Attempting to register user goofind@gmail.com
+2025-08-07 15:38:23.487 +05:30 [INF] Attempting to register user goofind@gmail.com with role User
+2025-08-07 15:38:23.647 +05:30 [INF] User goofind@gmail.com registered successfully with role User
+2025-08-07 15:38:23.649 +05:30 [INF] User goofind@gmail.com registered successfully
+2025-08-07 15:38:23.665 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/register  {"email":"goofind@gmail.com","password":"Govind@2003"} Responded with [200] in 214ms
+2025-08-07 15:38:41.598 +05:30 [INF] Attempting to log in user goofind@gmail.com
+2025-08-07 15:38:41.600 +05:30 [INF] Attempting to log in user goofind@gmail.com
+2025-08-07 15:38:41.766 +05:30 [INF] User goofind@gmail.com logged in successfully.
+2025-08-07 15:38:41.768 +05:30 [INF] User goofind@gmail.com logged in successfully.
+2025-08-07 15:38:41.772 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"goofind@gmail.com","password":"Govind@2003"} Responded with [200] in 180ms
+2025-08-07 15:38:54.556 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:38:54.556 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:38:54.668 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:38:54.669 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:38:54.670 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 115ms
+2025-08-07 15:42:17.262 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:42:17.263 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:42:17.406 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:42:17.408 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:42:17.410 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 148ms
+2025-08-07 15:42:36.387 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:42:36.389 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:42:36.532 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:42:36.533 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:42:36.536 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 149ms
+2025-08-07 15:45:12.265 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:45:12.291 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:45:12.494 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:45:12.495 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:45:12.580 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 402ms
+2025-08-07 15:54:59.886 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:54:59.922 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:55:00.204 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:55:00.206 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:55:00.334 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 562ms
+2025-08-07 15:59:58.667 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:59:58.668 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 15:59:58.815 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:59:58.816 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 15:59:58.820 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 209ms
+2025-08-07 16:00:57.594 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:00:57.596 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:00:57.746 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:00:57.748 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:00:57.750 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 160ms
+2025-08-07 16:01:03.625 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:01:03.626 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:01:03.762 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:01:03.763 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:01:03.764 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 140ms
+2025-08-07 16:01:27.580 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:01:27.582 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:01:27.716 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:01:27.717 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:01:27.719 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 140ms
+2025-08-07 16:01:35.271 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:01:35.272 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:01:35.407 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:01:35.408 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:01:35.410 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 140ms
+2025-08-07 16:03:13.381 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:03:13.383 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:03:13.533 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:03:13.534 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:03:13.535 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 156ms
+2025-08-07 16:09:40.619 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:09:40.650 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:09:40.909 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:09:40.911 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:09:41.035 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 527ms
+2025-08-07 16:13:08.457 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:13:08.485 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:13:08.746 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:13:08.747 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:13:08.886 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 530ms
+2025-08-07 16:14:31.616 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:14:31.617 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:14:31.758 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:14:31.760 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:14:31.763 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 189ms
+2025-08-07 16:16:52.195 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:16:52.196 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:16:52.333 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:16:52.334 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:16:52.336 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 145ms
+2025-08-07 16:17:03.492 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:17:03.493 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:17:03.629 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:17:03.630 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:17:03.631 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 142ms
+2025-08-07 16:38:11.262 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:38:11.290 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:38:11.606 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:38:11.607 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:38:11.734 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 582ms
+2025-08-07 16:39:01.226 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:39:01.228 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:39:01.368 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:39:01.369 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:39:01.372 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 193ms
+2025-08-07 16:39:55.933 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:39:55.935 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:39:56.078 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:39:56.079 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:39:56.082 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 152ms
+2025-08-07 16:40:04.075 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:40:04.077 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:40:04.210 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:40:04.211 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:40:04.213 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 138ms
+2025-08-07 16:50:09.507 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:50:09.508 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 16:50:09.696 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:50:09.698 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 16:50:09.700 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 194ms
+2025-08-07 17:01:58.702 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 17:01:58.704 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 17:01:58.901 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 17:01:58.902 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 17:01:58.905 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 204ms
+2025-08-07 17:02:20.473 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 17:02:20.474 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 17:02:20.611 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 17:02:20.612 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 17:02:20.615 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 142ms
+2025-08-07 17:33:38.680 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 17:33:38.681 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 17:33:40.570 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 17:33:40.571 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 17:33:40.573 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 1895ms
+2025-08-07 17:34:22.017 +05:30 [INF] Attempting to log in user goofind@gmail.com
+2025-08-07 17:34:22.019 +05:30 [INF] Attempting to log in user goofind@gmail.com
+2025-08-07 17:34:22.152 +05:30 [INF] User goofind@gmail.com logged in successfully.
+2025-08-07 17:34:22.153 +05:30 [INF] User goofind@gmail.com logged in successfully.
+2025-08-07 17:34:22.154 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"goofind@gmail.com","password":"Govind@2003"} Responded with [200] in 138ms
+2025-08-07 17:35:53.035 +05:30 [INF] Attempting to register user ovindkrishna@gmail.com
+2025-08-07 17:35:53.039 +05:30 [INF] Attempting to register user ovindkrishna@gmail.com with role User
+2025-08-07 17:35:53.177 +05:30 [INF] User ovindkrishna@gmail.com registered successfully with role User
+2025-08-07 17:35:53.179 +05:30 [INF] User ovindkrishna@gmail.com registered successfully
+2025-08-07 17:35:53.183 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/register  {"email":"ovindkrishna@gmail.com","password":"asdfghjkl"} Responded with [200] in 157ms
+2025-08-07 17:36:02.050 +05:30 [INF] Attempting to log in user ovindkrishna@gmail.com
+2025-08-07 17:36:02.052 +05:30 [INF] Attempting to log in user ovindkrishna@gmail.com
+2025-08-07 17:36:02.187 +05:30 [INF] User ovindkrishna@gmail.com logged in successfully.
+2025-08-07 17:36:02.188 +05:30 [INF] User ovindkrishna@gmail.com logged in successfully.
+2025-08-07 17:36:02.190 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"ovindkrishna@gmail.com","password":"asdfghjkl"} Responded with [200] in 141ms
+2025-08-07 21:48:18.172 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 21:48:18.173 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 21:48:19.608 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 21:48:19.609 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 21:48:19.611 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 1441ms
+2025-08-07 21:48:34.737 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 21:48:34.738 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 21:48:34.872 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 21:48:34.873 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 21:48:34.875 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 139ms
+2025-08-07 21:50:15.821 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 21:50:15.821 +05:30 [INF] Attempting to log in user admin@example.com
+2025-08-07 21:50:15.954 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 21:50:15.955 +05:30 [INF] User admin@example.com logged in successfully.
+2025-08-07 21:50:15.956 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"admin@example.com","password":"Admin@123"} Responded with [200] in 136ms
+2025-08-07 21:50:26.796 +05:30 [INF] Attempting to log in user goofind@gmail.com
+2025-08-07 21:50:26.798 +05:30 [INF] Attempting to log in user goofind@gmail.com
+2025-08-07 21:50:26.978 +05:30 [INF] User goofind@gmail.com logged in successfully.
+2025-08-07 21:50:26.979 +05:30 [INF] User goofind@gmail.com logged in successfully.
+2025-08-07 21:50:26.981 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/login  {"email":"goofind@gmail.com","password":"Govind@2003"} Responded with [200] in 185ms

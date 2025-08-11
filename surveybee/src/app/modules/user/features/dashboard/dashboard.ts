@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { SurveyService, SurveyDto } from '../../../../common/services/survey.service';
 import { ResponseService, SurveyResponseDto } from '../../../../common/services/response.service';
 import { UserService, UserResponseDto } from '../../../../common/services/user.service';
 import { DashboardRefreshService } from '../../../../common/services/dashboard-refresh.service';
+import { ResponseViewerComponent, ResponseViewerData } from '../response-viewer/response-viewer.component';
 import { Subscription } from 'rxjs';
 
 interface UserActivity {
@@ -36,6 +38,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   recentActivity: UserActivity[] = [];
   isLoading = false;
   errorMessage = '';
+  userName = '';
   
   // Pagination for available surveys
   currentPage = 1;
@@ -56,10 +59,12 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     private responseService: ResponseService,
     private userService: UserService,
     private dashboardRefreshService: DashboardRefreshService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
+    this.loadUserName();
     this.loadDashboardData();
     
     // Subscribe to refresh signals
@@ -71,6 +76,24 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
+    }
+  }
+
+  loadUserName() {
+    // Try to get user name from local storage or token
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        // Decode JWT token to get user info
+        const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+        this.userName = tokenPayload.sub || tokenPayload.email || tokenPayload.unique_name || 'User';
+        console.log('User name loaded:', this.userName);
+      } catch (error) {
+        console.warn('Could not decode token for user name:', error);
+        this.userName = 'User';
+      }
+    } else {
+      this.userName = 'User';
     }
   }
 
@@ -349,9 +372,88 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   }
 
   viewResponse(responseId: number) {
-    console.log('View response:', responseId);
-    // TODO: Implement view response functionality
-    alert('View response functionality will be implemented soon.');
+    console.log('Opening response viewer for response ID:', responseId);
+    
+    // Find the response in userResponses
+    const response = this.userResponses.find(r => r.id === responseId);
+    if (!response) {
+      console.error('Response not found:', responseId);
+      alert('Response not found. Please refresh the page and try again.');
+      return;
+    }
+
+    // Try to get the full survey details to enhance the response view
+    this.surveyService.getSurveyById(response.surveyId).subscribe({
+      next: (survey: any) => {
+        console.log('Survey details for response viewer:', survey);
+        
+        // Extract survey data (handle both camelCase and PascalCase)
+        const surveyData = survey?.result || survey;
+        const questions = surveyData?.questions || surveyData?.Questions || [];
+        
+        // Prepare enhanced response data
+        const modalData: ResponseViewerData = {
+          surveyTitle: response.surveyTitle,
+          surveyDescription: response.surveyDescription,
+          submissionDate: response.submissionDate,
+          responses: response.responses.map((r, index) => {
+            // Find matching question for enhanced display
+            const question = questions.find((q: any) => 
+              (q.id || q.Id) === (r.questionId || r.QuestionId)
+            );
+            
+            return {
+              questionId: r.questionId || r.QuestionId || index + 1,
+              response: r.response || r.Response || 'No response provided',
+              questionText: question?.questionText || question?.QuestionText || `Question ${index + 1}`,
+              questionType: question?.type || question?.Type || 'text'
+            };
+          })
+        };
+
+        this.openResponseModal(modalData);
+      },
+      error: (err) => {
+        console.warn('Could not fetch survey details, using basic response data:', err);
+        
+        // Fallback to basic response data
+        const modalData: ResponseViewerData = {
+          surveyTitle: response.surveyTitle,
+          surveyDescription: response.surveyDescription,
+          submissionDate: response.submissionDate,
+          responses: response.responses.map((r, index) => ({
+            questionId: r.questionId || index + 1,
+            response: r.response || 'No response provided',
+            questionText: `Question ${index + 1}`,
+            questionType: 'text'
+          }))
+        };
+
+        this.openResponseModal(modalData);
+      }
+    });
+  }
+
+  private openResponseModal(modalData: ResponseViewerData) {
+    // Open the modal
+    const dialogRef = this.dialog.open(ResponseViewerComponent, {
+      width: '90vw',
+      maxWidth: '800px',
+      height: '90vh',
+      maxHeight: '600px',
+      data: modalData,
+      panelClass: 'response-viewer-dialog',
+      autoFocus: false,
+      restoreFocus: false,
+      hasBackdrop: true,
+      disableClose: false
+    });
+
+    // Handle modal close
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Response viewer modal closed');
+      // You can add any cleanup logic here if needed
+    });
   }
 
   navigateTo(path: string): void {

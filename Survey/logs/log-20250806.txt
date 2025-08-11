@@ -1,0 +1,10 @@
+2025-08-06 10:40:46.791 +05:30 [INF] Attempting to register user string
+2025-08-06 10:40:46.833 +05:30 [INF] Attempting to register user string with role User
+2025-08-06 10:40:48.050 +05:30 [WRN] Registration failed for string: User already exists.
+2025-08-06 10:40:48.052 +05:30 [INF] Retrieving user by email: string
+2025-08-06 10:40:48.059 +05:30 [INF] User with email string retrieved successfully.
+2025-08-06 10:40:48.060 +05:30 [WRN] Registration failed: User with email string already exists
+2025-08-06 10:40:48.222 +05:30 [INF] Source:[::1] Request: POST https localhost:7245/api/auth/register ?api-version=1.0 {
+  "email": "string",
+  "password": "string"
+} Responded with [409] in 1556ms

@@ -122,7 +122,8 @@ namespace Survey.Services
                 AccessToken = accessTokenString,
                 RefreshToken = refreshToken,
                 Email = user.Email,
-                Username = user.Email // Assuming email is used as username
+                Username = user.Email,
+                Role = user.Role // Assuming email is used as username
             };
         }
 

@@ -32,6 +32,15 @@ namespace Survey.Services
         Task<PagedList<SurveyDto>> GetAll(PaginationParams paginationParams);
 
         /// <summary>
+        /// Retrieves all surveys from the database with their questions included, with sorting options.
+        /// </summary>
+        /// <param name="paginationParams">The pagination and sorting parameters</param>
+        /// <param name="sortBy">The column to sort by</param>
+        /// <param name="sortOrder">The order of sorting (asc/desc)</param>
+        /// <returns>A paginated list of all surveys with their associated questions</returns>
+        Task<PagedList<SurveyDto>> GetAll(PaginationParams paginationParams, string? sortBy = null, string? sortOrder = null);
+
+        /// <summary>
         /// Retrieves a specific survey by its ID with questions included.
         /// </summary>
         /// <param name="id">The unique identifier of the survey</param>
@@ -120,6 +129,13 @@ namespace Survey.Services
         /// <param name="questionId">The unique identifier of the question</param>
         /// <returns>The question text, or null if not found</n>
         string GetQuestionText(int questionId);
+
+        /// <summary>
+        /// Retrieves the results of a survey, including response statistics.
+        /// </summary>
+        /// <param name="surveyId">The unique identifier of the survey</param>
+        /// <returns>The survey results, or null if survey not found</returns>
+        Task<SurveyResultsDto?> GetSurveyResultsAsync(int surveyId);
     }
 }
 

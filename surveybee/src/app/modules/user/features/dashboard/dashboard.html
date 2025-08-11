@@ -10,15 +10,14 @@
           <i class="icon">🏠</i>
           <span>Dashboard</span>
         </a>
-        <a class="nav-link" (click)="navigateTo('/user/profile')">
-          <i class="icon">👤</i>
-          <span>Profile</span>
+        <a class="nav-link" (click)="navigateTo('/user/dashboard')">
+          <i class="icon">🏠</i>
+          <span>Home</span>
         </a>
       </div>
       <div class="user-menu">
-        <span class="user-name">User</span>
+        <span class="user-name">{{ userName || 'User' }}</span>
         <button class="logout-btn" (click)="logout()">
-          
           Logout
         </button>
       </div>
@@ -27,190 +26,216 @@
 
   <!-- Main Content -->
   <main class="dashboard-content">
-<mat-card class="user-dashboard-card">
-  <mat-divider></mat-divider>
-  <mat-card-content>
-    <div class="dashboard-welcome" *ngIf="!isLoading && !errorMessage">
-      <p>Welcome! Here you can see and attend available surveys, and view your submitted responses.</p>
-    </div>
-    <div class="dashboard-loading" *ngIf="isLoading">
-      <mat-spinner diameter="40"></mat-spinner>
-      <p>Loading surveys...</p>
-    </div>
-    <div class="dashboard-error" *ngIf="errorMessage">
-      <mat-icon>error</mat-icon>
-      {{ errorMessage }}
-    </div>
-    
-    <div *ngIf="!isLoading && !errorMessage">
-      <div class="dashboard-header">
-        <h1>User Dashboard</h1>
-        <p>Welcome to SurveyBee - Participate in surveys and view your responses</p>
-      </div>
-
-    <!-- Statistics Cards -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-content">
-          <div class="stat-number">{{ availableSurveys.length }}</div>
-          <div class="stat-label">Available Surveys</div>
-        </div>
-        <div class="stat-icon">📋</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-content">
-          <div class="stat-number">{{ userResponses.length }}</div>
-          <div class="stat-label">Completed Surveys</div>
-        </div>
-        <div class="stat-icon">✅</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-content">
-          <div class="stat-number">{{ totalResponses }}</div>
-          <div class="stat-label">Total Responses</div>
-        </div>
-        <div class="stat-icon">📊</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-content">
-          <div class="stat-number">{{ surveyParticipationRate }}%</div>
-          <div class="stat-label">Participation Rate</div>
-        </div>
-        <div class="stat-icon">🎯</div>
-      </div>
-    </div>
-
-    <!-- Available Surveys Section -->
-    <div class="surveys-section">
-      <div class="section-header">
-        <h2>Available Surveys</h2>
-        <button class="refresh-btn" (click)="refreshDashboard()" [disabled]="isLoading">
-          
-          Refresh
-        </button>
-      </div>
-      
-      <div class="surveys-loading" *ngIf="isLoading">
-        <mat-spinner diameter="40"></mat-spinner>
-        <p>Loading available surveys...</p>
-      </div>
-      
-      <div class="surveys-grid" *ngIf="!isLoading">
-        <div class="survey-card available" *ngFor="let survey of availableSurveys">
-          <div class="survey-header">
-            <h3>{{ survey.title }}</h3>
-            <span class="survey-status active">Active</span>
+    <mat-card class="user-dashboard-card">
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        @if (!isLoading && !errorMessage) {
+          <div class="dashboard-welcome">
+            <p>Welcome! Here you can see and attend available surveys, and view your submitted responses.</p>
           </div>
-          <div class="survey-content">
-            <p class="survey-description">{{ survey.description }}</p>          <div class="survey-meta">
-            <span class="survey-date">{{ survey.startDate | date:'shortDate' }} - {{ survey.endDate | date:'shortDate' }}</span>
-            <span class="survey-questions">{{ survey.questions.length || 0 }} questions</span>
+        }
+        @if (isLoading) {
+          <div class="dashboard-loading">
+            <mat-spinner diameter="40"></mat-spinner>
+            <p>Loading surveys...</p>
           </div>
+        }
+        @if (errorMessage) {
+          <div class="dashboard-error">
+            <mat-icon>error</mat-icon>
+            {{ errorMessage }}
           </div>
-          <div class="survey-actions">
-            <button class="action-btn primary" (click)="attendSurvey(survey.id)">
-              <i class="icon">▶️</i>
-              <span>Take Survey</span>
-            </button>
-          </div>
-        </div>
+        }
         
-        <div class="empty-state" *ngIf="availableSurveys.length === 0 && !isLoading">
-          <div class="empty-icon">📭</div>
-          <h3>No Available Surveys</h3>
-          <p>There are no open surveys at the moment. Check back later!</p>
-        </div>
-      </div>
-      
-      <!-- Pagination Controls for Available Surveys -->
-      <div class="pagination-container" *ngIf="getTotalPages() > 1">
-        <div class="pagination">
-          <button 
-            class="pagination-btn" 
-            [disabled]="currentPage === 1" 
-            (click)="previousPage()">
-            ← Previous
-          </button>
-          
-          <span class="pagination-pages">
-            <button 
-              *ngFor="let page of getPageNumbers()" 
-              class="pagination-btn" 
-              [class.active]="page === currentPage"
-              (click)="goToPage(page)">
-              {{ page }}
-            </button>
-          </span>
-          
-          <button 
-            class="pagination-btn" 
-            [disabled]="currentPage === getTotalPages()" 
-            (click)="nextPage()">
-            Next →
-          </button>
-        </div>
-        
-        <div class="pagination-info">
-          Showing {{ ((currentPage - 1) * pageSize) + 1 }} - {{ Math.min(currentPage * pageSize, totalCount) }} of {{ totalCount }} surveys
-        </div>
-      </div>
-    </div>
+        @if (!isLoading && !errorMessage) {
+          <div class="dashboard-header">
+            <h1>User Dashboard</h1>
+            <p>Welcome to SurveyBee - Participate in surveys and view your responses</p>
+          </div>
 
-    <!-- Completed Surveys Section -->
-    <div class="surveys-section">
-      <h2>Your Completed Surveys</h2>
-      <div class="surveys-grid">
-        <div class="survey-card completed" *ngFor="let response of userResponses">
-          <div class="survey-header">
-            <h3>{{ response.surveyTitle }}</h3>
-            <span class="survey-status completed">Completed</span>
-          </div>
-          <div class="survey-content">
-            <p class="survey-description">{{ response.surveyDescription }}</p>          <div class="survey-meta">
-            <span class="survey-date">Submitted: {{ response.submissionDate | date:'short' }}</span>
-            <span class="survey-responses">{{ response.responses.length || 0 }} responses</span>
-          </div>
-          </div>
-          <div class="survey-actions">
-            <button class="action-btn secondary" (click)="viewResponse(response.id)">
-              <i class="icon">👁️</i>
-              <span>View Response</span>
-            </button>
-          </div>
-        </div>
-        
-        <div class="empty-state" *ngIf="userResponses.length === 0">
-          <div class="empty-icon">📄</div>
-          <h3>No Completed Surveys</h3>
-          <p>You haven't completed any surveys yet. Take a survey above to get started!</p>
-        </div>
-      </div>
-    </div>
+          <!-- Statistics Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-content">
+                <div class="stat-number">{{ availableSurveys.length }}</div>
+                <div class="stat-label">Available Surveys</div>
+              </div>
+              <div class="stat-icon">📋</div>
+            </div>
 
-    <!-- Recent Activity -->
-    <div class="recent-activity">
-      <h2>Recent Activity</h2>
-      <div class="activity-list">
-        <div class="activity-item" *ngFor="let activity of recentActivity">
-          <div class="activity-icon">{{ activity.icon }}</div>
-          <div class="activity-content">
-            <div class="activity-title">{{ activity.title }}</div>
-            <div class="activity-description">{{ activity.description }}</div>
-            <div class="activity-time">{{ activity.time }}</div>
+            <div class="stat-card">
+              <div class="stat-content">
+                <div class="stat-number">{{ userResponses.length }}</div>
+                <div class="stat-label">Completed Surveys</div>
+              </div>
+              <div class="stat-icon">✅</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-content">
+                <div class="stat-number">{{ totalResponses }}</div>
+                <div class="stat-label">Total Responses</div>
+              </div>
+              <div class="stat-icon">📊</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-content">
+                <div class="stat-number">{{ surveyParticipationRate }}%</div>
+                <div class="stat-label">Participation Rate</div>
+              </div>
+              <div class="stat-icon">📈</div>
+            </div>
           </div>
-        </div>
-        
-        <div class="empty-state" *ngIf="recentActivity.length === 0">
-          <div class="empty-icon">🔄</div>
-          <p>No recent activity to show.</p>
-        </div>
-      </div>
-    </div>
-    </div>
-  </mat-card-content>
-</mat-card>
+
+          <!-- Available Surveys Section -->
+          <div class="surveys-section">
+            <h2>Available Surveys</h2>
+            <div class="section-actions">
+              <button class="refresh-btn" (click)="refreshDashboard()" [disabled]="isLoading">
+                Refresh
+              </button>
+            </div>
+            
+            @if (isLoading) {
+              <div class="surveys-loading">
+                <mat-spinner diameter="40"></mat-spinner>
+                <p>Loading available surveys...</p>
+              </div>
+            }
+            
+            @if (!isLoading) {
+              <div class="surveys-grid">
+                @for (survey of availableSurveys; track survey.id) {
+                  <div class="survey-card available">
+                    <div class="survey-header">
+                      <h3>{{ survey.title }}</h3>
+                      <span class="survey-status active">Active</span>
+                    </div>
+                    <div class="survey-content">
+                      <p class="survey-description">{{ survey.description }}</p>
+                      <div class="survey-meta">
+                        <span class="survey-date">{{ survey.startDate | date:'shortDate' }} - {{ survey.endDate | date:'shortDate' }}</span>
+                        <span class="survey-questions">{{ survey.questions.length || 0 }} questions</span>
+                      </div>
+                    </div>
+                    <div class="survey-actions">
+                      <button class="action-btn primary" (click)="attendSurvey(survey.id)">
+                        <i class="icon">▶️</i>
+                        <span>Take Survey</span>
+                      </button>
+                    </div>
+                  </div>
+                }
+                
+                @if (availableSurveys.length === 0 && !isLoading) {
+                  <div class="empty-state">
+                    <div class="empty-icon">📭</div>
+                    <h3>No Available Surveys</h3>
+                    <p>There are no open surveys at the moment. Check back later!</p>
+                  </div>
+                }
+              </div>
+            }
+
+            <!-- Pagination Controls for Available Surveys -->
+            @if (getTotalPages() > 1) {
+              <div class="pagination-container">
+                <div class="pagination">
+                  <button 
+                    class="pagination-btn" 
+                    [disabled]="currentPage === 1" 
+                    (click)="previousPage()">
+                    ← Previous
+                  </button>
+                  
+                  <span class="pagination-pages">
+                    @for (page of getPageNumbers(); track page) {
+                      <button 
+                        class="pagination-btn" 
+                        [class.active]="page === currentPage"
+                        (click)="goToPage(page)">
+                        {{ page }}
+                      </button>
+                    }
+                  </span>
+                  
+                  <button 
+                    class="pagination-btn" 
+                    [disabled]="currentPage === getTotalPages()" 
+                    (click)="nextPage()">
+                    Next →
+                  </button>
+                </div>
+                
+                <div class="pagination-info">
+                  Showing {{ ((currentPage - 1) * pageSize) + 1 }} - {{ Math.min(currentPage * pageSize, totalCount) }} of {{ totalCount }} surveys
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Completed Surveys Section -->
+          <div class="surveys-section">
+            <h2>Your Completed Surveys</h2>
+            <div class="surveys-grid">
+              @for (response of userResponses; track response.id) {
+                <div class="survey-card completed">
+                  <div class="survey-header">
+                    <h3>{{ response.surveyTitle }}</h3>
+                    <span class="survey-status completed">Completed</span>
+                  </div>
+                  <div class="survey-content">
+                    <p class="survey-description">{{ response.surveyDescription }}</p>
+                    <div class="survey-meta">
+                      <span class="survey-date">Submitted: {{ response.submissionDate | date:'short' }}</span>
+                      <span class="survey-responses">{{ response.responses.length || 0 }} responses</span>
+                    </div>
+                  </div>
+                  <div class="survey-actions">
+                    <button class="action-btn secondary" (click)="viewResponse(response.id)">
+                      <i class="icon">👁️</i>
+                      <span>View Response</span>
+                    </button>
+                  </div>
+                </div>
+              }
+              
+              @if (userResponses.length === 0) {
+                <div class="empty-state">
+                  <div class="empty-icon">📄</div>
+                  <h3>No Completed Surveys</h3>
+                  <p>You haven't completed any surveys yet. Take a survey above to get started!</p>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="recent-activity">
+            <h2>Recent Activity</h2>
+            <div class="activity-list">
+              @for (activity of recentActivity; track $index) {
+                <div class="activity-item">
+                  <div class="activity-icon">{{ activity.icon }}</div>
+                  <div class="activity-content">
+                    <div class="activity-title">{{ activity.title }}</div>
+                    <div class="activity-description">{{ activity.description }}</div>
+                    <div class="activity-time">{{ activity.time }}</div>
+                  </div>
+                </div>
+              }
+              
+              @if (recentActivity.length === 0) {
+                <div class="empty-state">
+                  <div class="empty-icon">🔄</div>
+                  <p>No recent activity to show.</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
   </main>
 </div>

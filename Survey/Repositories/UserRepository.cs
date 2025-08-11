@@ -10,9 +10,33 @@ namespace Survey.Repositories
         {
         }
 
-        public async Task<UserModel> GetUserByEmail(string email)
+        public async new Task Update(UserModel user)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async new Task Remove(UserModel user)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<UserModel?> GetById(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            return user;
+        }
+
+        public async Task<UserModel?> GetUserByEmail(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return user;
+        }
+
+        public async Task<IEnumerable<UserModel>> GetAll()
+        {
+            return await _context.Users.ToListAsync();
         }
     }
 }

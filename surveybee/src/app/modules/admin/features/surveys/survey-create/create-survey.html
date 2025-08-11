@@ -28,41 +28,49 @@
     </div>
     <div class="questions-section">
       <h2>Questions</h2>
-      <div *ngFor="let q of questions.controls; let i = index" [formGroup]="getQuestionFormGroup(i)" class="question-block card">
-        <div class="question-header">
-          <span class="question-number">Q{{ i + 1 }}</span>
-          <button type="button" class="remove-question-btn" (click)="removeQuestion(i)" title="Remove question">✕</button>
-        </div>
-        <div class="form-row">
-          <div class="form-group wide">
-            <input formControlName="questionText" placeholder="Enter your question..." />
+      @for (q of questions.controls; track $index; let i = $index) {
+        <div [formGroup]="getQuestionFormGroup(i)" class="question-block card">
+          <div class="question-header">
+            <span class="question-number">Q{{ i + 1 }}</span>
+            <button type="button" class="remove-question-btn" (click)="removeQuestion(i)" title="Remove question">✕</button>
           </div>
-          <div class="form-group">
-            <select formControlName="type">
-              <option value="text">Text</option>
-              <option value="multiple-choice">Multiple Choice</option>
-              <option value="rating">Rating</option>
-            </select>
+          <div class="form-row">
+            <div class="form-group wide">
+              <input formControlName="questionText" placeholder="Enter your question..." />
+            </div>
+            <div class="form-group">
+              <select formControlName="type">
+                <option value="text">Text</option>
+                <option value="multiple-choice">Multiple Choice</option>
+                <option value="rating">Rating</option>
+              </select>
+            </div>
+            <div class="form-group checkbox">
+              <label>
+                <input type="checkbox" formControlName="required" /> Required
+              </label>
+            </div>
           </div>
-          <div class="form-group checkbox">
-            <label>
-              <input type="checkbox" formControlName="required" /> Required
-            </label>
-          </div>
+          @if (q.get('type')?.value === 'multiple-choice') {
+            <div class="options-section">
+              <label>Options</label>
+              @for (opt of getOptionsFormArray(i).controls; track $index; let j = $index) {
+                <div class="option-row">
+                  <input [formControl]="getOptionFormControl(i, j)" placeholder="Option..." />
+                  <button type="button" class="remove-btn" (click)="removeOption(i, j)" title="Remove option">✕</button>
+                </div>
+              }
+              <button type="button" class="add-btn" (click)="addOption(i)">+ Add Option</button>
+            </div>
+          }
+          @if (q.get('type')?.value === 'rating') {
+            <div class="rating-section">
+              <label>Max Rating</label>
+              <input type="number" formControlName="maxRating" min="1" max="10" />
+            </div>
+          }
         </div>
-        <div *ngIf="q.get('type')?.value === 'multiple-choice'" class="options-section">
-          <label>Options</label>
-          <div *ngFor="let opt of getOptionsFormArray(i).controls; let j = index" class="option-row">
-            <input [formControl]="getOptionFormControl(i, j)" placeholder="Option..." />
-            <button type="button" class="remove-btn" (click)="removeOption(i, j)" title="Remove option">✕</button>
-          </div>
-          <button type="button" class="add-btn" (click)="addOption(i)">+ Add Option</button>
-        </div>
-        <div *ngIf="q.get('type')?.value === 'rating'" class="rating-section">
-          <label>Max Rating</label>
-          <input type="number" formControlName="maxRating" min="1" max="10" />
-        </div>
-      </div>
+      }
       <button type="button" class="add-question-fab" (click)="addQuestion()" title="Add question">
         <span>＋ Add Question</span>
       </button>

@@ -11,9 +11,9 @@ using Asp.Versioning;
 namespace Survey.Controllers
 {
     [ApiController]
-    [ApiVersion("2.0")]
+    [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [Authorize(Roles = "Admin")]
+    [Authorize] // Allow all authenticated users by default
     public class SurveyController : ControllerBase
     {
         private readonly ISurveyService _surveyService;
@@ -43,6 +43,7 @@ namespace Survey.Controllers
         /// 400 Bad Request if input is invalid
         /// </returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")] // Only admins can create
         public async Task<IActionResult> Create([FromBody] SurveyCreateDto surveyDto)
         {
             var email = User.FindFirstValue(ClaimTypes.Name)!;
@@ -58,12 +59,20 @@ namespace Survey.Controllers
         /// </summary>
         /// <returns>200 OK with a collection of all surveys</returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationParams paginationParams)
+        // [AllowAnonymous] // Uncomment if you want public access
+        public async Task<IActionResult> GetAll([FromQuery] PaginationParams paginationParams, [FromQuery] string? sortBy = null, [FromQuery] string? sortOrder = null)
         {
             _logger.LogInformation("Retrieving all surveys.");
-            var surveys = await _surveyService.GetAll(paginationParams);
-            _logger.LogInformation("Retrieved {Count} surveys.", surveys.Count());
-            return Ok(surveys);
+            var pagedList = await _surveyService.GetAll(paginationParams, sortBy, sortOrder);
+            _logger.LogInformation("Retrieved {Count} surveys.", pagedList.Count());
+            // Return a paginated object for frontend compatibility
+            var response = new {
+                items = pagedList.ToList(),
+                totalCount = pagedList.TotalCount,
+                currentPage = pagedList.CurrentPage,
+                pageSize = pagedList.PageSize
+            };
+            return Ok(response);
         }
 
         /// <summary>
@@ -75,6 +84,7 @@ namespace Survey.Controllers
         /// 404 Not Found if survey doesn't exist
         /// </returns>
         [HttpGet("{id}")]
+        // [AllowAnonymous] // Uncomment if you want public access
         public async Task<IActionResult> GetById(int id)
         {
             _logger.LogInformation("Attempting to retrieve survey {SurveyId}.", id);
@@ -99,6 +109,7 @@ namespace Survey.Controllers
         /// 404 Not Found if survey doesn't exist
         /// </returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")] // Only admins can update
         public async Task<IActionResult> Update(int id, [FromBody] SurveyUpdateDto surveyDto)
         {
             _logger.LogInformation("Attempting to update survey {SurveyId}.", id);
@@ -120,10 +131,9 @@ namespace Survey.Controllers
         /// <returns>
         /// 200 OK with success message if deleted,
         /// 404 Not Found if survey doesn't exist
-
-        
         /// </returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")] // Only admins can delete
         public async Task<IActionResult> Delete(int id)
         {
             _logger.LogInformation("Attempting to delete survey {SurveyId}.", id);
@@ -138,6 +148,25 @@ namespace Survey.Controllers
                 _logger.LogWarning("Delete failed: Survey {SurveyId} not found.", id);
                 return NotFound(new { message = "Survey not found." });
             }
+        }
+
+        /// <summary>
+        /// Retrieves detailed results and analytics for a specific survey.
+        /// </summary>
+        /// <param name="id">The unique identifier of the survey</param>
+        /// <returns>200 OK with survey results analytics, 404 if not found</returns>
+        [HttpGet("{id}/results")]
+        [Authorize(Roles = "Admin")] // Only admins can view results
+        public async Task<IActionResult> GetSurveyResults(int id)
+        {
+            _logger.LogInformation("Retrieving results for survey {SurveyId}.", id);
+            var results = await _surveyService.GetSurveyResultsAsync(id);
+            if (results == null)
+            {
+                _logger.LogWarning("Survey results for {SurveyId} not found.", id);
+                return NotFound();
+            }
+            return Ok(results);
         }
     }
 }

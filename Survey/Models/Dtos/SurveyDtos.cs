@@ -102,35 +102,39 @@ namespace Survey.Models.Dtos
 
     // --- User Response DTOs --- //
 
-    public record QuestionResponseDto(
-        int QuestionId,
-        string Response
-    );
+    public class QuestionResponseDto
+    {
+        public int QuestionId { get; set; }
+        public string Response { get; set; }
+    }
 
-    public record UserResponseDto(
-        int SurveyId,
-        string SurveyTitle,
-        string SurveyDescription,
-        DateTime SubmissionDate,
-        int ResponseId,
-        List<QuestionResponseDto> Responses
-    );
+    public class UserResponseDto
+    {
+        public int SurveyId { get; set; }
+        public string SurveyTitle { get; set; }
+        public string SurveyDescription { get; set; }
+        public DateTime SubmissionDate { get; set; }
+        public int ResponseId { get; set; }
+        public List<QuestionResponseDto> Responses { get; set; }
+    }
 
     // --- Response DTOs for Admin/Detailed View --- //
 
-    public record QuestionResponseDetailDto(
-        int QuestionId,
-        string Response,
-        string QuestionText // Include question text for context
-    );
+    public class QuestionResponseDetailDto
+    {
+        public int QuestionId { get; set; }
+        public string Response { get; set; }
+        public string QuestionText { get; set; }
+    }
 
-    public record SurveyResponseDto(
-        int Id,
-        int SurveyId,
-        string RespondentEmail,
-        DateTime SubmissionDate,
-        List<QuestionResponseDetailDto> Responses
-    );
+    public class SurveyResponseDto
+    {
+        public int Id { get; set; }
+        public int SurveyId { get; set; }
+        public string RespondentEmail { get; set; }
+        public DateTime SubmissionDate { get; set; }
+        public List<QuestionResponseDetailDto> Responses { get; set; }
+    }
 
     // --- DTOs for Submitting Responses --- //
 
@@ -156,18 +160,20 @@ namespace Survey.Models.Dtos
 
     // --- Survey Results DTOs --- //
 
-    public record QuestionResultDto(
-        int QuestionId,
-        string QuestionText,
-        string QuestionType,
-        Dictionary<string, int> ResponseCounts,
-        double? AverageRating
-    );
+    public class QuestionResultDto
+    {
+        public int QuestionId { get; set; }
+        public string QuestionText { get; set; }
+        public string QuestionType { get; set; }
+        public Dictionary<string, int> ResponseCounts { get; set; }
+        public double? AverageRating { get; set; }
+    }
 
-    public record SurveyResultsDto(
-        int SurveyId,
-        string SurveyTitle,
-        int TotalResponses,
-        List<QuestionResultDto> QuestionResults
-    );
+    public class SurveyResultsDto
+    {
+        public int SurveyId { get; set; }
+        public string SurveyTitle { get; set; }
+        public int TotalResponses { get; set; }
+        public List<QuestionResultDto> QuestionResults { get; set; }
+    }
 }

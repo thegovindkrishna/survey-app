@@ -87,31 +87,6 @@ namespace Survey.Controllers
         }
 
         /// <summary>
-        /// Exports survey responses to PDF format for reporting.
-        /// </summary>
-        /// <param name="surveyId">The unique identifier of the survey</param>
-        /// <returns>
-        /// 200 OK with PDF file download if successful,
-        /// 400 Bad Request if survey not found
-        /// </returns>
-        [HttpGet("export/pdf")]
-        public async Task<IActionResult> ExportToPdf(int surveyId)
-        {
-            _logger.LogInformation("Attempting to export survey {SurveyId} responses to PDF", surveyId);
-            try
-            {
-                var pdfBytes = await _resultsService.ExportToPdf(surveyId);
-                _logger.LogInformation("Successfully exported survey {SurveyId} responses to PDF", surveyId);
-                return File(pdfBytes, "application/pdf", $"survey_{surveyId}_responses.pdf");
-            }
-            catch (ArgumentException ex)
-            {
-                _logger.LogError(ex, "Failed to export survey {SurveyId} responses to PDF: {ErrorMessage}", surveyId, ex.Message);
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Generates a shareable link for a survey.
         /// Updates the survey's ShareLink property in the database.
         /// </summary>

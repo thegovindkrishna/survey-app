@@ -125,15 +125,12 @@ namespace Survey.Controllers
                         var questionDetails = new List<QuestionResponseDto>();
                         foreach (var response in userResponse.responses)
                         {
-                            questionDetails.Add(new QuestionResponseDto(response.QuestionId, response.response));
+                            questionDetails.Add(new QuestionResponseDto { QuestionId = response.QuestionId, Response = response.response });
                         }
 
-                        userResponseDto = userResponseDto with
-                        {
-                            SurveyTitle = survey.Title,
-                            SurveyDescription = survey.Description,
-                            Responses = questionDetails
-                        };
+                        userResponseDto.SurveyTitle = survey.Title;
+                        userResponseDto.SurveyDescription = survey.Description;
+                        userResponseDto.Responses = questionDetails;
                         userResponses.Add(userResponseDto);
                         _logger.LogInformation("Found response for survey {SurveyId} by user {Email}", survey.Id, email);
                     }

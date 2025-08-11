@@ -10,6 +10,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCommonModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AdminRoutingModule } from './admin-routing-module';
 import { Dashboard } from './features/dashboard/dashboard';
@@ -35,7 +37,9 @@ import { ManageUsersComponent } from './features/users/manage-users.component';
     MatTableModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatCommonModule
+    MatCommonModule,
+    MatChipsModule,
+    MatDividerModule
   ],
   providers: [
     DatePipe,

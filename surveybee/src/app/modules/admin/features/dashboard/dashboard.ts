@@ -25,7 +25,30 @@ export class Dashboard implements OnInit {
   async fetchDashboardStats() {
     this.isLoading = true;
     try {
-      const surveys: SurveyDto[] = (await this.surveyService.getAllSurveys().toPromise()) ?? [];
+      const surveysResponse: any = (await this.surveyService.getAllSurveys().toPromise()) ?? [];
+      
+      // Handle different response structures
+      let surveys: SurveyDto[] = [];
+      if (Array.isArray(surveysResponse)) {
+        surveys = surveysResponse;
+      } else if (surveysResponse?.result?.items) {
+        surveys = surveysResponse.result.items;
+      } else if (surveysResponse?.items) {
+        surveys = surveysResponse.items;
+      }
+      
+      // Sort surveys by newest first for better statistics
+      surveys = surveys.sort((a, b) => {
+        const dateA = new Date(a.startDate);
+        const dateB = new Date(b.startDate);
+        
+        if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
+          return dateB.getTime() - dateA.getTime(); // Newest first
+        }
+        
+        return (b.id || 0) - (a.id || 0); // Higher ID first
+      });
+      
       this.totalSurveys = surveys.length;
       const now = new Date();
       this.activeSurveys = surveys.filter((s: SurveyDto) => {
@@ -43,7 +66,7 @@ export class Dashboard implements OnInit {
       }
       this.totalResponses = totalResponses;
     } catch (e) {
-      // handle error
+      console.error('Error fetching dashboard stats:', e);
     }
     this.isLoading = false;
   }

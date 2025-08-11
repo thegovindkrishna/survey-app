@@ -23,7 +23,20 @@ export class SurveyResultsComponent {
     this.isLoading = true;
     this.surveyService.getAllSurveys().subscribe({
       next: (data) => {
-        this.surveys = data;
+        // Sort surveys by newest first (by startDate or ID)
+        this.surveys = (Array.isArray(data) ? data : []).sort((a, b) => {
+          // First try to sort by startDate
+          const dateA = new Date(a.startDate);
+          const dateB = new Date(b.startDate);
+          
+          // If dates are valid, sort by them
+          if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
+            return dateB.getTime() - dateA.getTime(); // Newest first
+          }
+          
+          // If dates are invalid, fall back to ID (assuming higher ID = newer)
+          return (b.id || 0) - (a.id || 0); // Higher ID first
+        });
         this.isLoading = false;
       },
       error: (err) => {

@@ -55,12 +55,20 @@ export class ViewSurveysComponent {
         if (!Array.isArray(surveys)) {
           surveys = [];
         }
-        // Sort by startDate or id descending (most recent first)
+        // Sort by startDate descending (most recent first)
         this.surveys = surveys.sort((a, b) => {
-          const dateA = new Date(a.startDate || a.id).getTime();
-          const dateB = new Date(b.startDate || b.id).getTime();
-          return dateB - dateA;
-        }).reverse();
+          // First try to sort by startDate
+          const dateA = new Date(a.startDate);
+          const dateB = new Date(b.startDate);
+          
+          // If dates are valid, sort by them
+          if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
+            return dateB.getTime() - dateA.getTime(); // Newest first
+          }
+          
+          // If dates are invalid, fall back to ID (assuming higher ID = newer)
+          return (b.id || 0) - (a.id || 0); // Higher ID first
+        });
         this.totalCount = totalCount;
         this.currentPage = currentPage;
         this.isLoading = false;

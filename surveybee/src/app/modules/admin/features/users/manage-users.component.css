@@ -1,6 +1,100 @@
+.users-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.users-title-icon {
+  font-size: 2rem;
+}
+.manage-users-card {
+  max-width: 1200px;
+  margin: 40px auto;
+  background: #f8fafc;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08);
+  padding-bottom: 24px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 32px 32px 12px 32px;
+}
+.header-icon {
+  font-size: 2.5rem;
+  background: #e3f2fd;
+  border-radius: 50%;
+  padding: 10px;
+}
+.header-title h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+.header-subtitle {
+  font-size: 1.1rem;
+  color: #1976d2;
+  opacity: 0.85;
+}
 .user-table {
   width: 100%;
-  margin-top: 16px;
+  margin-top: 32px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+.user-email {
+  font-weight: 500;
+  font-size: 1.08rem;
+  color: #222;
+  letter-spacing: 0.01em;
+  word-break: break-all;
+}
+.role-chip {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 4px;
+  padding: 0 10px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.action-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: flex-start;
+}
+.mat-flat-button {
+  min-width: 120px;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
 }
 .loading-container {
   display: flex;
@@ -19,6 +113,7 @@
   background-color: #ffebee;
   border-radius: 8px;
   margin: 16px 0;
+  font-size: 1.1rem;
 }
 .no-users {
   display: flex;
@@ -29,4 +124,19 @@
   background-color: #f5f5f5;
   border-radius: 8px;
   margin: 16px 0;
+  font-size: 1.1rem;
+}
+@media (max-width: 900px) {
+  .manage-users-card {
+    margin: 16px;
+    padding: 0 4px 16px 4px;
+  }
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 12px 8px 12px;
+  }
+  .user-table {
+    margin-top: 16px;
+  }
 }

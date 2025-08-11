@@ -24,8 +24,9 @@ export class ManageUsersComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
     this.userService.getAllUsers().subscribe({
-      next: (users: User[]) => {
-        this.users = users;
+      next: (response: any) => {
+        console.log('Fetched users:', response);
+        this.users = response.result || [];
         this.isLoading = false;
       },
       error: (err: any) => {

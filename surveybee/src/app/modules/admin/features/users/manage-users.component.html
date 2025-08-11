@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-title>
+    <mat-icon>group</mat-icon>
+    Manage Users
+  </mat-card-title>
+  <mat-card-content>
+    <div class="loading-container" [hidden]="!isLoading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading users...</p>
+    </div>
+    <div class="error-message" [hidden]="!errorMessage">
+      <mat-icon>error</mat-icon>
+      {{ errorMessage }}
+      <button mat-button color="primary" (click)="fetchUsers()">Retry</button>
+    </div>
+    <table mat-table [dataSource]="users" class="user-table" [hidden]="isLoading || errorMessage || users.length === 0">
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button color="primary" (click)="makeAdmin(user)" [disabled]="user.role === 'Admin'" matTooltip="Promote to Admin">
+            <mat-icon>security</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user)" [disabled]="user.role === 'Admin'" matTooltip="Delete User">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div class="no-users" [hidden]="isLoading || errorMessage || users.length !== 0">
+      <mat-icon>group_off</mat-icon>
+      <p>No users found.</p>
+    </div>
+  </mat-card-content>
+</mat-card>

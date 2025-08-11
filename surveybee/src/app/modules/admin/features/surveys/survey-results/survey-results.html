@@ -1,0 +1,40 @@
+<div class="survey-results-page">
+  <div class="survey-results-header">
+    <h1>Survey Results Overview</h1>
+    <p>Analyze responses and performance for each survey.</p>
+  </div>
+  @if (isLoading) {
+    <div class="loading">Loading surveys...</div>
+  }
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+  @if (!isLoading && !error) {
+    @if (surveys.length === 0) {
+      <div class="empty">No surveys found.</div>
+    }
+    <div class="survey-list">
+      @for (survey of surveys; track survey.id) {
+        <div class="survey-card">
+          <div class="survey-card-header">
+            <h2>{{ survey.title }}</h2>
+            <span class="created-by">By {{ survey.createdBy }}</span>
+          </div>
+          <div class="survey-card-body">
+            <p class="description">{{ survey.description }}</p>
+            <div class="dates">
+              <span>Start: {{ survey.startDate | date:'mediumDate' }}</span>
+              <span>End: {{ survey.endDate | date:'mediumDate' }}</span>
+            </div>
+            <div class="questions-count">
+              <span>{{ survey.questions.length }} Question{{ survey.questions.length !== 1 ? 's' : '' }}</span>
+            </div>
+          </div>
+          <div class="survey-card-actions">
+            <button class="btn-primary" (click)="goToSurveyResults(survey.id)">View Results</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

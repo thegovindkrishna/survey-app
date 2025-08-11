@@ -1,0 +1,91 @@
+<div class="create-survey-page">
+  <div class="create-survey-header">
+    <h1>Edit Survey</h1>
+    <p>Update your survey details and questions. Changes will be saved for all future responses.</p>
+  </div>
+  @if (isLoading) {
+    <div class="loading">Loading survey...</div>
+  } @else if (error) {
+    <div class="error">{{ error }}</div>
+  } @else if (form) {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-survey-form">
+      <div class="form-row">
+        <div class="form-group wide">
+          <label>Title <span class="required">*</span></label>
+          <input formControlName="title" placeholder="Survey Title" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group wide">
+          <label>Description</label>
+          <textarea formControlName="description" placeholder="Describe your survey (optional)"></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start Date <span class="required">*</span></label>
+          <input type="date" formControlName="startDate" />
+        </div>
+        <div class="form-group">
+          <label>End Date <span class="required">*</span></label>
+          <input type="date" formControlName="endDate" />
+        </div>
+      </div>
+      <div class="questions-section">
+        <h2>Questions</h2>
+        @for (q of questions.controls; track $index) {
+          @let qIndex = $index;
+          <div [formGroup]="q" class="question-block card">
+            <div class="question-header">
+              <span class="question-number">Q{{ qIndex + 1 }}</span>
+              <button type="button" class="remove-question-btn" (click)="removeQuestion(qIndex)" title="Remove question">✕</button>
+            </div>
+            <div class="form-row">
+              <div class="form-group wide">
+                <input formControlName="questionText" placeholder="Enter your question..." />
+              </div>
+              <div class="form-group">
+                <select formControlName="type">
+                  <option value="text">Text</option>
+                  <option value="multiple-choice">Multiple Choice</option>
+                  <option value="rating">Rating</option>
+                </select>
+              </div>
+              <div class="form-group checkbox">
+                <label>
+                  <input type="checkbox" formControlName="required" /> Required
+                </label>
+              </div>
+            </div>
+            @if (q.get('type')?.value === 'multiple-choice') {
+              <div class="options-section">
+                <label>Options</label>
+                @for (opt of (q.get('options')?.value || []); track $index) {
+                  <div class="option-row">
+                    <input #optionInput [value]="opt" (input)="onOptionChange(qIndex, $index, optionInput.value)" placeholder="Option..." />
+                    <button type="button" class="remove-btn" (click)="removeOption(qIndex, $index)" title="Remove option">✕</button>
+                  </div>
+                }
+                <button type="button" class="add-btn" (click)="addOption(qIndex)">+ Add Option</button>
+              </div>
+            }
+            @if (q.get('type')?.value === 'rating') {
+              <div class="rating-section">
+                <label>Max Rating</label>
+                <input type="number" formControlName="maxRating" min="1" max="10" />
+              </div>
+            }
+          </div>
+        }
+        <button type="button" class="add-question-fab" (click)="addQuestion()" title="Add question">
+          <span>＋ Add Question</span>
+        </button>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="form.invalid">Update Survey</button>
+        <button type="button" class="btn-secondary" (click)="router.navigate(['/admin/surveys'])">Cancel</button>
+      </div>
+      <div *ngIf="success" class="success">{{ success }}</div>
+    </form>
+  }
+</div>

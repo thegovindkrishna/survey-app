@@ -10,17 +10,17 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    // canActivate: [guestGuard], // Temporarily disabled for testing
+    // canActivate: [guestGuard], // Disabled for debugging
     loadChildren: () => import('./modules/auth/auth-module').then(m => m.AuthModule)
   },
   {
     path: 'admin',
-    // canActivate: [adminGuard], // Temporarily disabled for testing
+    // canActivate: [adminGuard], // Disabled for debugging
     loadChildren: () => import('./modules/admin/admin-module').then(m => m.AdminModule)
   },
   {
     path: 'user',
-    // canActivate: [userGuard], // Temporarily disabled for testing
+    // canActivate: [userGuard], // Disabled for debugging
     loadChildren: () => import('./modules/user/user-module').then(m => m.UserModule)
   },
   {

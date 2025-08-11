@@ -22,8 +22,8 @@ export class AuthService {
   // Signals for reactive UI
   public currentUser = signal<User | null>(this.getUserFromStorage());
   public isAuthenticated = computed(() => this.currentUser() !== null);
-  public isAdmin = computed(() => this.currentUser()?.role === 'Admin');
-  public isUser = computed(() => this.currentUser()?.role === 'User');
+  public isAdmin = computed(() => (this.currentUser()?.role || '').toLowerCase() === 'admin');
+  public isUser = computed(() => (this.currentUser()?.role || '').toLowerCase() === 'user');
 
   constructor(
     private http: HttpClient,
@@ -68,11 +68,19 @@ export class AuthService {
     
     return this.http.post<any>(`${this.API_BASE}/login`, authRequest)
       .pipe(
-        map(response => {
-          console.log('AuthService: Raw login response received:', response);
-          // Extract the actual auth data from the nested result property
-          const authData = response.result as AuthResponse;
-          console.log('AuthService: Extracted auth data:', authData);
+        map(raw => {
+          console.log('AuthService: Raw login response received:', raw);
+          // Support both wrapped (result) and unwrapped responses
+          const resp = (raw && typeof raw === 'object' && 'result' in raw && raw.result) ? raw.result : raw;
+          const normalizedRole = this.normalizeRole(resp.role, resp.isAdmin);
+          const authData: AuthResponse = {
+            accessToken: resp.accessToken,
+            refreshToken: resp.refreshToken,
+            email: resp.email ?? resp.username ?? '',
+            username: resp.username ?? resp.email ?? '',
+            role: normalizedRole
+          };
+          console.log('AuthService: Normalized auth data:', authData);
           return authData;
         }),
         tap(authData => {
@@ -158,14 +166,14 @@ export class AuthService {
    * Check if user has admin role
    */
   hasAdminRole(): boolean {
-    return this.currentUser()?.role === 'Admin';
+    return (this.currentUser()?.role || '').toLowerCase() === 'admin';
   }
 
   /**
    * Check if user has user role
    */
   hasUserRole(): boolean {
-    return this.currentUser()?.role === 'User';
+    return (this.currentUser()?.role || '').toLowerCase() === 'user';
   }
 
   /**
@@ -188,12 +196,22 @@ export class AuthService {
   private setAuthData(authResponse: AuthResponse): void {
     console.log('Setting auth data:', authResponse);
     
+    // Guard against missing tokens
+    if (!authResponse?.accessToken || !authResponse?.refreshToken) {
+      console.error('AuthService: Missing tokens in auth response.');
+      this.toastService.error('Authentication failed: invalid token response.', 'Login Error');
+      this.clearAuthData();
+      return;
+    }
+
+    const normalizedRole = this.normalizeRole(authResponse.role);
+    
     localStorage.setItem(this.ACCESS_TOKEN_KEY, authResponse.accessToken);
     localStorage.setItem(this.REFRESH_TOKEN_KEY, authResponse.refreshToken);
     
     const user: User = {
       email: authResponse.email,
-      role: authResponse.role
+      role: normalizedRole
     };
     
     console.log('Setting user data:', user);
@@ -224,7 +242,19 @@ export class AuthService {
    */
   private getUserFromStorage(): User | null {
     const userStr = localStorage.getItem(this.USER_KEY);
-    return userStr ? JSON.parse(userStr) : null;
+    const user = userStr ? JSON.parse(userStr) as User : null;
+    if (!user) return null;
+    return { ...user, role: this.normalizeRole(user.role) };
+  }
+
+  // Normalize role helper
+  private normalizeRole(role?: string, isAdminFlag?: boolean): 'Admin' | 'User' {
+    if (typeof isAdminFlag === 'boolean') {
+      return isAdminFlag ? 'Admin' : 'User';
+    }
+    const r = (role || '').toString().trim().toLowerCase();
+    if (r === 'admin' || r === 'administrator' || r === 'admins') return 'Admin';
+    return 'User';
   }
 
   /**

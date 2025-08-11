@@ -1,0 +1,75 @@
+<div class="create-survey-page">
+  <div class="create-survey-header">
+    <h1>Create New Survey</h1>
+    <p>Design a new survey for your users. Add questions, set options, and publish instantly.</p>
+  </div>
+  <form [formGroup]="surveyForm" (ngSubmit)="submitSurvey()" class="create-survey-form">
+    <div class="form-row">
+      <div class="form-group wide">
+        <label>Title <span class="required">*</span></label>
+        <input formControlName="title" placeholder="Survey Title" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group wide">
+        <label>Description</label>
+        <textarea formControlName="description" placeholder="Describe your survey (optional)"></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Start Date <span class="required">*</span></label>
+        <input type="date" formControlName="startDate" />
+      </div>
+      <div class="form-group">
+        <label>End Date <span class="required">*</span></label>
+        <input type="date" formControlName="endDate" />
+      </div>
+    </div>
+    <div class="questions-section">
+      <h2>Questions</h2>
+      <div *ngFor="let q of questions.controls; let i = index" [formGroup]="getQuestionFormGroup(i)" class="question-block card">
+        <div class="question-header">
+          <span class="question-number">Q{{ i + 1 }}</span>
+          <button type="button" class="remove-question-btn" (click)="removeQuestion(i)" title="Remove question">✕</button>
+        </div>
+        <div class="form-row">
+          <div class="form-group wide">
+            <input formControlName="questionText" placeholder="Enter your question..." />
+          </div>
+          <div class="form-group">
+            <select formControlName="type">
+              <option value="text">Text</option>
+              <option value="multiple-choice">Multiple Choice</option>
+              <option value="rating">Rating</option>
+            </select>
+          </div>
+          <div class="form-group checkbox">
+            <label>
+              <input type="checkbox" formControlName="required" /> Required
+            </label>
+          </div>
+        </div>
+        <div *ngIf="q.get('type')?.value === 'multiple-choice'" class="options-section">
+          <label>Options</label>
+          <div *ngFor="let opt of getOptionsFormArray(i).controls; let j = index" class="option-row">
+            <input [formControl]="getOptionFormControl(i, j)" placeholder="Option..." />
+            <button type="button" class="remove-btn" (click)="removeOption(i, j)" title="Remove option">✕</button>
+          </div>
+          <button type="button" class="add-btn" (click)="addOption(i)">+ Add Option</button>
+        </div>
+        <div *ngIf="q.get('type')?.value === 'rating'" class="rating-section">
+          <label>Max Rating</label>
+          <input type="number" formControlName="maxRating" min="1" max="10" />
+        </div>
+      </div>
+      <button type="button" class="add-question-fab" (click)="addQuestion()" title="Add question">
+        <span>＋ Add Question</span>
+      </button>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn-primary" [disabled]="isSubmitting">Create Survey</button>
+      <button type="button" class="btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -92,45 +92,28 @@ export class LoginComponent {
         // Redirect based on user role - should be exactly "Admin" or "User"
         const targetRoute = response.role === 'Admin' ? '/admin/dashboard' : '/user';
         console.log('Target route determined:', targetRoute);
-        
         sessionStorage.setItem('loginDebug', JSON.stringify({
           timestamp: new Date().toISOString(),
           email: email,
           step: 'navigation_attempt',
           targetRoute: targetRoute
         }));
-        
-        // Try different navigation approaches
-        this.router.navigate([targetRoute]).then(
+        this.router.navigateByUrl(targetRoute).then(
           (success) => {
-            console.log('Navigation successful:', success);
+            console.log('Navigation to', targetRoute, 'success:', success);
             sessionStorage.setItem('loginDebug', JSON.stringify({
               timestamp: new Date().toISOString(),
               step: 'navigation_result',
               success: success
             }));
-            
-            if (!success) {
-              console.log('Navigation failed, but NOT using window.location fallback to avoid page reload');
-              // Instead, let's try navigateByUrl
-              this.router.navigateByUrl(targetRoute).then((urlSuccess) => {
-                console.log('NavigateByUrl result:', urlSuccess);
-                sessionStorage.setItem('loginDebug', JSON.stringify({
-                  timestamp: new Date().toISOString(),
-                  step: 'navigateByUrl_result',
-                  success: urlSuccess
-                }));
-              });
-            }
           },
           (error) => {
-            console.error('Navigation failed:', error);
+            console.error('Navigation error:', error);
             sessionStorage.setItem('loginDebug', JSON.stringify({
               timestamp: new Date().toISOString(),
               step: 'navigation_error',
               error: error.toString()
             }));
-            console.log('Navigation error, but NOT using window.location fallback');
           }
         );
       },

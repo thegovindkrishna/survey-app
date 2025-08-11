@@ -8,7 +8,7 @@
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-content">
-        <div class="stat-number">12</div>
+        <div class="stat-number">{{ isLoading ? '...' : totalSurveys }}</div>
         <div class="stat-label">Total Surveys</div>
       </div>
       <div class="stat-icon">📋</div>
@@ -16,7 +16,7 @@
 
     <div class="stat-card">
       <div class="stat-content">
-        <div class="stat-number">8</div>
+        <div class="stat-number">{{ isLoading ? '...' : activeSurveys }}</div>
         <div class="stat-label">Active Surveys</div>
       </div>
       <div class="stat-icon">✅</div>
@@ -24,7 +24,7 @@
 
     <div class="stat-card">
       <div class="stat-content">
-        <div class="stat-number">1,247</div>
+        <div class="stat-number">{{ isLoading ? '...' : totalResponses }}</div>
         <div class="stat-label">Total Responses</div>
       </div>
       <div class="stat-icon">📊</div>
@@ -32,7 +32,7 @@
 
     <div class="stat-card">
       <div class="stat-content">
-        <div class="stat-number">156</div>
+        <div class="stat-number">{{ isLoading ? '...' : registeredUsers }}</div>
         <div class="stat-label">Registered Users</div>
       </div>
       <div class="stat-icon">👥</div>
@@ -43,7 +43,7 @@
   <div class="quick-actions">
     <h2>Quick Actions</h2>
     <div class="actions-grid">
-      <button class="action-btn primary" (click)="navigateToSurveys()">
+      <button class="action-btn primary" [routerLink]="['/admin/surveys/create']">
         <i class="icon">➕</i>
         <span>Create New Survey</span>
       </button>
@@ -58,7 +58,7 @@
         <span>View Analytics</span>
       </button>
       
-      <button class="action-btn secondary">
+      <button class="action-btn secondary" [routerLink]="['/admin/users']">
         <i class="icon">👥</i>
         <span>Manage Users</span>
       </button>

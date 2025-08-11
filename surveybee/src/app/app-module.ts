@@ -16,7 +16,6 @@ import { ToastContainerComponent } from './common/components/toast-container/toa
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     ToastContainerComponent
   ],
   providers: [

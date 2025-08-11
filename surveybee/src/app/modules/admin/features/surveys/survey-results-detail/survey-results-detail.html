@@ -1,0 +1,46 @@
+<div class="results-detail-container">
+  @if (isLoading) {
+    <div class="loading">Loading survey analytics...</div>
+  } @else if (error) {
+    <div class="error">{{ error }}</div>
+  } @else if (survey) {
+    <h2>{{ survey.surveyTitle }}</h2>
+    <div class="meta">
+      <span>Total Responses: <b>{{ survey.totalResponses }}</b></span>
+    </div>
+    <div class="questions-analytics">
+      @for (q of survey.questionResults; track q.questionId) {
+        <div class="question-block">
+          <h4>{{ q.questionText }}</h4>
+          <div *ngIf="q.questionType === 'rating'">
+            <div>Average Rating: <b>{{ q.averageRating?.toFixed(2) ?? 'N/A' }}</b></div>
+            <div class="bar-chart">
+              @for (opt of getKeys(q.responseCounts); track opt) {
+                <div class="bar-row">
+                  <span class="bar-label">{{ opt }}</span>
+                  <div class="bar" [style.width.%]="(q.responseCounts[opt] / survey.totalResponses) * 100">
+                    {{ q.responseCounts[opt] }}
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+          <div *ngIf="q.questionType !== 'rating'">
+            <div class="bar-chart">
+              @for (opt of getKeys(q.responseCounts); track opt) {
+                <div class="bar-row">
+                  <span class="bar-label">{{ opt }}</span>
+                  <div class="bar" [style.width.%]="(q.responseCounts[opt] / survey.totalResponses) * 100">
+                    {{ q.responseCounts[opt] }}
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div>No survey analytics found.</div>
+  }
+</div>

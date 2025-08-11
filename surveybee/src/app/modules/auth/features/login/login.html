@@ -41,6 +41,7 @@
         @if (f['password'].touched && f['password'].invalid) {
           <div class="error">
             @if (f['password'].errors?.['required']) {
+              
               <small>Password is required</small>
             }
             @if (f['password'].errors?.['minlength']) {
